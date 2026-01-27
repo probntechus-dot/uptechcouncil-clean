@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { Button } from "./Button";
 import { AnimatedUnderline } from "./AnimatedUnderline";
 import { Shield, Globe2, Network, Sparkles } from "lucide-react";
@@ -11,6 +12,43 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[#050B14] pt-20">
+      {/* Background Video with Fallback */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {!shouldReduceMotion ? (
+          <>
+            <Image
+              src="/image/home/heroimg.jpeg"
+              alt=""
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/image/home/heroimg.jpeg"
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/image/home/banner_video.mp4" type="video/mp4" />
+            </video>
+          </>
+        ) : (
+          <Image
+            src="/image/home/heroimg.jpeg"
+            alt="UK-Pakistan Tech Council"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050B14]/35 to-[#050B14]/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_35%,rgba(5,11,20,0.15),rgba(5,11,20,0.55)_55%,rgba(5,11,20,0.75)_100%)]" />
+      </div>
+
       {/* Enhanced Background Animation Layer */}
       <HeroBackground shouldReduceMotion={shouldReduceMotion} />
 
@@ -164,8 +202,7 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right Hero Image */}
-          <HeroImage shouldReduceMotion={shouldReduceMotion} />
+          {/* Right Hero Image removed */}
         </div>
       </div>
     </section>
@@ -462,49 +499,5 @@ function PremiumNetworkVisualization({ shouldReduceMotion }: { shouldReduceMotio
           })}
       </motion.svg>
     </div>
-  );
-}
-
-// Hero Image Component with Brand Color Animations
-function HeroImage({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  return (
-    <motion.img
-      src="/image/home/heroimg.jpeg"
-      alt="UK-Pakistan Tech Council"
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95, x: 50 }}
-      animate={shouldReduceMotion ? { 
-        opacity: 1,
-      } : {
-        opacity: 1,
-        scale: [0.95, 1, 1.02, 1],
-        x: [50, 0, 0, 0],
-        filter: [
-          'drop-shadow(0 0 40px rgba(30, 64, 175, 0.4)) drop-shadow(0 0 60px rgba(0, 177, 64, 0.3)) drop-shadow(0 0 30px rgba(225, 29, 72, 0.2))',
-          'drop-shadow(0 0 60px rgba(30, 64, 175, 0.6)) drop-shadow(0 0 80px rgba(0, 177, 64, 0.5)) drop-shadow(0 0 50px rgba(225, 29, 72, 0.4))',
-          'drop-shadow(0 0 40px rgba(30, 64, 175, 0.4)) drop-shadow(0 0 60px rgba(0, 177, 64, 0.3)) drop-shadow(0 0 30px rgba(225, 29, 72, 0.2))',
-        ],
-      }}
-      transition={shouldReduceMotion ? {} : {
-        opacity: { duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] },
-        scale: { 
-          duration: 5, 
-          delay: 1.6, 
-          times: [0, 0.2, 0.5, 1],
-          repeat: Infinity,
-          ease: "easeInOut",
-        },
-        x: { duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] },
-        filter: {
-          duration: 4,
-          delay: 1.6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        },
-      }}
-      style={{
-        mixBlendMode: 'screen',
-      }}
-      className="w-full h-auto max-w-2xl mx-auto"
-    />
   );
 }
