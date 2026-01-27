@@ -22,7 +22,7 @@ import {
   FileText,
   Target,
   Globe2,
-  Handshake,
+  HeartHandshake,
 } from "lucide-react";
 
 export default function MembershipClient() {

@@ -107,7 +107,9 @@ export function Header() {
                   className="relative"
                   onMouseEnter={() => handleMouseEnter(group.label)}
                   onMouseLeave={() => handleMouseLeave(group.label)}
-                  ref={(el) => (dropdownRefs.current[group.label] = el)}
+                  ref={(el) => {
+                    dropdownRefs.current[group.label] = el;
+                  }}
                 >
                   <button 
                     type="button"

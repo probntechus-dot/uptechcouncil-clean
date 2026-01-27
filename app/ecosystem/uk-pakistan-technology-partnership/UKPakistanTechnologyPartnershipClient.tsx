@@ -11,7 +11,7 @@ import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
   Globe2,
-  Handshake,
+  HeartHandshake,
   TrendingUp,
   Award,
   Users,
@@ -647,7 +647,7 @@ export default function UKPakistanTechnologyPartnershipClient() {
                 { icon: Award, title: "Senior Tech Leaders", description: "Directors and senior technical professionals", color: "#00B140" },
                 { icon: Globe2, title: "Industry Experts", description: "Thought leaders and domain experts", color: "#E11D48" },
                 { icon: Building2, title: "Enterprise Leaders", description: "Corporate innovation and strategy heads", color: "#1E40AF" },
-                { icon: Handshake, title: "Partnership Directors", description: "Business development and partnership leaders", color: "#00B140" },
+                { icon: HeartHandshake, title: "Partnership Directors", description: "Business development and partnership leaders", color: "#00B140" },
               ].map((attendee, index) => (
                 <motion.div
                   key={index}

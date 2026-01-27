@@ -19,7 +19,7 @@ import {
   GraduationCap,
   Rocket,
   Building2,
-  Handshake,
+  HeartHandshake,
   Heart,
   Globe,
   Brain,
@@ -94,7 +94,7 @@ export default function TechExcellenceAwardsClient() {
                   index={0}
                 />
                 <ValueCard
-                  icon={Handshake}
+                  icon={HeartHandshake}
                   title="Bilateral Collaboration"
                   description="Highlighting successful partnerships that strengthen UK–Pakistan tech relations."
                   index={1}
@@ -288,7 +288,7 @@ const categories = [
   { title: "Tech Educator / Mentor of the Year", description: "Recognizing educators and mentors shaping the next generation.", tag: "Individual", icon: GraduationCap },
   { title: "Emerging AI/FinTech Leader", description: "Celebrating leaders at the forefront of AI and financial technology.", tag: "Individual", icon: Brain },
   { title: "Startup of the Year", description: "Recognizing exceptional startups from Pakistan, UK, or joint ventures.", tag: "Startup", icon: Zap },
-  { title: "Best UK–Pakistan Collaboration Project", description: "Honoring outstanding collaborative projects between both nations.", tag: "Collaboration", icon: Handshake },
+  { title: "Best UK–Pakistan Collaboration Project", description: "Honoring outstanding collaborative projects between both nations.", tag: "Collaboration", icon: HeartHandshake },
   { title: "Excellence in AI / FinTech / HealthTech / EdTech", description: "Recognizing sector-specific excellence across key technology domains.", tag: "Sector", icon: Target },
   { title: "R&D Excellence Award", description: "Celebrating groundbreaking research and development achievements.", tag: "Research", icon: Brain },
   { title: "Tech for Social Impact", description: "Honoring technology solutions that create positive social change.", tag: "Impact", icon: Heart },

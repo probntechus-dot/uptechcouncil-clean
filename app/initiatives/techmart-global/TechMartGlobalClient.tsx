@@ -14,7 +14,7 @@ import {
   Briefcase,
   TrendingUp,
   Search,
-  Handshake,
+  HeartHandshake,
   Shield,
   CheckCircle2,
   Globe,
@@ -178,7 +178,7 @@ export default function TechMartGlobalClient() {
                 index={1}
               />
               <FeatureBlock
-                icon={Handshake}
+                icon={HeartHandshake}
                 title="Strategic Partnerships"
                 description="Facilitation of joint ventures, technology licensing, co-development agreements, and long-term strategic alliances between companies."
                 tag="Partnerships"
@@ -686,7 +686,7 @@ function UKMarketPathway() {
   const steps = [
     { label: "Market Entry", icon: Target },
     { label: "Compliance", icon: Shield },
-    { label: "Partnership", icon: Handshake },
+    { label: "Partnership", icon: HeartHandshake },
   ];
 
   return (

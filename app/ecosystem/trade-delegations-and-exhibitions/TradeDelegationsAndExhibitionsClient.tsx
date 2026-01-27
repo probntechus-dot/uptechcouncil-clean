@@ -11,7 +11,7 @@ import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
   Globe2,
-  Handshake,
+  HeartHandshake,
   Building2,
   Users,
   Briefcase,
@@ -112,7 +112,7 @@ export default function TradeDelegationsAndExhibitionsClient() {
               </div>
               <div className="grid grid-cols-1 gap-4">
                 <DelegationCard
-                  icon={Handshake}
+                  icon={HeartHandshake}
                   title="Trade Delegations"
                   description="Organized business delegations connecting UK and Pakistan technology companies."
                   index={0}
