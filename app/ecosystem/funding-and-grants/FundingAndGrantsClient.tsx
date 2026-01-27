@@ -117,7 +117,7 @@ export default function FundingAndGrantsClient() {
                     UPTECH provides access to funding opportunities and grants designed to support technology innovation, startup growth, and cross-border collaboration between the UK and Pakistan. Our funding programs enable entrepreneurs, researchers, and organizations to turn innovative ideas into reality.
                   </p>
                   <p>
-                    Whether you're a startup seeking seed funding, a researcher looking for grant support, or an enterprise exploring partnership opportunities, we connect you with the right funding sources and resources.
+                    Whether you&apos;re a startup seeking seed funding, a researcher looking for grant support, or an enterprise exploring partnership opportunities, we connect you with the right funding sources and resources.
                   </p>
                 </div>
               </motion.div>

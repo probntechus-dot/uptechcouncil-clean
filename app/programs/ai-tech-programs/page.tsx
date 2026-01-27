@@ -23,6 +23,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useRef, useState } from "react";
+import type { ComponentType } from "react";
 
 export default function AITechProgramsPage() {
   const shouldReduceMotion = useReducedMotion();
@@ -107,7 +108,7 @@ export default function AITechProgramsPage() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   className="text-lg md:text-xl text-[rgba(11,18,32,0.75)] leading-[1.7] max-w-2xl"
                 >
-                  UPTECH's AI and Tech Programs bridge the UK and Pakistan through cutting-edge AI services, collective company models, and innovative startup ecosystems that empower the next generation of tech leaders.
+                  UPTECH&apos;s AI and Tech Programs bridge the UK and Pakistan through cutting-edge AI services, collective company models, and innovative startup ecosystems that empower the next generation of tech leaders.
                 </motion.p>
 
                 {/* Body paragraphs */}
@@ -121,7 +122,7 @@ export default function AITechProgramsPage() {
                     Our AI and Tech Programs are designed to accelerate technology adoption, build world-class AI capabilities, and create sustainable pathways for innovation across both nations through collective business models and collaborative startup ecosystems.
                   </p>
                   <p>
-                    Through strategic partnerships, shared resources, and innovative collective structures, we're building a future where UK and Pakistani tech talent drives global AI innovation and technology leadership.
+                    Through strategic partnerships, shared resources, and innovative collective structures, we&apos;re building a future where UK and Pakistani tech talent drives global AI innovation and technology leadership.
                   </p>
                 </motion.div>
               </motion.div>
@@ -258,7 +259,7 @@ export default function AITechProgramsPage() {
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <SectionHeader
               title="Ready to Transform Your Tech Career?"
-              subtitle="Join UPTECH's AI and Tech Programs and become part of a global network driving innovation between the UK and Pakistan."
+              subtitle="Join UPTECH&apos;s AI and Tech Programs and become part of a global network driving innovation between the UK and Pakistan."
               align="center"
             />
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
@@ -829,9 +830,115 @@ function ProgramsBackground({ shouldReduceMotion }: { shouldReduceMotion: boolea
   );
 }
 
+type TimelineStep = {
+  title: string;
+  description: string;
+  icon: ComponentType<{ className?: string }>;
+  color: "blue" | "green" | "red";
+};
+
+type TimelineColorConfig = {
+  blue: {
+    gradient: string;
+    bg: string;
+    glow: string;
+    borderAccent: string;
+  };
+  green: {
+    gradient: string;
+    bg: string;
+    glow: string;
+    borderAccent: string;
+  };
+  red: {
+    gradient: string;
+    bg: string;
+    glow: string;
+    borderAccent: string;
+  };
+};
+
+function HowItWorksStep({
+  step,
+  index,
+  shouldReduceMotion,
+  colorConfig,
+}: {
+  step: TimelineStep;
+  index: number;
+  shouldReduceMotion: boolean | null;
+  colorConfig: TimelineColorConfig;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const Icon = step.icon;
+  const config = colorConfig[step.color];
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
+      animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="relative flex gap-6 items-start"
+    >
+      {/* Timeline dot */}
+      <div className="relative z-10 flex-shrink-0">
+        <motion.div
+          className={`w-16 h-16 rounded-full bg-gradient-to-br ${config.gradient} flex items-center justify-center border-4 border-white shadow-lg`}
+          whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Icon className="w-7 h-7 text-white" />
+        </motion.div>
+        <motion.div
+          className={`absolute inset-0 rounded-full ${config.glow} opacity-30`}
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  scale: [1, 1.5, 1],
+                  opacity: [0.3, 0, 0.3],
+                }
+          }
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            delay: index * 0.2,
+          }}
+        />
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 pt-2">
+        <motion.div
+          className={`bg-white rounded-xl border-l-4 ${config.borderAccent} border border-[rgba(11,18,32,0.10)] p-6 shadow-sm hover:shadow-lg transition-all duration-300 group`}
+          whileHover={shouldReduceMotion ? {} : { x: 4 }}
+        >
+          <div className="flex items-start gap-3 mb-3">
+            <h3 className="font-heading font-semibold text-xl text-[#0B1220] flex-1">{step.title}</h3>
+            <motion.div
+              className={`w-2 h-2 rounded-full ${config.bg} opacity-60`}
+              animate={shouldReduceMotion ? {} : { scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
+            />
+          </div>
+          <p className="text-[rgba(11,18,32,0.68)] leading-relaxed">{step.description}</p>
+
+          {/* Subtle gradient accent on hover */}
+          <motion.div
+            className={`absolute inset-0 rounded-xl bg-gradient-to-r ${config.gradient} opacity-0 group-hover:opacity-5 pointer-events-none`}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
 // How It Works Timeline
 function HowItWorksTimeline({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  const steps = [
+  const steps: TimelineStep[] = [
     {
       title: "Join the Program",
       description: "Become a member and access our comprehensive AI and tech programs.",
@@ -893,74 +1000,15 @@ function HowItWorksTimeline({ shouldReduceMotion }: { shouldReduceMotion: boolea
       </div>
       
       <div className="space-y-8">
-        {steps.map((step, index) => {
-          const ref = useRef(null);
-          const isInView = useInView(ref, { once: true, margin: "-50px" });
-          const Icon = step.icon;
-          const config = colorConfig[step.color as keyof typeof colorConfig];
-
-          return (
-            <motion.div
-              key={index}
-              ref={ref}
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative flex gap-6 items-start"
-            >
-              {/* Timeline dot */}
-              <div className="relative z-10 flex-shrink-0">
-                <motion.div
-                  className={`w-16 h-16 rounded-full bg-gradient-to-br ${config.gradient} flex items-center justify-center border-4 border-white shadow-lg`}
-                  whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Icon className="w-7 h-7 text-white" />
-                </motion.div>
-                <motion.div
-                  className={`absolute inset-0 rounded-full ${config.glow} opacity-30`}
-                  animate={
-                    shouldReduceMotion
-                      ? {}
-                      : {
-                          scale: [1, 1.5, 1],
-                          opacity: [0.3, 0, 0.3],
-                        }
-                  }
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.2,
-                  }}
-                />
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 pt-2">
-                <motion.div
-                  className={`bg-white rounded-xl border-l-4 ${config.borderAccent} border border-[rgba(11,18,32,0.10)] p-6 shadow-sm hover:shadow-lg transition-all duration-300 group`}
-                  whileHover={shouldReduceMotion ? {} : { x: 4 }}
-                >
-                  <div className="flex items-start gap-3 mb-3">
-                    <h3 className="font-heading font-semibold text-xl text-[#0B1220] flex-1">{step.title}</h3>
-                    <motion.div
-                      className={`w-2 h-2 rounded-full ${config.bg} opacity-60`}
-                      animate={shouldReduceMotion ? {} : { scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                    />
-                  </div>
-                  <p className="text-[rgba(11,18,32,0.68)] leading-relaxed">{step.description}</p>
-                  
-                  {/* Subtle gradient accent on hover */}
-                  <motion.div
-                    className={`absolute inset-0 rounded-xl bg-gradient-to-r ${config.gradient} opacity-0 group-hover:opacity-5 pointer-events-none`}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.div>
-              </div>
-            </motion.div>
-          );
-        })}
+        {steps.map((step, index) => (
+          <HowItWorksStep
+            key={step.title}
+            step={step}
+            index={index}
+            shouldReduceMotion={shouldReduceMotion}
+            colorConfig={colorConfig}
+          />
+        ))}
       </div>
     </div>
   );

@@ -12,17 +12,27 @@ import { useEffect, useRef, useState } from "react";
 
 export default function LeadershipPage() {
   const shouldReduceMotion = useReducedMotion();
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string | null>(() => {
+    if (typeof window === "undefined") {
+      return null;
+    }
+    const hash = window.location.hash.slice(1);
+    return hash || null;
+  });
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (hash) {
-      setActiveSection(hash);
-      setTimeout(() => {
-        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
+    if (!activeSection) {
+      return;
     }
-  }, []);
+    const element = document.getElementById(activeSection);
+    if (!element) {
+      return;
+    }
+    const timeout = setTimeout(() => {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, [activeSection]);
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
@@ -563,7 +573,7 @@ function BoardOfDirectorsSection({ shouldReduceMotion }: { shouldReduceMotion: b
                 Board of Directors
               </h2>
               <p className="text-lg text-[rgba(11,18,32,0.68)] leading-relaxed mb-8">
-                Strategic oversight and governance at the highest level, ensuring UPTECH's mission and values guide all decisions.
+                Strategic oversight and governance at the highest level, ensuring UPTECH&apos;s mission and values guide all decisions.
               </p>
 
               {/* Key Responsibilities */}
@@ -632,7 +642,7 @@ function AdvisoryCouncilSection({ shouldReduceMotion }: { shouldReduceMotion: bo
                     "Offer strategic counsel on program development",
                     "Facilitate connections with key stakeholders",
                     "Review and provide feedback on initiatives",
-                    "Serve as ambassadors for UPTECH's mission",
+                    "Serve as ambassadors for UPTECH&apos;s mission",
                     "Contribute to thought leadership and knowledge sharing",
                   ].map((item, index) => (
                     <motion.li
@@ -737,7 +747,7 @@ function ExecutiveLeadershipSection({ shouldReduceMotion }: { shouldReduceMotion
                 Executive Leadership
               </h2>
               <p className="text-lg text-[rgba(11,18,32,0.68)] leading-relaxed mb-8">
-                Day-to-day operations and strategic execution of UPTECH's programs, initiatives, and member services.
+                Day-to-day operations and strategic execution of UPTECH&apos;s programs, initiatives, and member services.
               </p>
 
               {/* Key Responsibilities */}

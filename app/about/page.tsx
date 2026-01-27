@@ -7,6 +7,7 @@ import { Card } from "@/components/Card";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { AnimatedUnderline } from "@/components/AnimatedUnderline";
 import { PageHero } from "@/components/PageHero";
+import Image from "next/image";
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { 
@@ -232,12 +233,13 @@ export default function AboutPage() {
             </div>
           </AnimatedSection>
           <AnimatedSection>
-            <div className="relative w-full h-full">
-              <img
+            <div className="relative w-full h-full min-h-[260px]">
+              <Image
                 src="/image/about/about1.gif"
                 alt="UK–Pakistan digital collaboration"
-                className="w-full h-full object-cover rounded-2xl"
-                loading="lazy"
+                fill
+                className="object-cover rounded-2xl"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
           </AnimatedSection>

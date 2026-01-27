@@ -329,8 +329,48 @@ function SkillDevHero({ shouldReduceMotion }: { shouldReduceMotion: boolean | nu
   );
 }
 
+type TrustStripItemType = {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  color: "blue" | "green" | "red";
+};
+
+function TrustStripItem({
+  item,
+  index,
+  shouldReduceMotion,
+}: {
+  item: TrustStripItemType;
+  index: number;
+  shouldReduceMotion: boolean | null;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const Icon = item.icon;
+  const colorConfig = {
+    blue: "text-[#2D5BFF] bg-[#2D5BFF]/10",
+    green: "text-[#00B140] bg-[#00B140]/10",
+    red: "text-[#E11D48] bg-[#E11D48]/10",
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="flex flex-col items-center text-center p-4 bg-white rounded-xl border border-[rgba(11,18,32,0.10)]"
+    >
+      <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-2 ${colorConfig[item.color]}`}>
+        <Icon className="w-5 h-5" />
+      </div>
+      <span className="text-sm font-medium text-[rgba(11,18,32,0.68)]">{item.label}</span>
+    </motion.div>
+  );
+}
+
 function TrustStrip({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  const items = [
+  const items: TrustStripItemType[] = [
     { icon: Globe, label: "UK aligned curriculum", color: "blue" },
     { icon: Users2, label: "Industry mentors", color: "green" },
     { icon: Code, label: "Practical projects", color: "red" },
@@ -340,32 +380,9 @@ function TrustStrip({ shouldReduceMotion }: { shouldReduceMotion: boolean | null
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-      {items.map((item, index) => {
-        const ref = useRef(null);
-        const isInView = useInView(ref, { once: true, margin: "-50px" });
-        const Icon = item.icon;
-        const colorConfig = {
-          blue: "text-[#2D5BFF] bg-[#2D5BFF]/10",
-          green: "text-[#00B140] bg-[#00B140]/10",
-          red: "text-[#E11D48] bg-[#E11D48]/10",
-        };
-
-        return (
-          <motion.div
-            key={index}
-            ref={ref}
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="flex flex-col items-center text-center p-4 bg-white rounded-xl border border-[rgba(11,18,32,0.10)]"
-          >
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-2 ${colorConfig[item.color as keyof typeof colorConfig]}`}>
-              <Icon className="w-5 h-5" />
-            </div>
-            <span className="text-sm font-medium text-[rgba(11,18,32,0.68)]">{item.label}</span>
-          </motion.div>
-        );
-      })}
+      {items.map((item, index) => (
+        <TrustStripItem key={item.label} item={item} index={index} shouldReduceMotion={shouldReduceMotion} />
+      ))}
     </div>
   );
 }
@@ -479,8 +496,89 @@ function DetailedProgramCard({
   );
 }
 
+type LearningPathStep = {
+  title: string;
+  description: string;
+  outcome: string;
+  color: "blue" | "green" | "red";
+  icon: React.ComponentType<{ className?: string }>;
+};
+
+function LearningPathStepCard({
+  step,
+  index,
+  shouldReduceMotion,
+  colorConfig,
+}: {
+  step: LearningPathStep;
+  index: number;
+  shouldReduceMotion: boolean | null;
+  colorConfig: {
+    blue: { gradient: string; bg: string; glow: string; borderAccent: string };
+    green: { gradient: string; bg: string; glow: string; borderAccent: string };
+    red: { gradient: string; bg: string; glow: string; borderAccent: string };
+  };
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const Icon = step.icon;
+  const config = colorConfig[step.color];
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="relative"
+    >
+      <div
+        className="bg-white rounded-xl border-l-4 border border-[rgba(11,18,32,0.10)] hover:border-l-4 transition-all duration-300 p-6 h-full group"
+        style={{
+          borderLeftColor: step.color === "blue" ? "#2D5BFF" : step.color === "green" ? "#00B140" : "#E11D48",
+        }}
+      >
+        <div className="flex items-center gap-4 mb-4">
+          <motion.div
+            className={`w-12 h-12 rounded-full bg-gradient-to-br ${config.gradient} flex items-center justify-center shadow-lg`}
+            whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Icon className="w-6 h-6 text-white" />
+          </motion.div>
+          <div>
+            <div className="text-xs font-semibold text-[rgba(11,18,32,0.5)] uppercase tracking-wider">
+              Step {index + 1}
+            </div>
+            <h3 className="font-heading font-bold text-lg text-[#0B1220]">{step.title}</h3>
+          </div>
+        </div>
+        <p className="text-sm text-[rgba(11,18,32,0.68)] mb-4 leading-relaxed">{step.description}</p>
+        <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg ${config.bg}/10 border ${config.borderAccent}`}>
+          <CheckCircle2
+            className={`w-4 h-4 ${
+              step.color === "blue" ? "text-[#2D5BFF]" : step.color === "green" ? "text-[#00B140]" : "text-[#E11D48]"
+            }`}
+          />
+          <span
+            className={`text-xs font-medium ${
+              step.color === "blue" ? "text-[#2D5BFF]" : step.color === "green" ? "text-[#00B140]" : "text-[#E11D48]"
+            }`}
+          >
+            {step.outcome}
+          </span>
+        </div>
+        <motion.div
+          className={`absolute inset-0 rounded-xl bg-gradient-to-r ${config.gradient} opacity-0 group-hover:opacity-5 pointer-events-none`}
+          transition={{ duration: 0.3 }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
 function LearningPathTimeline({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  const steps = [
+  const steps: LearningPathStep[] = [
     {
       title: "Assess",
       description: "Complete skill assessments and identify your learning goals and current proficiency level.",
@@ -535,54 +633,15 @@ function LearningPathTimeline({ shouldReduceMotion }: { shouldReduceMotion: bool
   return (
     <div className="relative mt-12">
       <div className="grid md:grid-cols-4 gap-6">
-        {steps.map((step, index) => {
-          const ref = useRef(null);
-          const isInView = useInView(ref, { once: true, margin: "-50px" });
-          const Icon = step.icon;
-          const config = colorConfig[step.color as keyof typeof colorConfig];
-
-          return (
-            <motion.div
-              key={index}
-              ref={ref}
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative"
-            >
-              <div className="bg-white rounded-xl border-l-4 border border-[rgba(11,18,32,0.10)] hover:border-l-4 transition-all duration-300 p-6 h-full group" style={{ borderLeftColor: step.color === "blue" ? "#2D5BFF" : step.color === "green" ? "#00B140" : "#E11D48" }}>
-                <div className="flex items-center gap-4 mb-4">
-                  <motion.div
-                    className={`w-12 h-12 rounded-full bg-gradient-to-br ${config.gradient} flex items-center justify-center shadow-lg`}
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Icon className="w-6 h-6 text-white" />
-                  </motion.div>
-                  <div>
-                    <div className="text-xs font-semibold text-[rgba(11,18,32,0.5)] uppercase tracking-wider">
-                      Step {index + 1}
-                    </div>
-                    <h3 className="font-heading font-bold text-lg text-[#0B1220]">{step.title}</h3>
-                  </div>
-                </div>
-                <p className="text-sm text-[rgba(11,18,32,0.68)] mb-4 leading-relaxed">
-                  {step.description}
-                </p>
-                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg ${config.bg}/10 border ${config.borderAccent}`}>
-                  <CheckCircle2 className={`w-4 h-4 ${step.color === "blue" ? "text-[#2D5BFF]" : step.color === "green" ? "text-[#00B140]" : "text-[#E11D48]"}`} />
-                  <span className={`text-xs font-medium ${step.color === "blue" ? "text-[#2D5BFF]" : step.color === "green" ? "text-[#00B140]" : "text-[#E11D48]"}`}>
-                    {step.outcome}
-                  </span>
-                </div>
-                <motion.div
-                  className={`absolute inset-0 rounded-xl bg-gradient-to-r ${config.gradient} opacity-0 group-hover:opacity-5 pointer-events-none`}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-            </motion.div>
-          );
-        })}
+        {steps.map((step, index) => (
+          <LearningPathStepCard
+            key={step.title}
+            step={step}
+            index={index}
+            shouldReduceMotion={shouldReduceMotion}
+            colorConfig={colorConfig}
+          />
+        ))}
       </div>
     </div>
   );
@@ -698,8 +757,77 @@ function TrackCard({
   );
 }
 
+type OutcomeMetric = {
+  value: number;
+  value2?: number;
+  suffix: string;
+  label: string;
+  color: "blue" | "green" | "red";
+};
+
+function OutcomeMetricCard({
+  metric,
+  index,
+  shouldReduceMotion,
+  colorConfig,
+}: {
+  metric: OutcomeMetric;
+  index: number;
+  shouldReduceMotion: boolean | null;
+  colorConfig: {
+    blue: { gradient: string; text: string };
+    green: { gradient: string; text: string };
+    red: { gradient: string; text: string };
+  };
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const config = colorConfig[metric.color];
+  const [count, setCount] = useState(0);
+  const reduceMotion = Boolean(shouldReduceMotion);
+
+  useEffect(() => {
+    if (!isInView || reduceMotion) {
+      return;
+    }
+
+    const duration = 2000;
+    const steps = 60;
+    const increment = metric.value / steps;
+    const stepDuration = duration / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= metric.value) {
+        setCount(metric.value);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, stepDuration);
+    return () => clearInterval(timer);
+  }, [isInView, reduceMotion, metric.value]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="bg-white rounded-xl border border-[rgba(11,18,32,0.10)] p-6 text-center"
+    >
+      <div className={`text-4xl font-bold mb-2 bg-gradient-to-br ${config.gradient} bg-clip-text text-transparent`}>
+        {(reduceMotion || !isInView ? metric.value : count)}
+        {metric.suffix}
+        {metric.value2 ? `${metric.value2}` : ""}
+      </div>
+      <p className="text-sm text-[rgba(11,18,32,0.68)]">{metric.label}</p>
+    </motion.div>
+  );
+}
+
 function OutcomesMetrics({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  const metrics = [
+  const metrics: OutcomeMetric[] = [
     { value: 30, suffix: "+", label: "mentor hours per cohort", color: "blue" },
     { value: 6, suffix: " to ", value2: 10, label: "projects per learner", color: "green" },
     { value: 8, suffix: " week", label: "job readiness sprint", color: "red" },
@@ -714,56 +842,91 @@ function OutcomesMetrics({ shouldReduceMotion }: { shouldReduceMotion: boolean |
 
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-      {metrics.map((metric, index) => {
-        const ref = useRef(null);
-        const isInView = useInView(ref, { once: true, margin: "-50px" });
-        const config = colorConfig[metric.color as keyof typeof colorConfig];
-        const [count, setCount] = useState(0);
-
-        useEffect(() => {
-          if (isInView && !shouldReduceMotion) {
-            const duration = 2000;
-            const steps = 60;
-            const increment = metric.value / steps;
-            const stepDuration = duration / steps;
-            let current = 0;
-            const timer = setInterval(() => {
-              current += increment;
-              if (current >= metric.value) {
-                setCount(metric.value);
-                clearInterval(timer);
-              } else {
-                setCount(Math.floor(current));
-              }
-            }, stepDuration);
-            return () => clearInterval(timer);
-          } else {
-            setCount(metric.value);
-          }
-        }, [isInView, shouldReduceMotion, metric.value]);
-
-        return (
-          <motion.div
-            key={index}
-            ref={ref}
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-white rounded-xl border border-[rgba(11,18,32,0.10)] p-6 text-center"
-          >
-            <div className={`text-4xl font-bold mb-2 bg-gradient-to-br ${config.gradient} bg-clip-text text-transparent`}>
-              {count}{metric.suffix}{metric.value2 ? `${metric.value2}` : ""}
-            </div>
-            <p className="text-sm text-[rgba(11,18,32,0.68)]">{metric.label}</p>
-          </motion.div>
-        );
-      })}
+      {metrics.map((metric, index) => (
+        <OutcomeMetricCard
+          key={metric.label}
+          metric={metric}
+          index={index}
+          shouldReduceMotion={shouldReduceMotion}
+          colorConfig={colorConfig}
+        />
+      ))}
     </div>
   );
 }
 
+type Mentor = {
+  name: string;
+  role: string;
+  domain: string;
+  color: "blue" | "green" | "red";
+};
+
+function MentorCard({
+  mentor,
+  index,
+  shouldReduceMotion,
+}: {
+  mentor: Mentor;
+  index: number;
+  shouldReduceMotion: boolean | null;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const colorConfig = {
+    blue: { bg: "bg-[#2D5BFF]/20", text: "text-[#2D5BFF]", border: "border-[#2D5BFF]/30" },
+    green: { bg: "bg-[#00B140]/20", text: "text-[#00B140]", border: "border-[#00B140]/30" },
+    red: { bg: "bg-[#E11D48]/20", text: "text-[#E11D48]", border: "border-[#E11D48]/30" },
+  };
+  const config = colorConfig[mentor.color];
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={shouldReduceMotion ? {} : { y: -4, transition: { duration: 0.3 } }}
+      className={`p-6 rounded-xl border ${config.border} bg-[rgba(255,255,255,0.06)] backdrop-blur-sm hover:bg-[rgba(255,255,255,0.1)] transition-all duration-300`}
+    >
+      <div className="flex items-center justify-between mb-4">
+        <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${config.bg} ${config.text}`}>
+          <Users2 className="w-6 h-6" />
+        </div>
+        <Linkedin className="w-5 h-5 text-[rgba(234,242,255,0.5)]" />
+      </div>
+      <h4 className="font-heading font-semibold text-lg mb-1 text-[#EAF2FF]">{mentor.name}</h4>
+      <p className="text-xs text-[rgba(234,242,255,0.7)] mb-1">{mentor.role}</p>
+      <p className="text-xs text-[rgba(234,242,255,0.5)]">{mentor.domain}</p>
+    </motion.div>
+  );
+}
+
+function PartnerLogoCard({
+  index,
+  shouldReduceMotion,
+}: {
+  index: number;
+  shouldReduceMotion: boolean | null;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
+      animate={shouldReduceMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="aspect-square bg-white/10 rounded-lg border border-[rgba(234,242,255,0.14)] flex items-center justify-center backdrop-blur-sm hover:bg-white/15 transition-all duration-300"
+    >
+      <div className="w-16 h-16 bg-[rgba(234,242,255,0.1)] rounded" />
+    </motion.div>
+  );
+}
+
 function MentorsPartners({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  const mentors = [
+  const mentors: Mentor[] = [
     { name: "Dr. Sarah Ahmed", role: "AI Research Lead", domain: "Machine Learning", color: "blue" },
     { name: "James Mitchell", role: "Cloud Architect", domain: "Cloud Infrastructure", color: "green" },
     { name: "Ayesha Khan", role: "Data Science Director", domain: "Data Analytics", color: "red" },
@@ -775,138 +938,121 @@ function MentorsPartners({ shouldReduceMotion }: { shouldReduceMotion: boolean |
       <div>
         <h3 className="font-heading font-semibold text-xl mb-8 text-center text-[#EAF2FF]">Expert Mentors</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {mentors.map((mentor, index) => {
-            const ref = useRef(null);
-            const isInView = useInView(ref, { once: true, margin: "-50px" });
-            const colorConfig = {
-              blue: { bg: "bg-[#2D5BFF]/20", text: "text-[#2D5BFF]", border: "border-[#2D5BFF]/30" },
-              green: { bg: "bg-[#00B140]/20", text: "text-[#00B140]", border: "border-[#00B140]/30" },
-              red: { bg: "bg-[#E11D48]/20", text: "text-[#E11D48]", border: "border-[#E11D48]/30" },
-            };
-            const config = colorConfig[mentor.color as keyof typeof colorConfig];
-
-            return (
-              <motion.div
-                key={index}
-                ref={ref}
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={shouldReduceMotion ? {} : { y: -4, transition: { duration: 0.3 } }}
-                className={`p-6 rounded-xl border ${config.border} bg-[rgba(255,255,255,0.06)] backdrop-blur-sm hover:bg-[rgba(255,255,255,0.1)] transition-all duration-300`}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${config.bg} ${config.text}`}>
-                    <Users2 className="w-6 h-6" />
-                  </div>
-                  <Linkedin className="w-5 h-5 text-[rgba(234,242,255,0.5)]" />
-                </div>
-                <h4 className="font-heading font-semibold text-lg mb-1 text-[#EAF2FF]">{mentor.name}</h4>
-                <p className="text-xs text-[rgba(234,242,255,0.7)] mb-1">{mentor.role}</p>
-                <p className="text-xs text-[rgba(234,242,255,0.5)]">{mentor.domain}</p>
-              </motion.div>
-            );
-          })}
+          {mentors.map((mentor, index) => (
+            <MentorCard key={mentor.name} mentor={mentor} index={index} shouldReduceMotion={shouldReduceMotion} />
+          ))}
         </div>
       </div>
       <div>
         <h3 className="font-heading font-semibold text-xl mb-8 text-center text-[#EAF2FF]">Partner Organizations</h3>
         <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6">
-          {Array.from({ length: 6 }).map((_, index) => {
-            const ref = useRef(null);
-            const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-            return (
-              <motion.div
-                key={index}
-                ref={ref}
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
-                animate={shouldReduceMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="aspect-square bg-white/10 rounded-lg border border-[rgba(234,242,255,0.14)] flex items-center justify-center backdrop-blur-sm hover:bg-white/15 transition-all duration-300"
-              >
-                <div className="w-16 h-16 bg-[rgba(234,242,255,0.1)] rounded" />
-              </motion.div>
-            );
-          })}
+          {Array.from({ length: 6 }).map((_, index) => (
+            <PartnerLogoCard key={index} index={index} shouldReduceMotion={shouldReduceMotion} />
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
+type FaqItem = {
+  question: string;
+  answer: string;
+};
+
+function FAQItemCard({
+  faq,
+  index,
+  isOpen,
+  shouldReduceMotion,
+  onToggle,
+}: {
+  faq: FaqItem;
+  index: number;
+  isOpen: boolean;
+  shouldReduceMotion: boolean | null;
+  onToggle: () => void;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      className="bg-white rounded-xl border border-[rgba(11,18,32,0.10)] overflow-hidden"
+    >
+      <button
+        onClick={onToggle}
+        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[rgba(11,18,32,0.02)] transition-colors"
+      >
+        <h3 className="font-heading font-semibold text-lg text-[#0B1220] pr-4">{faq.question}</h3>
+        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="flex-shrink-0">
+          <ChevronDown className="w-5 h-5 text-[rgba(11,18,32,0.5)]" />
+        </motion.div>
+      </button>
+      <motion.div
+        initial={false}
+        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="overflow-hidden"
+      >
+        <div className="px-6 pb-4 text-[rgba(11,18,32,0.68)] leading-relaxed">{faq.answer}</div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function FAQSection({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const faqs = [
+  const faqs: FaqItem[] = [
     {
       question: "Who is this program for?",
-      answer: "Our programs are designed for students, professionals, and career changers looking to build or enhance their tech skills. Whether you're a beginner or looking to advance your career, we have tracks suited to your level.",
+      answer:
+        "Our programs are designed for students, professionals, and career changers looking to build or enhance their tech skills. Whether you're a beginner or looking to advance your career, we have tracks suited to your level.",
     },
     {
       question: "Do I need prior experience?",
-      answer: "No prior experience is required for our beginner tracks. We offer programs for all skill levels, from fundamentals to advanced specialization. Our assessment process helps match you with the right program.",
+      answer:
+        "No prior experience is required for our beginner tracks. We offer programs for all skill levels, from fundamentals to advanced specialization. Our assessment process helps match you with the right program.",
     },
     {
       question: "Are programs online or onsite?",
-      answer: "We offer both online and hybrid learning options to accommodate different schedules and locations. Most programs include live sessions, recorded content, and hands-on labs accessible remotely.",
+      answer:
+        "We offer both online and hybrid learning options to accommodate different schedules and locations. Most programs include live sessions, recorded content, and hands-on labs accessible remotely.",
     },
     {
       question: "What is the value of certifications?",
-      answer: "Our certifications are industry-recognized and aligned with vendor standards. They demonstrate practical skills and are valued by employers in both UK and Pakistani tech markets. Many programs include portfolio projects that showcase your capabilities.",
+      answer:
+        "Our certifications are industry-recognized and aligned with vendor standards. They demonstrate practical skills and are valued by employers in both UK and Pakistani tech markets. Many programs include portfolio projects that showcase your capabilities.",
     },
     {
       question: "How do I become eligible for internships?",
-      answer: "Internship eligibility is based on program completion, performance in assessments, and portfolio quality. We work with partner organizations to match qualified candidates with relevant opportunities.",
+      answer:
+        "Internship eligibility is based on program completion, performance in assessments, and portfolio quality. We work with partner organizations to match qualified candidates with relevant opportunities.",
     },
     {
       question: "What about pricing and scholarships?",
-      answer: "We offer various pricing tiers and scholarship opportunities for eligible candidates. Please contact us through the portal or membership application to discuss options and financial support programs.",
+      answer:
+        "We offer various pricing tiers and scholarship opportunities for eligible candidates. Please contact us through the portal or membership application to discuss options and financial support programs.",
     },
   ];
 
   return (
     <div className="mt-12 space-y-4">
-      {faqs.map((faq, index) => {
-        const ref = useRef(null);
-        const isInView = useInView(ref, { once: true, margin: "-50px" });
-        const isOpen = openIndex === index;
-
-        return (
-          <motion.div
-            key={index}
-            ref={ref}
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="bg-white rounded-xl border border-[rgba(11,18,32,0.10)] overflow-hidden"
-          >
-            <button
-              onClick={() => setOpenIndex(isOpen ? null : index)}
-              className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[rgba(11,18,32,0.02)] transition-colors"
-            >
-              <h3 className="font-heading font-semibold text-lg text-[#0B1220] pr-4">{faq.question}</h3>
-              <motion.div
-                animate={{ rotate: isOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="flex-shrink-0"
-              >
-                <ChevronDown className="w-5 h-5 text-[rgba(11,18,32,0.5)]" />
-              </motion.div>
-            </button>
-            <motion.div
-              initial={false}
-              animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
-            >
-              <div className="px-6 pb-4 text-[rgba(11,18,32,0.68)] leading-relaxed">
-                {faq.answer}
-              </div>
-            </motion.div>
-          </motion.div>
-        );
-      })}
+      {faqs.map((faq, index) => (
+        <FAQItemCard
+          key={faq.question}
+          faq={faq}
+          index={index}
+          isOpen={openIndex === index}
+          shouldReduceMotion={shouldReduceMotion}
+          onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+        />
+      ))}
     </div>
   );
 }

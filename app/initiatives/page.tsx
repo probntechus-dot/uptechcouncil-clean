@@ -14,7 +14,7 @@ export default function InitiativesPage() {
         <div className="max-w-6xl mx-auto">
           <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">Initiatives</h1>
           <p className="text-lg text-muted-text mb-12">
-            UPTECH's flagship initiatives driving innovation and collaboration between the UK and Pakistan.
+            UPTECH&apos;s flagship initiatives driving innovation and collaboration between the UK and Pakistan.
           </p>
           <InitiativeGrid />
         </div>

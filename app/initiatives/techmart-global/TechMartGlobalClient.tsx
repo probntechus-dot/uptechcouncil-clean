@@ -276,17 +276,17 @@ export default function TechMartGlobalClient() {
                   <div>
                     <h3 className="font-heading font-bold text-lg mb-2 text-[#0B1220]">Official Initiative</h3>
                     <p className="text-[rgba(11,18,32,0.68)] leading-relaxed">
-                      TechMart Global is an official initiative of the UK–Pakistan Tech Council, designed to advance the council's mission of fostering collaboration, innovation, and economic growth between the UK and Pakistan technology sectors.
+                      TechMart Global is an official initiative of the UK–Pakistan Tech Council, designed to advance the council&apos;s mission of fostering collaboration, innovation, and economic growth between the UK and Pakistan technology sectors.
                     </p>
                   </div>
                 </div>
               </div>
               <div className="space-y-5 text-[rgba(11,18,32,0.68)] leading-relaxed text-base">
                 <p>
-                  The platform operates with a commitment to transparency, credibility, and ethical business practices. All participants benefit from the council's governance framework, which ensures fair processes, dispute resolution mechanisms, and ongoing support throughout the engagement lifecycle.
+                  The platform operates with a commitment to transparency, credibility, and ethical business practices. All participants benefit from the council&apos;s governance framework, which ensures fair processes, dispute resolution mechanisms, and ongoing support throughout the engagement lifecycle.
                 </p>
                 <p>
-                  By aligning with the UK–Pakistan Tech Council, TechMart Global provides participants with access to a trusted ecosystem, policy insights, regulatory guidance, and strategic connections that extend beyond simple transactional matchmaking. The platform serves as a cornerstone of the council's efforts to build a sustainable, mutually beneficial technology partnership between the UK and Pakistan.
+                  By aligning with the UK–Pakistan Tech Council, TechMart Global provides participants with access to a trusted ecosystem, policy insights, regulatory guidance, and strategic connections that extend beyond simple transactional matchmaking. The platform serves as a cornerstone of the council&apos;s efforts to build a sustainable, mutually beneficial technology partnership between the UK and Pakistan.
                 </p>
               </div>
             </div>

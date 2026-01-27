@@ -98,7 +98,7 @@ export default function UKPakistanTechnologyPartnershipClient() {
                 />
                 <div className="space-y-5 text-[rgba(234,242,255,0.85)] leading-relaxed mt-8 text-base">
                   <p>
-                    The UK–Pakistan Technology Partnership represents a strategic collaboration framework designed to strengthen technology, innovation, and digital trade between the United Kingdom and Pakistan. This partnership facilitates cross-border cooperation, knowledge exchange, and joint initiatives that drive sustainable growth in both nations' technology ecosystems.
+                    The UK–Pakistan Technology Partnership represents a strategic collaboration framework designed to strengthen technology, innovation, and digital trade between the United Kingdom and Pakistan. This partnership facilitates cross-border cooperation, knowledge exchange, and joint initiatives that drive sustainable growth in both nations&apos; technology ecosystems.
                   </p>
                   <p>
                     By connecting governments, enterprises, investors, startups, and academia, we create a powerful network that enables technology-led growth, fosters innovation, and builds lasting bridges between our two nations.
@@ -218,7 +218,7 @@ export default function UKPakistanTechnologyPartnershipClient() {
                       Our Recognition Program
                     </h2>
                     <p className="text-lg text-[rgba(11,18,32,0.68)] leading-relaxed">
-                      Recognizing Pakistan's contributions to the UK tech sector through prestigious awards. Our recognition program celebrates exceptional achievements in technology innovation, cross-border collaboration, and leadership that strengthens the UK–Pakistan tech corridor.
+                      Recognizing Pakistan&apos;s contributions to the UK tech sector through prestigious awards. Our recognition program celebrates exceptional achievements in technology innovation, cross-border collaboration, and leadership that strengthens the UK–Pakistan tech corridor.
                     </p>
                   </div>
                 </div>

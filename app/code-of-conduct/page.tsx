@@ -7,17 +7,17 @@ import { motion, useReducedMotion, useInView } from "framer-motion";
 import { Shield, CheckCircle2, Users, Eye, FileText, Download, AlertTriangle, Gavel, Scale, Heart, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+const sections = [
+  { id: "summary", label: "Summary" },
+  { id: "principles", label: "Ethical Principles" },
+  { id: "responsibilities", label: "Member Responsibilities" },
+  { id: "reporting", label: "Reporting & Enforcement" },
+];
+
 export default function CodeOfConductPage() {
   const shouldReduceMotion = useReducedMotion();
   const [activeSection, setActiveSection] = useState<string>("summary");
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-
-  const sections = [
-    { id: "summary", label: "Summary" },
-    { id: "principles", label: "Ethical Principles" },
-    { id: "responsibilities", label: "Member Responsibilities" },
-    { id: "reporting", label: "Reporting & Enforcement" },
-  ];
 
   useEffect(() => {
     const handleScroll = () => {

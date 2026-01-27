@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "./Button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -92,9 +93,11 @@ export function Header() {
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 group relative z-10">
-              <img
+              <Image
                 src="/image/Main Logo/mainlogo.png"
                 alt="UPTECH Logo"
+                width={50}
+                height={50}
                 className="h-[40px] lg:h-[50px] w-auto object-contain"
               />
               <span className="font-heading font-bold text-xl text-[#EAF2FF]">UPTECH</span>
@@ -252,9 +255,11 @@ export function Header() {
             <div className="p-6">
               <div className="flex items-center justify-between mb-8">
                 <Link href="/" className="flex items-center gap-3">
-                  <img
+                  <Image
                     src="/image/Main Logo/mainlogo.png"
                     alt="UPTECH Logo"
+                    width={40}
+                    height={40}
                     className="h-[40px] w-auto object-contain"
                   />
                   <span className="font-heading font-bold text-xl text-[#EAF2FF]">UPTECH</span>
