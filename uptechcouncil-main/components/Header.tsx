@@ -109,7 +109,7 @@ export function Header() {
                   className="relative"
                   onMouseEnter={() => handleMouseEnter(group.label)}
                   onMouseLeave={() => handleMouseLeave(group.label)}
-                  ref={(el) => (dropdownRefs.current[group.label] = el)}
+                  ref={(el) => { dropdownRefs.current[group.label] = el; }}
                 >
                   <button className="flex items-center gap-1.5 text-[#EAF2FF]/90 hover:text-[#1E40AF] transition-all duration-300 font-medium text-sm relative group py-2">
                     {group.label}

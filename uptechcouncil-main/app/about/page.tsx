@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { 
   Network, Users, TrendingUp, Cpu, FileText, Shield, 
   Target, Eye, CheckCircle2, Building2, Gavel, Globe2,
-  Sparkles, Award, Handshake, Lightbulb, Heart
+  Sparkles, Award, HeartHandshake, Lightbulb, Heart
 } from "lucide-react";
 
 export default function AboutPage() {

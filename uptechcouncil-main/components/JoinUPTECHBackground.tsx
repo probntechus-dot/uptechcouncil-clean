@@ -166,7 +166,7 @@ function RingGroup({ radius, duration, dots, shouldReduceMotion, reverse = false
 }
 
 export function JoinUPTECHBackground() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   // Define 4 rings with different sizes, speeds, and dots
   // Each ring rotates, creating perfect circular orbits for dots

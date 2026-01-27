@@ -27,7 +27,7 @@ import {
   Globe,
   Briefcase,
   FileText,
-  Handshake
+  HeartHandshake
 } from "lucide-react";
 
 export default function IncubationCollectiveStartupsClient() {
@@ -795,7 +795,7 @@ function SupportResourcesList() {
     { icon: Globe, label: "UK market entry support", badge: "UK" },
     { icon: Briefcase, label: "Investor & VC access", badge: "Cross-border" },
     { icon: Zap, label: "Product & technical advisory", badge: "Cross-border" },
-    { icon: Handshake, label: "Policy and ecosystem connections", badge: "Pakistan" },
+    { icon: HeartHandshake, label: "Policy and ecosystem connections", badge: "Pakistan" },
   ];
 
   return (
