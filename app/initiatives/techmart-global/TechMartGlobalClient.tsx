@@ -4,6 +4,8 @@ import { Section } from "@/components/Section";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Button } from "@/components/Button";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
+import { PageHero } from "@/components/PageHero";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
@@ -12,6 +14,7 @@ import {
   Briefcase,
   TrendingUp,
   Search,
+  Handshake,
   Shield,
   CheckCircle2,
   Globe,
@@ -27,7 +30,41 @@ export default function TechMartGlobalClient() {
   return (
     <div className="pt-0">
       {/* Hero Section */}
-      <TechMartHero />
+      <PageHero
+        title={
+          <span className="relative inline-block">
+            TechMart Global
+            <AnimatedUnderline />
+          </span>
+        }
+        subtitle="A global B2B technology marketplace and collaboration platform connecting Pakistani tech companies with UK and international buyers, partners, investors, and institutions."
+      >
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Button variant="primary" size="lg" className="bg-gradient-to-r from-[#2D5BFF] to-[#1E3A8A]">
+              Get Started
+            </Button>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Button variant="glass" size="lg">
+              Learn More
+            </Button>
+          </motion.div>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+          <TrustChip label="B2B Marketplace" />
+          <TrustChip label="UK–Pakistan Corridor" />
+          <TrustChip label="Verified Connections" />
+        </div>
+      </PageHero>
 
       {/* What is TechMart Global */}
       <Section variant="dark">
@@ -68,34 +105,6 @@ export default function TechMartGlobalClient() {
           </div>
         </AnimatedSection>
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[rgba(234,242,255,0.1)] to-transparent" />
-      </Section>
-
-      {/* What is TechMart Global */}
-      <Section variant="dark">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <SectionHeader
-                title="What is TechMart Global"
-                subtitle="A strategic platform designed to bridge technology ecosystems and facilitate meaningful business connections."
-                align="left"
-              />
-              <div className="space-y-5 text-[rgba(234,242,255,0.85)] leading-relaxed text-base">
-                <p>
-                  TechMart Global is a comprehensive B2B technology marketplace powered by the UK–Pakistan Tech Council. The platform serves as a trusted intermediary, enabling Pakistani technology companies to showcase their capabilities, products, and services to a global audience.
-                </p>
-                <p>
-                  Through structured matchmaking, transparent processes, and strategic support, TechMart Global facilitates cross-border partnerships, procurement opportunities, and long-term business relationships that drive innovation and economic growth.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-video bg-[rgba(255,255,255,0.06)] backdrop-blur-sm rounded-2xl border border-[rgba(234,242,255,0.14)] flex items-center justify-center">
-                <span className="text-[rgba(234,242,255,0.5)] text-sm">Image Placeholder</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </Section>
 
       {/* Who TechMart Global Is For */}
@@ -169,7 +178,7 @@ export default function TechMartGlobalClient() {
                 index={1}
               />
               <FeatureBlock
-                icon={Users}
+                icon={Handshake}
                 title="Strategic Partnerships"
                 description="Facilitation of joint ventures, technology licensing, co-development agreements, and long-term strategic alliances between companies."
                 tag="Partnerships"
@@ -324,127 +333,6 @@ export default function TechMartGlobalClient() {
   );
 }
 
-// Hero Component
-function TechMartHero() {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-[#050B14] pt-20">
-      {/* Animated Background Glows */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-[#2D5BFF] rounded-full opacity-[0.12] blur-[200px]"
-          animate={shouldReduceMotion ? {} : {
-            x: [0, 40, -30, 0],
-            y: [0, -40, 30, 0],
-            scale: [1, 1.15, 0.95, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 right-1/3 w-[600px] h-[600px] bg-[#00B140] rounded-full opacity-[0.06] blur-[160px]"
-          animate={shouldReduceMotion ? {} : {
-            x: [0, -50, 40, 0],
-            y: [0, 50, -40, 0],
-            scale: [1, 1.2, 0.9, 1],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/3 left-1/2 w-[500px] h-[500px] bg-[#E11D48] rounded-full opacity-[0.04] blur-[150px]"
-          animate={shouldReduceMotion ? {} : {
-            x: [0, 30, -40, 0],
-            y: [0, -30, 40, 0],
-            scale: [1, 1.1, 0.9, 1],
-          }}
-          transition={{
-            duration: 28,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
-      </div>
-
-      {/* Grid Texture */}
-      {!shouldReduceMotion && (
-        <motion.div
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(45, 91, 255, 0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(45, 91, 255, 0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 80px",
-          }}
-          animate={{
-            backgroundPosition: ["0px 0px", "80px 80px"],
-          }}
-          transition={{
-            duration: 60,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      )}
-
-      {/* Noise Overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
-        <AnimatedSection>
-          <div className="text-center max-w-4xl mx-auto space-y-6">
-            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
-              TechMart Global
-            </h1>
-            <p className="text-xl md:text-2xl text-[rgba(234,242,255,0.85)] leading-relaxed">
-              A global B2B technology marketplace and collaboration platform connecting Pakistani tech companies with UK and international buyers, partners, investors, and institutions.
-            </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Button variant="primary" size="lg" className="bg-gradient-to-r from-[#2D5BFF] to-[#1E3A8A]">
-                  Get Started
-                </Button>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Button variant="glass" size="lg">
-                  Learn More
-                </Button>
-              </motion.div>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-              <TrustChip label="B2B Marketplace" />
-              <TrustChip label="UK–Pakistan Corridor" />
-              <TrustChip label="Verified Connections" />
-            </div>
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
-  );
-}
 
 // Trust Chip Component
 function TrustChip({ label }: { label: string }) {
@@ -455,11 +343,29 @@ function TrustChip({ label }: { label: string }) {
   );
 }
 
-// Marketplace Visual Component
+// Marketplace Visual Component - Premium Animated Network
 function MarketplaceVisual() {
   const shouldReduceMotion = useReducedMotion();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  // Network nodes configuration
+  const centralNode = { x: 200, y: 200 };
+  const outerNodes = Array.from({ length: 12 }, (_, i) => {
+    const angle = (i * 360) / 12;
+    const radius = 140;
+    return {
+      x: centralNode.x + radius * Math.cos((angle * Math.PI) / 180),
+      y: centralNode.y + radius * Math.sin((angle * Math.PI) / 180),
+      angle,
+    };
+  });
+
+  // Secondary connections between outer nodes
+  const secondaryConnections = [
+    [0, 2], [1, 3], [2, 5], [3, 6], [4, 7], [5, 8],
+    [6, 9], [7, 10], [8, 11], [9, 0], [10, 1], [11, 4]
+  ];
 
   return (
     <motion.div
@@ -467,59 +373,215 @@ function MarketplaceVisual() {
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
       animate={shouldReduceMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="relative rounded-2xl bg-[rgba(255,255,255,0.06)] backdrop-blur-xl border border-[rgba(234,242,255,0.15)] p-12 overflow-hidden min-h-[400px]"
+      className="relative rounded-2xl bg-gradient-to-br from-[rgba(255,255,255,0.08)] to-[rgba(255,255,255,0.04)] backdrop-blur-xl border border-[rgba(234,242,255,0.15)] p-12 overflow-hidden min-h-[500px] group"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2D5BFF]/10 via-transparent to-[#00B140]/5 opacity-50" />
-      <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+      {/* Animated background gradient */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-[#2D5BFF]/15 via-transparent to-[#00B140]/10"
+        animate={shouldReduceMotion ? {} : {
+          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+
+      {/* Floating orbs */}
+      {!shouldReduceMotion && (
+        <>
+          <motion.div
+            className="absolute top-1/4 right-1/4 w-32 h-32 bg-[#2D5BFF] rounded-full blur-2xl opacity-20"
+            animate={{
+              x: [0, 30, -20, 0],
+              y: [0, -30, 20, 0],
+              scale: [1, 1.2, 0.9, 1],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-[#00B140] rounded-full blur-xl opacity-15"
+            animate={{
+              x: [0, -25, 15, 0],
+              y: [0, 25, -15, 0],
+              scale: [1, 1.3, 0.8, 1],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+        </>
+      )}
+
+      {/* Network SVG */}
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="networkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2D5BFF" stopOpacity="0.3" />
-            <stop offset="50%" stopColor="#00B140" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#2D5BFF" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="#2D5BFF" stopOpacity="0.4" />
+            <stop offset="50%" stopColor="#00B140" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#2D5BFF" stopOpacity="0.4" />
           </linearGradient>
+          <linearGradient id="secondaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#2D5BFF" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#00B140" stopOpacity="0.15" />
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
-        {[...Array(8)].map((_, i) => {
-          const angle = (i * 360) / 8;
-          const x = 200 + 120 * Math.cos((angle * Math.PI) / 180);
-          const y = 200 + 120 * Math.sin((angle * Math.PI) / 180);
+
+        {/* Secondary connections between outer nodes */}
+        {secondaryConnections.map(([start, end], idx) => {
+          const startNode = outerNodes[start];
+          const endNode = outerNodes[end];
           return (
-            <g key={i}>
-              <motion.circle
-                cx={x}
-                cy={y}
-                r="8"
-                fill="url(#networkGradient)"
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0 }}
-                animate={shouldReduceMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              />
-              <motion.line
-                x1="200"
-                y1="200"
-                x2={x}
-                y2={y}
-                stroke="url(#networkGradient)"
-                strokeWidth="1"
-                initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
-                animate={shouldReduceMotion || isInView ? { pathLength: 1 } : { pathLength: 0 }}
-                transition={{ duration: 0.8, delay: i * 0.1 + 0.3 }}
-              />
-            </g>
+            <motion.line
+              key={`secondary-${idx}`}
+              x1={startNode.x}
+              y1={startNode.y}
+              x2={endNode.x}
+              y2={endNode.y}
+              stroke="url(#secondaryGradient)"
+              strokeWidth="0.5"
+              strokeDasharray="2,2"
+              initial={shouldReduceMotion ? { pathLength: 1, opacity: 0.3 } : { pathLength: 0, opacity: 0 }}
+              animate={shouldReduceMotion || isInView ? { pathLength: 1, opacity: 0.3 } : { pathLength: 0, opacity: 0 }}
+              transition={{ duration: 1, delay: idx * 0.05 + 0.5, ease: [0.22, 1, 0.36, 1] }}
+            />
           );
         })}
-        <motion.circle
-          cx="200"
-          cy="200"
-          r="12"
-          fill="#2D5BFF"
-          initial={{ opacity: 0.6 }}
-          animate={shouldReduceMotion ? { opacity: 0.6 } : { opacity: [0.6, 0.9, 0.6] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        />
+
+        {/* Primary connections from center to outer nodes */}
+        {outerNodes.map((node, i) => (
+          <g key={`primary-${i}`}>
+            <motion.line
+              x1={centralNode.x}
+              y1={centralNode.y}
+              x2={node.x}
+              y2={node.y}
+              stroke="url(#networkGradient)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              initial={shouldReduceMotion ? { pathLength: 1, opacity: 0.5 } : { pathLength: 0, opacity: 0 }}
+              animate={shouldReduceMotion || isInView ? { pathLength: 1, opacity: 0.5 } : { pathLength: 0, opacity: 0 }}
+              transition={{ duration: 0.8, delay: i * 0.08 + 0.3, ease: [0.22, 1, 0.36, 1] }}
+            />
+            {/* Animated pulse along connection */}
+            {!shouldReduceMotion && (
+              <motion.circle
+                r="2"
+                fill="#00B140"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: [0, 1, 0],
+                  cx: [centralNode.x, node.x],
+                  cy: [centralNode.y, node.y],
+                }}
+                transition={{
+                  duration: 2,
+                  delay: i * 0.15 + 1,
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                  ease: "easeInOut",
+                }}
+              />
+            )}
+          </g>
+        ))}
+
+        {/* Outer nodes */}
+        {outerNodes.map((node, i) => (
+          <g key={`node-${i}`}>
+            {/* Outer glow */}
+            <motion.circle
+              cx={node.x}
+              cy={node.y}
+              r="12"
+              fill={i % 3 === 0 ? "#2D5BFF" : i % 3 === 1 ? "#00B140" : "#E11D48"}
+              opacity="0.2"
+              initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
+              animate={shouldReduceMotion || isInView ? { scale: [1, 1.3, 1] } : { scale: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.1 + 0.5, repeat: Infinity, repeatDelay: 4 }}
+            />
+            {/* Node */}
+            <motion.circle
+              cx={node.x}
+              cy={node.y}
+              r="6"
+              fill={i % 3 === 0 ? "#2D5BFF" : i % 3 === 1 ? "#00B140" : "#E11D48"}
+              filter="url(#glow)"
+              initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            />
+          </g>
+        ))}
+
+        {/* Central hub node */}
+        <g>
+          {/* Outer rings */}
+          <motion.circle
+            cx={centralNode.x}
+            cy={centralNode.y}
+            r="20"
+            fill="none"
+            stroke="#2D5BFF"
+            strokeWidth="1"
+            opacity="0.3"
+            initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
+            animate={shouldReduceMotion || isInView ? { scale: [1, 1.5, 1] } : { scale: 0 }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.circle
+            cx={centralNode.x}
+            cy={centralNode.y}
+            r="16"
+            fill="none"
+            stroke="#00B140"
+            strokeWidth="1"
+            opacity="0.3"
+            initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
+            animate={shouldReduceMotion || isInView ? { scale: [1, 1.4, 1] } : { scale: 0 }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          />
+          {/* Central node */}
+          <motion.circle
+            cx={centralNode.x}
+            cy={centralNode.y}
+            r="14"
+            fill="url(#networkGradient)"
+            filter="url(#glow)"
+            initial={shouldReduceMotion ? { opacity: 0.8 } : { opacity: 0, scale: 0 }}
+            animate={shouldReduceMotion || isInView ? { opacity: [0.8, 1, 0.8], scale: 1 } : { opacity: 0, scale: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, repeat: Infinity, repeatDelay: 0 }}
+          />
+        </g>
       </svg>
-      <div className="relative z-10 text-center">
-        <Network className="w-16 h-16 text-[#2D5BFF] mx-auto mb-4 opacity-80" />
-        <p className="text-[rgba(234,242,255,0.6)] text-sm">Global Marketplace Network</p>
+
+      {/* Content overlay */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full min-h-[400px]">
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-center"
+        >
+          <motion.div
+            whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
+            transition={{ duration: 0.3 }}
+            className="mb-6"
+          >
+            <div className="relative inline-block">
+              <Network className="w-20 h-20 text-[#2D5BFF] opacity-90" />
+              <motion.div
+                className="absolute inset-0 bg-[#2D5BFF] rounded-full blur-xl opacity-30"
+                animate={shouldReduceMotion ? {} : { scale: [1, 1.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
+          </motion.div>
+          <h3 className="font-heading font-bold text-lg mb-2 text-[#EAF2FF]">Global Marketplace Network</h3>
+          <p className="text-sm text-[rgba(234,242,255,0.6)]">Connecting businesses across borders</p>
+        </motion.div>
       </div>
     </motion.div>
   );
@@ -624,7 +686,7 @@ function UKMarketPathway() {
   const steps = [
     { label: "Market Entry", icon: Target },
     { label: "Compliance", icon: Shield },
-    { label: "Partnership", icon: Users },
+    { label: "Partnership", icon: Handshake },
   ];
 
   return (

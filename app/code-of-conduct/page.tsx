@@ -2,6 +2,7 @@
 
 import { Section } from "@/components/Section";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { Shield, CheckCircle2, Users, Eye, FileText, Download, AlertTriangle, Gavel, Scale, Heart, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -237,7 +238,10 @@ function CodeOfConductHero({ shouldReduceMotion }: { shouldReduceMotion: boolean
             className="space-y-6"
           >
             <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
-              Code of Conduct
+              <span className="relative inline-block">
+                Code of Conduct
+                <AnimatedUnderline />
+              </span>
             </h1>
             <p className="text-xl text-[rgba(234,242,255,0.85)] leading-relaxed">
               UPTECH is committed to maintaining the highest standards of ethical conduct, transparency, and accountability in all our activities.

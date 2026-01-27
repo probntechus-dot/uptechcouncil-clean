@@ -4,6 +4,8 @@ import { Section } from "@/components/Section";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Button } from "@/components/Button";
 import { SectionHeader } from "@/components/SectionHeader";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
+import { PageHero } from "@/components/PageHero";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import {
@@ -30,7 +32,15 @@ export default function PeopleAIClient() {
   return (
     <div className="pt-0">
       {/* Hero Section */}
-      <PeopleAIHero />
+      <PageHero
+        title={
+          <span className="relative inline-block">
+            People AI Platform
+            <AnimatedUnderline />
+          </span>
+        }
+        subtitle="Empowering people and organizations through human-centric AI support systems that integrate technology with professional services."
+      />
 
       {/* Vision Section */}
       <Section>
@@ -237,142 +247,6 @@ export default function PeopleAIClient() {
   );
 }
 
-function PeopleAIHero() {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-[#050B14] pt-20">
-      {/* Premium Animated Background */}
-      <HeroAnimatedBackground shouldReduceMotion={shouldReduceMotion} />
-      
-      {/* Grid Texture Overlay */}
-      {!shouldReduceMotion && (
-        <motion.div
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(30, 64, 175, 0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(30, 64, 175, 0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 80px",
-          }}
-          animate={{
-            backgroundPosition: ["0px 0px", "80px 80px"],
-          }}
-          transition={{
-            duration: 60,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      )}
-
-      {/* Noise Overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center max-w-4xl mx-auto space-y-6"
-        >
-          <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
-            People AI Platform
-          </h1>
-          <p className="text-xl md:text-2xl text-[rgba(234,242,255,0.85)] leading-relaxed">
-            Empowering people and organizations through human-centric AI support systems that integrate technology with professional services.
-          </p>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function HeroAnimatedBackground({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Aurora Mesh Effect */}
-      {!shouldReduceMotion && (
-        <>
-          <motion.div
-            className="absolute top-0 left-0 w-full h-full"
-            style={{
-              background: `
-                radial-gradient(ellipse 1200px 800px at 20% 30%, rgba(30, 64, 175, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse 1000px 700px at 80% 70%, rgba(0, 177, 64, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse 900px 600px at 50% 50%, rgba(30, 64, 175, 0.08) 0%, transparent 50%)
-              `,
-            }}
-            animate={{
-              backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute top-0 left-0 w-full h-full"
-            style={{
-              background: `
-                radial-gradient(ellipse 1100px 750px at 60% 40%, rgba(0, 177, 64, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse 950px 650px at 30% 80%, rgba(30, 64, 175, 0.1) 0%, transparent 50%)
-              `,
-            }}
-            animate={{
-              backgroundPosition: ["100% 100%", "0% 0%", "100% 100%"],
-            }}
-            transition={{
-              duration: 35,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </>
-      )}
-
-      {/* Enhanced Radial Glows */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-[#1E40AF] rounded-full opacity-[0.12] blur-[200px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, 40, -30, 0],
-          y: [0, -40, 30, 0],
-          scale: [1, 1.15, 0.95, 1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 right-1/3 w-[600px] h-[600px] bg-[#00B140] rounded-full opacity-[0.08] blur-[160px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, -50, 40, 0],
-          y: [0, 50, -40, 0],
-          scale: [1, 1.2, 0.9, 1],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-      />
-
-      {/* Depth Layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050B14]/60 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050B14]/30 via-transparent to-[#050B14]/30 pointer-events-none" />
-    </div>
-  );
-}
 
 function HeroKPIPanel() {
   const shouldReduceMotion = useReducedMotion();
@@ -730,6 +604,189 @@ function UseCaseCard({
   );
 }
 
+function PlatformFlowInteractive({ 
+  shouldReduceMotion, 
+  isInView 
+}: { 
+  shouldReduceMotion: boolean | null; 
+  isInView: boolean;
+}) {
+  const [selectedRole, setSelectedRole] = useState<string>("consumers");
+
+  const roles = [
+    {
+      id: "consumers",
+      label: "Consumers",
+      icon: Users,
+      description: "Individuals and organizations accessing AI-powered services and tools through the platform.",
+      responsibilities: [
+        "Submit service requests and access AI tools tailored to sector needs",
+        "Receive support from cross-border teams of UK and Pakistan professionals",
+        "Track service delivery and provide feedback on platform effectiveness",
+        "Access sector-specific resources and knowledge bases"
+      ],
+      outcome: "Improved service delivery and faster resolution of sector-specific challenges through coordinated UK-Pakistan expertise."
+    },
+    {
+      id: "support",
+      label: "Support Providers",
+      icon: Shield,
+      description: "Professional service teams delivering technical assistance and operational support across sectors.",
+      responsibilities: [
+        "Respond to consumer requests with technical expertise and sector knowledge",
+        "Coordinate with managers to ensure service quality and compliance standards",
+        "Document interactions and outcomes for platform learning and improvement",
+        "Facilitate knowledge transfer between UK and Pakistan service teams"
+      ],
+      outcome: "Standardized service delivery processes that leverage combined UK-Pakistan capabilities for consistent outcomes."
+    },
+    {
+      id: "managers",
+      label: "Managers",
+      icon: Target,
+      description: "Oversight and coordination layer ensuring service quality, compliance, and strategic alignment.",
+      responsibilities: [
+        "Monitor service delivery metrics and ensure governance standards are met",
+        "Allocate resources and coordinate between support providers and sector specialists",
+        "Review and approve sector-specific solutions before deployment",
+        "Maintain compliance with UK and Pakistan regulatory requirements"
+      ],
+      outcome: "Effective governance framework ensuring ethical, compliant, and measurable service delivery across all sectors."
+    },
+    {
+      id: "specialists",
+      label: "Sector Specialists",
+      icon: Brain,
+      description: "Domain experts providing deep sector knowledge and developing specialized solutions.",
+      responsibilities: [
+        "Develop sector-specific AI solutions and service frameworks",
+        "Provide expert consultation on complex cross-border technical challenges",
+        "Contribute to platform knowledge base with UK-Pakistan best practices",
+        "Collaborate with managers to ensure solutions meet governance and quality standards"
+      ],
+      outcome: "Specialized solutions that address sector-specific needs while maintaining cross-border collaboration standards."
+    }
+  ];
+
+  const selectedRoleData = roles.find(r => r.id === selectedRole) || roles[0];
+
+  return (
+    <div className="relative bg-[rgba(255,255,255,0.06)] backdrop-blur-sm rounded-2xl border border-[rgba(234,242,255,0.14)] p-8 min-h-[500px]">
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* Left: Role List */}
+        <div className="space-y-4">
+          {roles.map((role, index) => {
+            const Icon = role.icon;
+            const isSelected = selectedRole === role.id;
+            return (
+              <motion.button
+                key={role.id}
+                onClick={() => setSelectedRole(role.id)}
+                onMouseEnter={() => setSelectedRole(role.id)}
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
+                animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
+                  isSelected
+                    ? "bg-[rgba(255,255,255,0.12)] border-[#1E40AF]/40 shadow-lg shadow-[#1E40AF]/10"
+                    : "bg-[rgba(255,255,255,0.04)] border-[rgba(234,242,255,0.14)] hover:bg-[rgba(255,255,255,0.08)] hover:border-[rgba(234,242,255,0.25)]"
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                    isSelected
+                      ? "bg-gradient-to-br from-[#1E40AF] to-[#1E3A8A] text-white scale-110"
+                      : "bg-[#1E40AF]/20 text-[#1E40AF]"
+                  }`}>
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div className={`text-lg font-semibold transition-colors duration-300 ${
+                    isSelected ? "text-[#EAF2FF]" : "text-[rgba(234,242,255,0.8)]"
+                  }`}>
+                    {role.label}
+                  </div>
+                </div>
+                {/* Accent line on selected */}
+                {isSelected && (
+                  <motion.div
+                    className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#1E40AF] via-[#00B140] to-[#1E40AF] rounded-l-xl"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </motion.button>
+            );
+          })}
+        </div>
+
+        {/* Right: Role Content */}
+        <motion.div
+          key={selectedRole}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-sm rounded-xl border border-[rgba(234,242,255,0.14)] p-6"
+        >
+          {/* Top accent gradient */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#1E40AF] via-[#00B140] to-[#1E40AF] rounded-t-xl" />
+          
+          <div className="space-y-6">
+            {/* Role Title */}
+            <div>
+              <h4 className="font-heading font-bold text-2xl mb-2 text-[#EAF2FF]">
+                {selectedRoleData.label}
+              </h4>
+              <p className="text-[rgba(234,242,255,0.85)] leading-relaxed">
+                {selectedRoleData.description}
+              </p>
+            </div>
+
+            {/* Responsibilities */}
+            <div>
+              <h5 className="font-semibold text-sm text-[rgba(234,242,255,0.6)] uppercase tracking-wider mb-3">
+                Platform Responsibilities
+              </h5>
+              <ul className="space-y-3">
+                {selectedRoleData.responsibilities.map((responsibility, idx) => (
+                  <motion.li
+                    key={idx}
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: idx * 0.1 }}
+                    className="flex items-start gap-3"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#00B140] mt-2 flex-shrink-0" />
+                    <span className="text-[rgba(234,242,255,0.85)] leading-relaxed text-sm">
+                      {responsibility}
+                    </span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Outcome */}
+            <div className="pt-4 border-t border-[rgba(234,242,255,0.1)]">
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-gradient-to-br from-[#1E40AF]/10 via-[#00B140]/5 to-transparent border border-[rgba(234,242,255,0.1)]">
+                <div className="w-1 h-full bg-gradient-to-b from-[#1E40AF] to-[#00B140] rounded-full flex-shrink-0" />
+                <div>
+                  <div className="text-xs text-[rgba(234,242,255,0.5)] uppercase tracking-wider mb-2">
+                    Ecosystem Impact
+                  </div>
+                  <p className="text-[rgba(234,242,255,0.9)] leading-relaxed text-sm font-medium">
+                    {selectedRoleData.outcome}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
 function PeopleAIInsights() {
   const shouldReduceMotion = useReducedMotion();
   const containerRef = useRef(null);
@@ -743,13 +800,6 @@ function PeopleAIInsights() {
     { name: "Public Services", adoption: 68, responseTime: 61, costEfficiency: 71, humanSupport: 85 },
     { name: "Local Services", adoption: 74, responseTime: 67, costEfficiency: 76, humanSupport: 83 },
     { name: "Workforce", adoption: 81, responseTime: 69, costEfficiency: 84, humanSupport: 87 },
-  ];
-
-  const flowStages = [
-    { id: "consumers", label: "Consumers", x: 50, y: 20, icon: Users },
-    { id: "support", label: "Support Providers", x: 50, y: 40, icon: Shield },
-    { id: "managers", label: "Managers", x: 50, y: 60, icon: Target },
-    { id: "specialists", label: "Sector Specialists", x: 50, y: 80, icon: Brain },
   ];
 
   const [hoveredMetric, setHoveredMetric] = useState<string | null>(null);
@@ -822,75 +872,10 @@ function PeopleAIInsights() {
         })}
       </div>
 
-      {/* Signal Flow Animation */}
+      {/* Platform Flow - Interactive */}
       <div className="mb-12">
         <h3 className="font-heading font-bold text-xl mb-6 text-[#EAF2FF] text-center">Platform Flow</h3>
-        <div className="relative bg-[rgba(255,255,255,0.06)] backdrop-blur-sm rounded-2xl border border-[rgba(234,242,255,0.14)] p-8 min-h-[400px]">
-          <svg className="w-full h-full absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
-            {flowStages.slice(0, -1).map((stage, index) => {
-              const nextStage = flowStages[index + 1];
-              return (
-                <g key={`flow-${index}`}>
-                  <motion.line
-                    x1={`${stage.x}%`}
-                    y1={`${stage.y}%`}
-                    x2={`${nextStage.x}%`}
-                    y2={`${nextStage.y}%`}
-                    stroke="url(#flowGradient)"
-                    strokeWidth="0.5"
-                    strokeLinecap="round"
-                    initial={shouldReduceMotion ? { pathLength: 1, opacity: 0.3 } : { pathLength: 0, opacity: 0 }}
-                    animate={shouldReduceMotion || isInView ? { pathLength: 1, opacity: 0.3 } : { pathLength: 0, opacity: 0 }}
-                    transition={{ duration: 1, delay: index * 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                  <motion.circle
-                    r="0.8"
-                    fill="#1E40AF"
-                    initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                    animate={shouldReduceMotion || isInView ? { opacity: [0, 1, 0] } : { opacity: 0 }}
-                    transition={{
-                      duration: 2,
-                      delay: index * 0.3 + 0.5,
-                      repeat: Infinity,
-                      repeatDelay: 3,
-                      ease: "easeInOut",
-                    }}
-                    style={{
-                      cx: `${stage.x}%`,
-                      cy: `${stage.y}%`,
-                    }}
-                  />
-                </g>
-              );
-            })}
-            <defs>
-              <linearGradient id="flowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#1E40AF" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#00B140" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#1E40AF" stopOpacity="0.8" />
-              </linearGradient>
-            </defs>
-          </svg>
-          <div className="relative z-10 grid grid-cols-1 gap-8">
-            {flowStages.map((stage, index) => {
-              const Icon = stage.icon;
-              return (
-                <motion.div
-                  key={stage.id}
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
-                  animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ duration: 0.5, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex items-center gap-4"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1E40AF] to-[#1E3A8A] flex items-center justify-center text-white flex-shrink-0">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <div className="text-lg font-semibold text-[#EAF2FF]">{stage.label}</div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
+        <PlatformFlowInteractive shouldReduceMotion={shouldReduceMotion} isInView={isInView} />
       </div>
 
       {/* Sector Coverage Chart */}

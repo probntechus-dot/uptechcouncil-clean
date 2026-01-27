@@ -4,6 +4,8 @@ import { Section } from "@/components/Section";
 import { Card } from "@/components/Card";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { SectionHeader } from "@/components/SectionHeader";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
+import { PageHero } from "@/components/PageHero";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { Shield, Users, Award, Briefcase, CheckCircle2, Gavel, Eye, FileText, ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -36,7 +38,56 @@ export default function LeadershipPage() {
   return (
     <div className="pt-0">
       {/* Hero Section */}
-      <LeadershipHero shouldReduceMotion={shouldReduceMotion} />
+      <PageHero
+        title={
+          <span className="relative inline-block">
+            Leadership and Governance
+            <AnimatedUnderline />
+          </span>
+        }
+        subtitle="UPTECH operates under a defined governance structure ensuring transparency, ethics, and accountability across all initiatives and operations."
+      >
+        <div className="flex flex-wrap justify-center gap-4 pt-6">
+          {[
+            { 
+              icon: Shield, 
+              text: "Ethical Governance", 
+              color: "border-[#1E40AF]/40 bg-[#1E40AF]/15",
+              iconColor: "text-[#1E40AF]",
+            },
+            { 
+              icon: Eye, 
+              text: "Transparency", 
+              color: "border-[#00B140]/50 bg-[#00B140]/20",
+              iconColor: "text-[#00B140]",
+            },
+            { 
+              icon: FileText, 
+              text: "Accountability", 
+              color: "border-[#E11D48]/50 bg-[#E11D48]/20",
+              iconColor: "text-[#E11D48]",
+            },
+          ].map((chip, index) => {
+            const Icon = chip.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: 0.3 + index * 0.1,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border ${chip.color} backdrop-blur-sm`}
+              >
+                <Icon className={`w-4 h-4 ${chip.iconColor}`} />
+                <span className="text-sm font-medium text-[#EAF2FF]/90">{chip.text}</span>
+              </motion.div>
+            );
+          })}
+        </div>
+      </PageHero>
 
       {/* Navigation Cards Grid */}
       <Section>
@@ -57,123 +108,6 @@ export default function LeadershipPage() {
   );
 }
 
-// Hero Component
-function LeadershipHero({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  return (
-    <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[#050B14] pt-20">
-      {/* Animated Background */}
-      <HeroBackground shouldReduceMotion={shouldReduceMotion} />
-
-      <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-8"
-          >
-            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
-              Leadership and Governance
-            </h1>
-            <p className="text-xl md:text-2xl text-[rgba(234,242,255,0.85)] leading-relaxed max-w-3xl mx-auto">
-              UPTECH operates under a defined governance structure ensuring transparency, ethics, and accountability across all initiatives and operations.
-            </p>
-
-            {/* Trust Chips */}
-            <div className="flex flex-wrap justify-center gap-4 pt-6">
-              {[
-                { 
-                  icon: Shield, 
-                  text: "Ethical Governance", 
-                  color: "border-[#1E40AF]/40 bg-[#1E40AF]/15",
-                  iconColor: "text-[#1E40AF]",
-                },
-                { 
-                  icon: Eye, 
-                  text: "Transparency", 
-                  color: "border-[#00B140]/50 bg-[#00B140]/20",
-                  iconColor: "text-[#00B140]",
-                },
-                { 
-                  icon: FileText, 
-                  text: "Accountability", 
-                  color: "border-[#E11D48]/50 bg-[#E11D48]/20",
-                  iconColor: "text-[#E11D48]",
-                },
-              ].map((chip, index) => {
-                const Icon = chip.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: 0.3 + index * 0.1,
-                      ease: [0.22, 1, 0.36, 1]
-                    }}
-                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border ${chip.color} backdrop-blur-sm`}
-                  >
-                    <Icon className={`w-4 h-4 ${chip.iconColor}`} />
-                    <span className="text-sm font-medium text-[#EAF2FF]/90">{chip.text}</span>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// Hero Background Animation
-function HeroBackground({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-[#1E40AF] rounded-full opacity-[0.15] blur-[200px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, 50, -40, 0],
-          y: [0, -50, 40, 0],
-          scale: [1, 1.2, 0.9, 1],
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 right-1/3 w-[600px] h-[600px] bg-[#00B140] rounded-full opacity-[0.08] blur-[160px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, -60, 50, 0],
-          y: [0, 60, -40, 0],
-          scale: [1, 1.25, 0.85, 1],
-        }}
-        transition={{
-          duration: 45,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-1/2 w-[550px] h-[550px] bg-[#E11D48] rounded-full opacity-[0.08] blur-[150px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, 40, -50, 0],
-          y: [0, -40, 50, 0],
-          scale: [1, 1.15, 0.9, 1],
-        }}
-        transition={{
-          duration: 42,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050B14]/60 pointer-events-none" />
-    </div>
-  );
-}
 
 // Premium Governance Grid Component
 function PremiumGovernanceGrid({
@@ -503,8 +437,8 @@ function GovernanceStructureSection({ shouldReduceMotion }: { shouldReduceMotion
           <div ref={ref} className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Text Content - Left on desktop, top on mobile */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -30 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="order-2 lg:order-1"
             >
@@ -542,28 +476,34 @@ function GovernanceStructureSection({ shouldReduceMotion }: { shouldReduceMotion
               </div>
             </motion.div>
 
-            {/* SVG Image - Right on desktop, above on mobile */}
+            {/* Image - Right on desktop, above on mobile */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 30 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="order-1 lg:order-2 relative"
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="order-1 lg:order-2 relative group flex items-center justify-center"
             >
-              <div className="relative rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(234,242,255,0.14)] p-6 md:p-8 backdrop-blur-sm overflow-hidden">
-                {/* Subtle corner glow */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#2D5BFF]/10 to-transparent rounded-bl-full opacity-50" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00B140]/5 to-transparent rounded-tr-full opacity-50" />
-                
-                {/* SVG Container */}
-                <div className="relative z-10 w-full">
-                  <img
-                    src="/image/governance/governance-framework.svg"
-                    alt="UPTECH Governance Framework"
-                    className="w-full h-auto max-w-full"
-                    style={{ maxHeight: "500px", objectFit: "contain" }}
-                  />
-                </div>
+              {/* Brand glow ring behind image with enhanced red */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="absolute w-[90%] h-[90%] rounded-full bg-gradient-to-br from-[#1E40AF]/20 via-[#00B140]/12 to-[#E11D48]/15 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
+              
+              {/* Subtle corner glows with red accents */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#1E40AF]/15 to-transparent rounded-bl-full opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00B140]/8 to-transparent rounded-tr-full opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-gradient-to-br from-[#E11D48]/12 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="absolute bottom-1/4 left-1/4 w-16 h-16 bg-gradient-to-br from-[#E11D48]/10 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
+              
+              {/* Image - no border, enlarged */}
+              <motion.img
+                src="/image/leadership/Governance Structure.png"
+                alt="UPTECH Governance Structure"
+                className="relative z-10 w-full h-full object-contain max-h-[550px] transition-all duration-300"
+                whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                style={{
+                  filter: 'drop-shadow(0 8px 24px rgba(30,64,175,0.25)) drop-shadow(0 4px 12px rgba(225,29,72,0.15))',
+                }}
+              />
             </motion.div>
           </div>
         </div>
@@ -582,29 +522,40 @@ function BoardOfDirectorsSection({ shouldReduceMotion }: { shouldReduceMotion: b
       <Section>
         <div className="max-w-7xl mx-auto">
           <div ref={ref} className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Empty Space - Left on desktop, above on mobile */}
+            {/* Image - Left on desktop, above on mobile */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -30 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="order-1 lg:order-1 relative"
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="order-1 lg:order-1 relative group flex items-center justify-center"
             >
-              <div className="relative rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(11,18,32,0.10)] p-6 md:p-8 backdrop-blur-sm overflow-hidden min-h-[500px]">
-                {/* Subtle corner glow */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#2D5BFF]/10 to-transparent rounded-bl-full opacity-50" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00B140]/5 to-transparent rounded-tr-full opacity-50" />
-                
-                {/* Empty space placeholder */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  {/* Placeholder content can be added here later */}
-                </div>
+              {/* Brand glow ring behind image with enhanced red */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="absolute w-[90%] h-[90%] rounded-full bg-gradient-to-br from-[#1E40AF]/15 via-[#00B140]/10 to-[#E11D48]/12 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
+              
+              {/* Subtle corner glows with red accents */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#1E40AF]/12 to-transparent rounded-bl-full opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00B140]/6 to-transparent rounded-tr-full opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-gradient-to-br from-[#E11D48]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="absolute bottom-1/4 left-1/4 w-16 h-16 bg-gradient-to-br from-[#E11D48]/8 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
+              
+              {/* Image - no border, enlarged */}
+              <motion.img
+                src="/image/leadership/Board of Directors.png"
+                alt="UPTECH Board of Directors"
+                className="relative z-10 w-full h-full object-contain max-h-[550px] transition-all duration-300"
+                whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                style={{
+                  filter: 'drop-shadow(0 8px 24px rgba(30,64,175,0.2)) drop-shadow(0 4px 12px rgba(225,29,72,0.12))',
+                }}
+              />
             </motion.div>
 
             {/* Text Content - Right on desktop, below on mobile */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 30 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="order-2 lg:order-2"
             >
@@ -660,8 +611,8 @@ function AdvisoryCouncilSection({ shouldReduceMotion }: { shouldReduceMotion: bo
           <div ref={ref} className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Text Content - Left on desktop, top on mobile */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -30 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="order-2 lg:order-1"
             >
@@ -699,23 +650,34 @@ function AdvisoryCouncilSection({ shouldReduceMotion }: { shouldReduceMotion: bo
               </div>
             </motion.div>
 
-            {/* Empty Space - Right on desktop, below on mobile */}
+            {/* Image - Right on desktop, below on mobile */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 30 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="order-1 lg:order-2 relative"
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="order-1 lg:order-2 relative group flex items-center justify-center"
             >
-              <div className="relative rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(234,242,255,0.14)] p-6 md:p-8 backdrop-blur-sm overflow-hidden min-h-[500px]">
-                {/* Subtle corner glow */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#2D5BFF]/10 to-transparent rounded-bl-full opacity-50" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00B140]/5 to-transparent rounded-tr-full opacity-50" />
-                
-                {/* Empty space placeholder */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  {/* Placeholder content can be added here later */}
-                </div>
+              {/* Brand glow ring behind image with enhanced red */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="absolute w-[90%] h-[90%] rounded-full bg-gradient-to-br from-[#1E40AF]/20 via-[#00B140]/12 to-[#E11D48]/15 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
+              
+              {/* Subtle corner glows with red accents */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#1E40AF]/15 to-transparent rounded-bl-full opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00B140]/8 to-transparent rounded-tr-full opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-gradient-to-br from-[#E11D48]/12 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="absolute bottom-1/4 left-1/4 w-16 h-16 bg-gradient-to-br from-[#E11D48]/10 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
+              
+              {/* Image - no border, enlarged */}
+              <motion.img
+                src="/image/leadership/Advisory Council.png"
+                alt="UPTECH Advisory Council"
+                className="relative z-10 w-full h-full object-contain max-h-[550px] transition-all duration-300"
+                whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                style={{
+                  filter: 'drop-shadow(0 8px 24px rgba(30,64,175,0.25)) drop-shadow(0 4px 12px rgba(225,29,72,0.15))',
+                }}
+              />
             </motion.div>
           </div>
         </div>
@@ -734,29 +696,40 @@ function ExecutiveLeadershipSection({ shouldReduceMotion }: { shouldReduceMotion
       <Section>
         <div className="max-w-7xl mx-auto">
           <div ref={ref} className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Empty Space - Left on desktop, above on mobile */}
+            {/* Image - Left on desktop, above on mobile */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -30 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="order-1 lg:order-1 relative"
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="order-1 lg:order-1 relative group flex items-center justify-center"
             >
-              <div className="relative rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(11,18,32,0.10)] p-6 md:p-8 backdrop-blur-sm overflow-hidden min-h-[500px]">
-                {/* Subtle corner glow */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#2D5BFF]/10 to-transparent rounded-bl-full opacity-50" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00B140]/5 to-transparent rounded-tr-full opacity-50" />
-                
-                {/* Empty space placeholder */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  {/* Placeholder content can be added here later */}
-                </div>
+              {/* Brand glow ring behind image with enhanced red */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="absolute w-[90%] h-[90%] rounded-full bg-gradient-to-br from-[#1E40AF]/15 via-[#00B140]/10 to-[#E11D48]/12 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
+              
+              {/* Subtle corner glows with red accents */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#1E40AF]/12 to-transparent rounded-bl-full opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00B140]/6 to-transparent rounded-tr-full opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-gradient-to-br from-[#E11D48]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="absolute bottom-1/4 left-1/4 w-16 h-16 bg-gradient-to-br from-[#E11D48]/8 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
+              
+              {/* Image - no border, enlarged */}
+              <motion.img
+                src="/image/leadership/Executive Leadership.png"
+                alt="UPTECH Executive Leadership"
+                className="relative z-10 w-full h-full object-contain max-h-[550px] transition-all duration-300"
+                whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                style={{
+                  filter: 'drop-shadow(0 8px 24px rgba(30,64,175,0.2)) drop-shadow(0 4px 12px rgba(225,29,72,0.12))',
+                }}
+              />
             </motion.div>
 
             {/* Text Content - Right on desktop, below on mobile */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 30 }}
-              animate={shouldReduceMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+              animate={shouldReduceMotion || isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="order-2 lg:order-2"
             >

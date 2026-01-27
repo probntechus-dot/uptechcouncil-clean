@@ -237,7 +237,7 @@ export function JoinUPTECHBackground() {
           radius={ring.radius}
           duration={ring.duration}
           dots={ring.dots}
-          shouldReduceMotion={shouldReduceMotion ?? false}
+          shouldReduceMotion={shouldReduceMotion}
           reverse={ring.reverse}
           startAngle={ring.startAngle}
         />

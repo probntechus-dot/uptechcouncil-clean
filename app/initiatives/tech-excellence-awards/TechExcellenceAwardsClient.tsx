@@ -4,6 +4,8 @@ import { Section } from "@/components/Section";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Button } from "@/components/Button";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
+import { PageHero } from "@/components/PageHero";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
@@ -17,6 +19,7 @@ import {
   GraduationCap,
   Rocket,
   Building2,
+  Handshake,
   Heart,
   Globe,
   Brain,
@@ -30,7 +33,37 @@ export default function TechExcellenceAwardsClient() {
   return (
     <div className="pt-0">
       {/* Premium Hero */}
-      <AwardsHero />
+      <PageHero
+        title={
+          <span className="relative inline-block">
+            UK–Pakistan Tech Excellence Awards
+            <AnimatedUnderline />
+          </span>
+        }
+        subtitle="Celebrating Innovation, Partnership and Digital Leadership across Two Nations"
+      >
+        <motion.p
+          initial={useReducedMotion() ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-lg text-[rgba(234,242,255,0.75)] leading-relaxed"
+        >
+          Recognizing exceptional achievements in technology innovation and cross-border collaboration that strengthen the UK–Pakistan tech corridor.
+        </motion.p>
+        <motion.div
+          initial={useReducedMotion() ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mt-8"
+        >
+          <Button variant="primary" size="lg" showArrow>
+            Submit a Nomination
+          </Button>
+          <Button variant="glass" size="lg" showArrow>
+            View Past Winners
+          </Button>
+        </motion.div>
+      </PageHero>
 
       {/* About the Awards */}
       <Section variant="dark">
@@ -61,7 +94,7 @@ export default function TechExcellenceAwardsClient() {
                   index={0}
                 />
                 <ValueCard
-                  icon={Users}
+                  icon={Handshake}
                   title="Bilateral Collaboration"
                   description="Highlighting successful partnerships that strengthen UK–Pakistan tech relations."
                   index={1}
@@ -255,7 +288,7 @@ const categories = [
   { title: "Tech Educator / Mentor of the Year", description: "Recognizing educators and mentors shaping the next generation.", tag: "Individual", icon: GraduationCap },
   { title: "Emerging AI/FinTech Leader", description: "Celebrating leaders at the forefront of AI and financial technology.", tag: "Individual", icon: Brain },
   { title: "Startup of the Year", description: "Recognizing exceptional startups from Pakistan, UK, or joint ventures.", tag: "Startup", icon: Zap },
-  { title: "Best UK–Pakistan Collaboration Project", description: "Honoring outstanding collaborative projects between both nations.", tag: "Collaboration", icon: Users },
+  { title: "Best UK–Pakistan Collaboration Project", description: "Honoring outstanding collaborative projects between both nations.", tag: "Collaboration", icon: Handshake },
   { title: "Excellence in AI / FinTech / HealthTech / EdTech", description: "Recognizing sector-specific excellence across key technology domains.", tag: "Sector", icon: Target },
   { title: "R&D Excellence Award", description: "Celebrating groundbreaking research and development achievements.", tag: "Research", icon: Brain },
   { title: "Tech for Social Impact", description: "Honoring technology solutions that create positive social change.", tag: "Impact", icon: Heart },
@@ -293,179 +326,6 @@ const faqs = [
   },
 ];
 
-// Hero Component
-function AwardsHero() {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-[#050B14] pt-20">
-      {/* Animated Background Glows */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-[#2D5BFF] rounded-full opacity-[0.12] blur-[200px]"
-          animate={shouldReduceMotion ? {} : {
-            x: [0, 40, -30, 0],
-            y: [0, -40, 30, 0],
-            scale: [1, 1.15, 0.95, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 right-1/3 w-[600px] h-[600px] bg-[#00B140] rounded-full opacity-[0.06] blur-[160px]"
-          animate={shouldReduceMotion ? {} : {
-            x: [0, -50, 40, 0],
-            y: [0, 50, -40, 0],
-            scale: [1, 1.2, 0.9, 1],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-      </div>
-
-      {/* Grid Texture */}
-      {!shouldReduceMotion && (
-        <motion.div
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(45, 91, 255, 0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(45, 91, 255, 0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 80px",
-          }}
-          animate={{
-            backgroundPosition: ["0px 0px", "80px 80px"],
-          }}
-          transition={{
-            duration: 60,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      )}
-
-      {/* Noise Overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <AnimatedSection>
-            <div className="space-y-6">
-              <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
-                UK–Pakistan Tech Excellence Awards
-              </h1>
-              <p className="text-xl md:text-2xl text-[rgba(234,242,255,0.85)] leading-relaxed">
-                Celebrating Innovation, Partnership and Digital Leadership across Two Nations
-              </p>
-              <p className="text-lg text-[rgba(234,242,255,0.75)] leading-relaxed">
-                Recognizing exceptional achievements in technology innovation and cross-border collaboration that strengthen the UK–Pakistan tech corridor.
-              </p>
-              <div className="flex flex-col sm:flex-row items-start gap-4 mt-8">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Button variant="primary" size="lg" className="bg-gradient-to-r from-[#2D5BFF] to-[#1E3A8A]">
-                    Nominate Excellence
-                  </Button>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Button variant="glass" size="lg">
-                    View Categories
-                  </Button>
-                </motion.div>
-              </div>
-            </div>
-          </AnimatedSection>
-          <div className="relative">
-            <AwardsVisual />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// Awards Visual Component
-function AwardsVisual() {
-  const shouldReduceMotion = useReducedMotion();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
-      animate={shouldReduceMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="relative rounded-2xl bg-[rgba(255,255,255,0.06)] backdrop-blur-xl border border-[rgba(234,242,255,0.15)] p-12 overflow-hidden min-h-[400px]"
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2D5BFF]/10 via-transparent to-[#00B140]/5 opacity-50" />
-      <div className="relative z-10 flex flex-col items-center justify-center h-full">
-        <motion.div
-          animate={shouldReduceMotion ? {} : {
-            rotate: [0, 5, -5, 0],
-            scale: [1, 1.05, 1],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="mb-6"
-        >
-          <Trophy className="w-24 h-24 text-[#2D5BFF] opacity-90" />
-        </motion.div>
-        <div className="flex gap-4">
-          <motion.div
-            animate={shouldReduceMotion ? {} : {
-              opacity: [0.6, 0.9, 0.6],
-              y: [0, -10, 0],
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0 }}
-          >
-            <Award className="w-12 h-12 text-[#00B140] opacity-70" />
-          </motion.div>
-          <motion.div
-            animate={shouldReduceMotion ? {} : {
-              opacity: [0.6, 0.9, 0.6],
-              y: [0, -10, 0],
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-          >
-            <Sparkles className="w-12 h-12 text-[#2D5BFF] opacity-70" />
-          </motion.div>
-          <motion.div
-            animate={shouldReduceMotion ? {} : {
-              opacity: [0.6, 0.9, 0.6],
-              y: [0, -10, 0],
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          >
-            <Award className="w-12 h-12 text-[#E11D48] opacity-70" />
-          </motion.div>
-        </div>
-        <p className="text-[rgba(234,242,255,0.6)] text-sm mt-6 text-center">
-          Celebrating Excellence
-        </p>
-      </div>
-    </motion.div>
-  );
-}
 
 // Value Card Component
 function ValueCard({

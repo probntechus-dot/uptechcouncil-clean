@@ -10,13 +10,11 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
             <div className="lg:col-span-2">
               <Link href="/" className="flex items-center gap-3 mb-6">
-                <div className="relative w-10 h-10 rounded-lg overflow-hidden shadow-md bg-white">
-                  <img
-                    src="/image/Main Logo/mainlogo.jpeg"
-                    alt="UPTECH Logo"
-                    className="w-full h-full object-contain p-1"
-                  />
-                </div>
+                <img
+                  src="/image/Main Logo/mainlogo.png"
+                  alt="UPTECH Logo"
+                  className="h-[50px] w-auto object-contain"
+                />
                 <span className="font-heading font-bold text-xl">UPTECH</span>
               </Link>
               <p className="text-[rgba(234,242,255,0.72)] mb-6 max-w-md leading-relaxed">

@@ -5,12 +5,14 @@ import { Button } from "@/components/Button";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
+import { PageHero } from "@/components/PageHero";
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { 
   Network, Users, TrendingUp, Cpu, FileText, Shield, 
   Target, Eye, CheckCircle2, Building2, Gavel, Globe2,
-  Sparkles, Award, Lightbulb, Heart
+  Sparkles, Award, Handshake, Lightbulb, Heart
 } from "lucide-react";
 
 export default function AboutPage() {
@@ -51,85 +53,8 @@ export default function AboutPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section 
-        ref={heroRef}
-        className="relative min-h-screen flex items-center overflow-hidden bg-[#050B14] pt-20"
-      >
-        {/* Background Animation Layer */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Animated Grid */}
-          {!shouldReduceMotion && (
-            <motion.div
-              className="absolute inset-0 opacity-[0.02]"
-              style={{
-                backgroundImage: `
-                  linear-gradient(rgba(30, 64, 175, 0.1) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(30, 64, 175, 0.1) 1px, transparent 1px)
-                `,
-                backgroundSize: "100px 100px",
-              }}
-              animate={{
-                backgroundPosition: ["0px 0px", "100px 100px"],
-              }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          )}
-
-          {/* Enhanced Radial Glows */}
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-[900px] h-[900px] bg-[#1E40AF] rounded-full opacity-[0.12] blur-[200px]"
-            animate={shouldReduceMotion ? {} : {
-              x: [0, 50, -40, 0],
-              y: [0, -50, 40, 0],
-              scale: [1, 1.2, 0.9, 1],
-            }}
-            transition={{
-              duration: 40,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute top-1/2 right-1/3 w-[700px] h-[700px] bg-[#00B140] rounded-full opacity-[0.1] blur-[160px]"
-            animate={shouldReduceMotion ? {} : {
-              x: [0, -60, 50, 0],
-              y: [0, 60, -40, 0],
-              scale: [1, 1.25, 0.85, 1],
-            }}
-            transition={{
-              duration: 45,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute bottom-1/3 left-1/2 w-[650px] h-[650px] bg-[#E11D48] rounded-full opacity-[0.1] blur-[150px]"
-            animate={shouldReduceMotion ? {} : {
-              x: [0, 40, -50, 0],
-              y: [0, -40, 50, 0],
-              scale: [1, 1.15, 0.9, 1],
-            }}
-            transition={{
-              duration: 42,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-
-          {/* Depth Layers */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050B14]/60 pointer-events-none" />
-        </div>
-
-        {/* Subtle Noise Texture */}
-        <div className="absolute inset-0 opacity-[0.015] pointer-events-none" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}></div>
-
-        {/* Cursor Smoke Effect */}
+      <section ref={heroRef} className="relative">
+        {/* Cursor Smoke Effect - unique to about page */}
         {!shouldReduceMotion && (
           <>
             {/* Main cursor glow */}
@@ -229,82 +154,43 @@ export default function AboutPage() {
             </motion.div>
           </>
         )}
-
-        <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
-          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Centered Content */}
-            <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-10 w-full"
-            >
-              {/* Premium Badge */}
+        <PageHero
+          title={
+            <>
               <motion.div
                 initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(30,64,175,0.15)] border border-[#1E40AF]/30 backdrop-blur-sm mx-auto"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(30,64,175,0.15)] border border-[#1E40AF]/30 backdrop-blur-sm mx-auto mb-6"
               >
                 <Sparkles className="w-4 h-4 text-[#1E40AF]" />
                 <span className="text-sm font-medium text-[#EAF2FF]/90">About UPTECH</span>
               </motion.div>
-
-              <div className="space-y-8">
-                {/* Headline */}
-                <motion.h1
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-heading font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-[#EAF2FF] relative"
-                >
-                  <span className="relative inline-block">
-                    About UPTECH
-                    <motion.div
-                      className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-[#1E40AF] via-[#00B140] to-[#E11D48] rounded-full"
-                      initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
-                    />
-                  </span>
-                </motion.h1>
-
-                <motion.p
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 25 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-xl md:text-2xl text-[#EAF2FF]/95 font-medium leading-relaxed tracking-tight"
-                >
-                  Strengthening technology, innovation, and digital trade between the United Kingdom and Pakistan.
-                </motion.p>
-                
-                <motion.p
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 25 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-lg text-[rgba(234,242,255,0.75)] leading-relaxed max-w-2xl mx-auto"
-                >
-                  A bilateral initiative connecting governments, enterprises, investors, startups, and academia to drive technology-led growth.
-                </motion.p>
-              </div>
-
-              {/* CTAs */}
-              <motion.div
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-col sm:flex-row gap-4 pt-2 justify-center"
-              >
-                <Button href="/membership" variant="primary" size="lg" showArrow>
-                  Become a Member
-                </Button>
-                <Button href="/initiatives" variant="glass" size="lg" showArrow>
-                  Explore Initiatives
-                </Button>
-              </motion.div>
-            </motion.div>
+              <span className="relative inline-block">
+                About UPTECH
+                <AnimatedUnderline />
+              </span>
+            </>
+          }
+          subtitle="Strengthening technology, innovation, and digital trade between the United Kingdom and Pakistan."
+        >
+          <motion.p
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="text-lg text-[rgba(234,242,255,0.75)] leading-relaxed max-w-2xl mx-auto"
+          >
+            A bilateral initiative connecting governments, enterprises, investors, startups, and academia to drive technology-led growth.
+          </motion.p>
+          <div className="flex flex-col sm:flex-row gap-4 pt-2 justify-center">
+            <Button href="/membership" variant="primary" size="lg" showArrow>
+              Become a Member
+            </Button>
+            <Button href="/initiatives" variant="glass" size="lg" showArrow>
+              Explore Initiatives
+            </Button>
           </div>
-        </div>
+        </PageHero>
       </section>
 
       {/* Who We Are Section */}
@@ -348,8 +234,8 @@ export default function AboutPage() {
           <AnimatedSection>
             <div className="relative w-full h-full">
               <img
-                src="/image/about/about1.jfif"
-                alt="UPTECH About"
+                src="/image/about/about1.gif"
+                alt="UK–Pakistan digital collaboration"
                 className="w-full h-full object-cover rounded-2xl"
                 loading="lazy"
               />

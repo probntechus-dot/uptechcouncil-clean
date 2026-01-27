@@ -16,11 +16,10 @@ const manrope = Manrope({
   display: "swap",
 });
 
-export const metadata = {
-  title: "UPTECH Council. UK Pakistan Tech Council",
-  description: "UK Pakistan Tech Council. Driving technology collaboration, investment, and innovation.",
-}
-;
+export const metadata: Metadata = {
+  title: "UK–Pakistan Tech Council | UPTECH",
+  description: "A strategic platform strengthening technology, innovation, and digital trade between the United Kingdom and Pakistan.",
+};
 
 export default function RootLayout({
   children,
@@ -37,4 +36,3 @@ export default function RootLayout({
     </html>
   );
 }
- /* this is for the comment*/

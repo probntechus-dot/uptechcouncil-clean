@@ -4,6 +4,7 @@ import { Section } from "@/components/Section";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Button } from "@/components/Button";
 import { SectionHeader } from "@/components/SectionHeader";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { 
   Brain, 
@@ -23,6 +24,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useRef, useState } from "react";
+import type { ComponentType } from "react";
 
 export default function AITechProgramsPage() {
   const shouldReduceMotion = useReducedMotion();
@@ -213,7 +215,10 @@ function AITechHero({ shouldReduceMotion }: { shouldReduceMotion: boolean | null
             className="space-y-6"
           >
             <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
-              AI and Tech Programs
+              <span className="relative inline-block">
+                AI and Tech Programs
+                <AnimatedUnderline />
+              </span>
             </h1>
             <p className="text-xl text-[rgba(234,242,255,0.85)] leading-relaxed">
               Driving AI innovation and tech leadership between the UK and Pakistan through comprehensive training, certifications, and collaborative startup models.
@@ -476,7 +481,7 @@ function PremiumProgramCard({
   visualType,
   shouldReduceMotion,
 }: {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: ComponentType<{ className?: string }>;
   title: string;
   description: string;
   features: string[];
@@ -496,6 +501,7 @@ function PremiumProgramCard({
       iconBg: "bg-[#2D5BFF]/20",
       iconColor: "text-[#2D5BFF]",
       glow: "shadow-[0_0_30px_rgba(45,91,255,0.3)]",
+      hoverGlow: "group-hover:shadow-[0_0_30px_rgba(45,91,255,0.30)]",
       accent: "#2D5BFF",
     },
     green: {
@@ -505,6 +511,7 @@ function PremiumProgramCard({
       iconBg: "bg-[#00B140]/20",
       iconColor: "text-[#00B140]",
       glow: "shadow-[0_0_30px_rgba(0,177,64,0.3)]",
+      hoverGlow: "group-hover:shadow-[0_0_30px_rgba(0,177,64,0.30)]",
       accent: "#00B140",
     },
     red: {
@@ -514,6 +521,7 @@ function PremiumProgramCard({
       iconBg: "bg-[#E11D48]/20",
       iconColor: "text-[#E11D48]",
       glow: "shadow-[0_0_30px_rgba(225,29,72,0.3)]",
+      hoverGlow: "group-hover:shadow-[0_0_30px_rgba(225,29,72,0.30)]",
       accent: "#E11D48",
     },
   };
@@ -538,9 +546,9 @@ function PremiumProgramCard({
         transition={{ duration: 0.4 }}
       />
       
-      <div className={`relative rounded-2xl border ${config.border} ${config.bg} backdrop-blur-md p-8 h-full flex flex-col overflow-hidden group-hover:${config.glow} transition-all duration-500`}>
+      <div className={`relative rounded-2xl border ${config.border} ${config.bg} backdrop-blur-md p-8 h-full flex flex-col overflow-hidden ${config.hoverGlow} transition-all duration-500`}>
         {/* Background Tech Visual */}
-        <TechVisual type={visualType} color={config.accent} isHovered={isHovered} shouldReduceMotion={shouldReduceMotion} />
+        <TechVisual type={visualType} colorKey={color} colorHex={config.accent} isHovered={isHovered} shouldReduceMotion={shouldReduceMotion} />
         
         {/* Top gradient accent line */}
         <motion.div
@@ -610,12 +618,14 @@ function PremiumProgramCard({
 // Tech Visual Component for Cards
 function TechVisual({ 
   type, 
-  color, 
+  colorKey, 
+  colorHex, 
   isHovered, 
   shouldReduceMotion 
 }: { 
   type: string; 
-  color: string; 
+  colorKey: string; 
+  colorHex: string; 
   isHovered: boolean; 
   shouldReduceMotion: boolean | null;
 }) {
@@ -624,9 +634,9 @@ function TechVisual({
       {type === "circuit" && (
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 200 200">
           <defs>
-            <linearGradient id={`circuitGrad-${color}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={color} stopOpacity="0.6" />
-              <stop offset="100%" stopColor={color} stopOpacity="0.2" />
+            <linearGradient id={`circuitGrad-${colorKey}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={colorHex} stopOpacity="0.6" />
+              <stop offset="100%" stopColor={colorHex} stopOpacity="0.2" />
             </linearGradient>
           </defs>
           {[
@@ -643,7 +653,7 @@ function TechVisual({
               y1={line.y1}
               x2={line.x2}
               y2={line.y2}
-              stroke={`url(#circuitGrad-${color})`}
+              stroke={`url(#circuitGrad-${colorKey})`}
               strokeWidth="2"
               strokeLinecap="round"
               initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
@@ -657,7 +667,7 @@ function TechVisual({
               cx={x}
               cy={60 + index * 30}
               r="4"
-              fill={color}
+              fill={colorHex}
               initial={shouldReduceMotion ? { opacity: 0.6 } : { opacity: 0, scale: 0 }}
               animate={shouldReduceMotion || isHovered ? { opacity: [0.6, 1, 0.6], scale: [1, 1.2, 1] } : { opacity: 0, scale: 0 }}
               transition={{ duration: 1.5, delay: index * 0.2, repeat: Infinity }}
@@ -682,7 +692,7 @@ function TechVisual({
                   y1={node.y}
                   x2={index === 0 ? 100 : index === 1 ? 100 : index === 2 ? 50 : 150}
                   y2={index === 0 ? 100 : index === 1 ? 100 : index === 2 ? 150 : 150}
-                  stroke={color}
+                  stroke={colorHex}
                   strokeWidth="1.5"
                   strokeOpacity="0.4"
                   initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
@@ -694,7 +704,7 @@ function TechVisual({
                 cx={node.x}
                 cy={node.y}
                 r="6"
-                fill={color}
+                fill={colorHex}
                 fillOpacity="0.6"
                 initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
                 animate={shouldReduceMotion || isHovered ? { scale: [1, 1.3, 1] } : { scale: 0 }}
@@ -715,7 +725,7 @@ function TechVisual({
                 cy="50"
                 r={radius}
                 fill="none"
-                stroke={color}
+                stroke={colorHex}
                 strokeWidth="1.5"
                 strokeOpacity="0.4"
                 initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
@@ -727,7 +737,7 @@ function TechVisual({
               cx="50"
               cy="50"
               r="8"
-              fill={color}
+              fill={colorHex}
               fillOpacity="0.8"
               animate={shouldReduceMotion || isHovered ? { scale: [1, 1.2, 1] } : { scale: 1 }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -742,14 +752,14 @@ function TechVisual({
             animate={shouldReduceMotion || isHovered ? { y: [0, -10, 0] } : {}}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <Rocket className="w-full h-full" style={{ color }} />
+            <Rocket className="w-full h-full" style={{ color: colorHex }} />
           </motion.div>
           <motion.div
             className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-8"
             animate={shouldReduceMotion || isHovered ? { opacity: [0.3, 0.7, 0.3], scaleY: [1, 1.2, 1] } : {}}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
-            <div className="w-full h-full bg-gradient-to-t" style={{ background: `linear-gradient(to top, ${color}, transparent)` }} />
+            <div className="w-full h-full bg-gradient-to-t" style={{ background: `linear-gradient(to top, ${colorHex}, transparent)` }} />
           </motion.div>
         </div>
       )}
@@ -764,7 +774,7 @@ function TechVisual({
           >
             <path
               d="M25 5 L15 35 L25 35 L20 65 L35 35 L25 35 Z"
-              fill={color}
+              fill={colorHex}
               fillOpacity="0.6"
             />
           </motion.svg>

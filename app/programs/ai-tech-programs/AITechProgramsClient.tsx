@@ -4,6 +4,7 @@ import { Section } from "@/components/Section";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Button } from "@/components/Button";
 import { SectionHeader } from "@/components/SectionHeader";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { 
   Brain, 
@@ -213,7 +214,10 @@ function AITechHero({ shouldReduceMotion }: { shouldReduceMotion: boolean | null
             className="space-y-6"
           >
             <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
-              AI and Tech Programs
+              <span className="relative inline-block">
+                AI and Tech Programs
+                <AnimatedUnderline />
+              </span>
             </h1>
             <p className="text-xl text-[rgba(234,242,255,0.85)] leading-relaxed">
               Driving AI innovation and tech leadership between the UK and Pakistan through comprehensive training, certifications, and collaborative startup models.

@@ -4,6 +4,7 @@ import { Section } from "@/components/Section";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Button } from "@/components/Button";
 import { SectionHeader } from "@/components/SectionHeader";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { 
@@ -26,7 +27,8 @@ import {
   ArrowRight,
   Globe,
   Briefcase,
-  FileText
+  FileText,
+  Handshake
 } from "lucide-react";
 
 export default function IncubationCollectiveStartupsClient() {
@@ -324,7 +326,10 @@ function IncubationHero() {
           className="text-center max-w-4xl mx-auto space-y-6"
         >
           <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
-            Incubation and Collective Startups
+            <span className="relative inline-block">
+              Incubation and Collective Startups
+              <AnimatedUnderline />
+            </span>
           </h1>
           <p className="text-xl md:text-2xl text-[rgba(234,242,255,0.85)] leading-relaxed">
             Nurturing the next generation of tech startups and innovators through collaborative models and comprehensive support.
@@ -794,7 +799,7 @@ function SupportResourcesList() {
     { icon: Globe, label: "UK market entry support", badge: "UK" },
     { icon: Briefcase, label: "Investor & VC access", badge: "Cross-border" },
     { icon: Zap, label: "Product & technical advisory", badge: "Cross-border" },
-    { icon: Users, label: "Policy and ecosystem connections", badge: "Pakistan" },
+    { icon: Handshake, label: "Policy and ecosystem connections", badge: "Pakistan" },
   ];
 
   return (

@@ -34,9 +34,9 @@ const navGroups = [
   {
     label: "Ecosystem",
     items: [
-      { label: "UK–Pakistan Technology Partnership", href: "/about" },
-      { label: "Funding and Grants", href: "/membership" },
-      { label: "Trade Delegations and Exhibitions", href: "/events" },
+      { label: "UK–Pakistan Technology Partnership", href: "/ecosystem/uk-pakistan-technology-partnership" },
+      { label: "Funding and Grants", href: "/ecosystem/funding-and-grants" },
+      { label: "Trade Delegations and Exhibitions", href: "/ecosystem/trade-delegations-and-exhibitions" },
     ],
   },
   {
@@ -85,20 +85,18 @@ export function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-[rgba(5,11,20,0.85)] backdrop-blur-xl border-b border-[rgba(234,242,255,0.12)] shadow-xl"
-            : "bg-transparent"
+            ? "bg-[rgba(5,11,20,0.95)] backdrop-blur-xl border-b border-[rgba(234,242,255,0.15)] shadow-xl"
+            : "bg-[rgba(5,11,20,0.85)] backdrop-blur-md border-b border-[rgba(234,242,255,0.08)]"
         }`}
       >
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 group relative z-10">
-              <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white/10 backdrop-blur-sm border border-[rgba(234,242,255,0.1)] group-hover:border-[#1E40AF]/40 transition-all duration-300">
-                <img
-                  src="/image/Main Logo/mainlogo.jpeg"
-                  alt="UPTECH Logo"
-                  className="w-full h-full object-contain p-1"
-                />
-              </div>
+              <img
+                src="/image/Main Logo/mainlogo.png"
+                alt="UPTECH Logo"
+                className="h-[40px] lg:h-[50px] w-auto object-contain"
+              />
               <span className="font-heading font-bold text-xl text-[#EAF2FF]">UPTECH</span>
             </Link>
 
@@ -109,9 +107,16 @@ export function Header() {
                   className="relative"
                   onMouseEnter={() => handleMouseEnter(group.label)}
                   onMouseLeave={() => handleMouseLeave(group.label)}
-                  ref={(el) => { dropdownRefs.current[group.label] = el; }}
+                  ref={(el) => (dropdownRefs.current[group.label] = el)}
                 >
-                  <button className="flex items-center gap-1.5 text-[#EAF2FF]/90 hover:text-[#1E40AF] transition-all duration-300 font-medium text-sm relative group py-2">
+                  <button 
+                    type="button"
+                    className="flex items-center gap-1.5 text-[#EAF2FF]/90 hover:text-[#1E40AF] transition-all duration-300 font-medium text-sm relative group py-2"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                  >
                     {group.label}
                     <ChevronDown className={`w-3.5 h-3.5 transition-all duration-300 ${
                       openDropdown === group.label 
@@ -245,13 +250,11 @@ export function Header() {
             <div className="p-6">
               <div className="flex items-center justify-between mb-8">
                 <Link href="/" className="flex items-center gap-3">
-                  <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white/10 border border-[rgba(234,242,255,0.1)]">
-                    <img
-                      src="/image/Main Logo/mainlogo.jpeg"
-                      alt="UPTECH Logo"
-                      className="w-full h-full object-contain p-1"
-                    />
-                  </div>
+                  <img
+                    src="/image/Main Logo/mainlogo.png"
+                    alt="UPTECH Logo"
+                    className="h-[40px] w-auto object-contain"
+                  />
                   <span className="font-heading font-bold text-xl text-[#EAF2FF]">UPTECH</span>
                 </Link>
                 <button

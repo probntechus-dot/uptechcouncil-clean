@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Button } from "./Button";
+import { AnimatedUnderline } from "./AnimatedUnderline";
 import { Shield, Globe2, Network, Sparkles } from "lucide-react";
 
 export function Hero() {
@@ -44,7 +45,7 @@ export function Hero() {
                 initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="font-heading font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-[#EAF2FF] relative"
+                className="font-heading font-bold text-5xl md:text-6xl lg:text-7xl leading-[0.95] text-[#EAF2FF] relative"
               >
                 <span className="relative inline-block">
                   UK–Pakistan
@@ -57,14 +58,9 @@ export function Hero() {
                   </motion.span>
                 </span>
                 <br />
-                <span className="relative inline-block mt-2">
+                <span className="relative inline-block">
                   Tech Council
-                  <motion.div
-                    className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-[#1E40AF] via-[#00B140] to-[#E11D48] rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }}
-                    transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
-                  />
+                  <AnimatedUnderline />
                 </span>
               </motion.h1>
 
@@ -168,25 +164,8 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right Premium Tech Visualization */}
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95, x: 50 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
-          >
-            <div className="relative bg-[rgba(255,255,255,0.04)] backdrop-blur-xl rounded-3xl border border-[rgba(234,242,255,0.15)] p-10 lg:p-12 overflow-hidden min-h-[550px] shadow-2xl">
-              {/* Enhanced Gradient Border Glow */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#1E40AF]/25 via-[#00B140]/15 to-[#E11D48]/15 opacity-80 blur-3xl -z-10"></div>
-              
-              {/* Animated corner accents */}
-              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-[#1E40AF]/20 to-transparent rounded-tl-3xl"></div>
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-[#00B140]/20 to-transparent rounded-br-3xl"></div>
-              
-              {/* Premium 3D Network Visualization */}
-              <PremiumNetworkVisualization shouldReduceMotion={shouldReduceMotion} />
-            </div>
-          </motion.div>
+          {/* Right Hero Image */}
+          <HeroImage shouldReduceMotion={shouldReduceMotion} />
         </div>
       </div>
     </section>
@@ -483,5 +462,49 @@ function PremiumNetworkVisualization({ shouldReduceMotion }: { shouldReduceMotio
           })}
       </motion.svg>
     </div>
+  );
+}
+
+// Hero Image Component with Brand Color Animations
+function HeroImage({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
+  return (
+    <motion.img
+      src="/image/home/heroimg.jpeg"
+      alt="UK-Pakistan Tech Council"
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95, x: 50 }}
+      animate={shouldReduceMotion ? { 
+        opacity: 1,
+      } : {
+        opacity: 1,
+        scale: [0.95, 1, 1.02, 1],
+        x: [50, 0, 0, 0],
+        filter: [
+          'drop-shadow(0 0 40px rgba(30, 64, 175, 0.4)) drop-shadow(0 0 60px rgba(0, 177, 64, 0.3)) drop-shadow(0 0 30px rgba(225, 29, 72, 0.2))',
+          'drop-shadow(0 0 60px rgba(30, 64, 175, 0.6)) drop-shadow(0 0 80px rgba(0, 177, 64, 0.5)) drop-shadow(0 0 50px rgba(225, 29, 72, 0.4))',
+          'drop-shadow(0 0 40px rgba(30, 64, 175, 0.4)) drop-shadow(0 0 60px rgba(0, 177, 64, 0.3)) drop-shadow(0 0 30px rgba(225, 29, 72, 0.2))',
+        ],
+      }}
+      transition={shouldReduceMotion ? {} : {
+        opacity: { duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] },
+        scale: { 
+          duration: 5, 
+          delay: 1.6, 
+          times: [0, 0.2, 0.5, 1],
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+        x: { duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] },
+        filter: {
+          duration: 4,
+          delay: 1.6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+      }}
+      style={{
+        mixBlendMode: 'screen',
+      }}
+      className="w-full h-auto max-w-2xl mx-auto"
+    />
   );
 }

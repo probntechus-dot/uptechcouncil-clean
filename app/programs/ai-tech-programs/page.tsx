@@ -4,9 +4,9 @@ import { Section } from "@/components/Section";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Button } from "@/components/Button";
 import { SectionHeader } from "@/components/SectionHeader";
+import { AnimatedUnderline } from "@/components/AnimatedUnderline";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { 
-  Brain, 
   Building2, 
   Target, 
   Rocket, 
@@ -33,32 +33,112 @@ export default function AITechProgramsPage() {
       <AITechHero shouldReduceMotion={shouldReduceMotion} />
 
       {/* Intro Narrative */}
-      <Section>
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#E8F0F8] py-24 md:py-28 lg:py-32">
+        {/* Subtle top divider */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(11,18,32,0.08)] to-transparent" />
+        
+        {/* Frosted gradient backdrop with brand glows */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Subtle noise overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.02] pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+            }}
+          />
+          
+          {/* Brand colored radial glows */}
+          <motion.div
+            className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-[#2D5BFF] rounded-full opacity-[0.04] blur-[120px]"
+            animate={shouldReduceMotion ? {} : {
+              scale: [1, 1.15, 1],
+              x: [0, 30, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-[#00B140] rounded-full opacity-[0.03] blur-[100px]"
+            animate={shouldReduceMotion ? {} : {
+              scale: [1, 1.2, 1],
+              x: [0, -25, 0],
+              y: [0, 25, 0],
+            }}
+            transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+
         <AnimatedSection>
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-center">
-              <div>
-                <SectionHeader
-                  title="Driving AI Innovation and Tech Leadership"
-                  subtitle="UPTECH's AI and Tech Programs bridge the UK and Pakistan through cutting-edge AI services, collective company models, and innovative startup ecosystems that empower the next generation of tech leaders."
-                  align="left"
-                />
-                <div className="space-y-4 text-[rgba(11,18,32,0.68)] leading-relaxed">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-[1fr_450px] gap-16 items-center">
+              <motion.div
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="space-y-8"
+              >
+                {/* Badge/Pill */}
+                <motion.div
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="inline-block p-[1px] rounded-full bg-gradient-to-r from-[#2D5BFF] via-[#00B140] to-[#E11D48]"
+                >
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm shadow-sm">
+                    <div className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-[#2D5BFF] via-[#00B140] to-[#E11D48]" />
+                    <span className="text-xs font-semibold text-[rgba(11,18,32,0.75)] tracking-wide uppercase">AI and Tech Programs</span>
+                  </div>
+                </motion.div>
+
+                {/* Title */}
+                <motion.h2
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="font-heading font-bold text-[clamp(2rem,5vw,3rem)] leading-[1.1] tracking-tight text-[#0B1220]"
+                >
+                  Driving AI Innovation and Tech Leadership
+                </motion.h2>
+
+                {/* Subtitle */}
+                <motion.p
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-lg md:text-xl text-[rgba(11,18,32,0.75)] leading-[1.7] max-w-2xl"
+                >
+                  UPTECH's AI and Tech Programs bridge the UK and Pakistan through cutting-edge AI services, collective company models, and innovative startup ecosystems that empower the next generation of tech leaders.
+                </motion.p>
+
+                {/* Body paragraphs */}
+                <motion.div
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="space-y-6 text-[rgba(11,18,32,0.68)] leading-[1.75] max-w-3xl"
+                >
                   <p>
                     Our AI and Tech Programs are designed to accelerate technology adoption, build world-class AI capabilities, and create sustainable pathways for innovation across both nations through collective business models and collaborative startup ecosystems.
                   </p>
                   <p>
                     Through strategic partnerships, shared resources, and innovative collective structures, we're building a future where UK and Pakistani tech talent drives global AI innovation and technology leadership.
                   </p>
-                </div>
-              </div>
-              <div className="relative">
+                </motion.div>
+              </motion.div>
+
+              {/* Visual Card */}
+              <motion.div
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="relative"
+              >
                 <IntroVisualPanel shouldReduceMotion={shouldReduceMotion} />
-              </div>
+              </motion.div>
             </div>
           </div>
         </AnimatedSection>
-      </Section>
+      </section>
 
       {/* Program Blocks - Premium Core Section */}
       <Section variant="dark" className="relative overflow-hidden" id="programs">
@@ -199,238 +279,114 @@ export default function AITechProgramsPage() {
 // Hero Component
 function AITechHero({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
   return (
-    <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-[#050B14] pt-20">
-      {/* Animated Background */}
-      <HeroBackground shouldReduceMotion={shouldReduceMotion} />
-
+    <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[#050B14] pt-20">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-[#2D5BFF] rounded-full opacity-[0.15] blur-[200px]"
+          animate={shouldReduceMotion ? {} : {
+            x: [0, 50, -40, 0],
+            y: [0, -50, 40, 0],
+            scale: [1, 1.2, 0.9, 1],
+          }}
+          transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-1/2 right-1/3 w-[600px] h-[600px] bg-[#00B140] rounded-full opacity-[0.08] blur-[160px]"
+          animate={shouldReduceMotion ? {} : {
+            x: [0, -60, 50, 0],
+            y: [0, 60, -40, 0],
+            scale: [1, 1.25, 0.85, 1],
+          }}
+          transition={{ duration: 45, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 left-1/2 w-[550px] h-[550px] bg-[#E11D48] rounded-full opacity-[0.06] blur-[150px]"
+          animate={shouldReduceMotion ? {} : {
+            x: [0, 40, -50, 0],
+            y: [0, -40, 50, 0],
+            scale: [1, 1.15, 0.9, 1],
+          }}
+          transition={{ duration: 42, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
       <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Title and CTAs */}
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-6"
-          >
-            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center max-w-4xl mx-auto space-y-6"
+        >
+          <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#EAF2FF]">
+            <span className="relative inline-block">
               AI and Tech Programs
-            </h1>
-            <p className="text-xl text-[rgba(234,242,255,0.85)] leading-relaxed">
-              Driving AI innovation and tech leadership between the UK and Pakistan through comprehensive training, certifications, and collaborative startup models.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button href="#programs" variant="primary" size="lg" showArrow>
-                Explore Programs
-              </Button>
-              <Button href="/membership" variant="glass" size="lg" showArrow>
-                Become a Member
-              </Button>
-            </div>
-          </motion.div>
-
-          {/* Right: AI Network Visual */}
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
-          >
-            <AINetworkVisual shouldReduceMotion={shouldReduceMotion} />
-          </motion.div>
-        </div>
+              <AnimatedUnderline />
+            </span>
+          </h1>
+          <p className="text-xl text-[rgba(234,242,255,0.85)] leading-relaxed">
+            Driving AI innovation and tech leadership between the UK and Pakistan through comprehensive training, certifications, and collaborative startup models.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <Button href="#programs" variant="primary" size="lg" showArrow>
+              Explore Programs
+            </Button>
+            <Button href="/membership" variant="glass" size="lg" showArrow>
+              Become a Member
+            </Button>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-// Hero Background Animation
-function HeroBackground({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Subtle noise texture */}
-      <div
-        className="absolute inset-0 opacity-[0.015] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-      
-      {/* Radial glows */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-[#2D5BFF] rounded-full opacity-[0.15] blur-[200px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, 50, -40, 0],
-          y: [0, -50, 40, 0],
-          scale: [1, 1.2, 0.9, 1],
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 right-1/3 w-[600px] h-[600px] bg-[#00B140] rounded-full opacity-[0.08] blur-[160px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, -60, 50, 0],
-          y: [0, 60, -40, 0],
-          scale: [1, 1.25, 0.85, 1],
-        }}
-        transition={{
-          duration: 45,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050B14]/60 pointer-events-none" />
-    </div>
-  );
-}
-
-// AI Network Visual Panel
-function AINetworkVisual({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  return (
-    <div className="relative rounded-2xl bg-[rgba(255,255,255,0.06)] border border-[rgba(234,242,255,0.14)] p-8 backdrop-blur-sm overflow-hidden h-[500px]">
-      {/* Animated gradient border */}
-      <motion.div
-        className="absolute inset-0 rounded-2xl"
-        style={{
-          background: shouldReduceMotion
-            ? "linear-gradient(90deg, #2D5BFF, #00B140, #2D5BFF)"
-            : undefined,
-        }}
-        animate={
-          shouldReduceMotion
-            ? {}
-            : {
-                background: [
-                  "linear-gradient(90deg, #2D5BFF, #00B140, #2D5BFF)",
-                  "linear-gradient(180deg, #2D5BFF, #00B140, #2D5BFF)",
-                  "linear-gradient(270deg, #2D5BFF, #00B140, #2D5BFF)",
-                  "linear-gradient(360deg, #2D5BFF, #00B140, #2D5BFF)",
-                ],
-              }
-        }
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
-      <div className="absolute inset-[2px] rounded-2xl bg-[#050B14]" />
-
-      <div className="relative z-10 h-full flex items-center justify-center">
-        {/* AI Network Nodes */}
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400">
-          <defs>
-            <linearGradient id="nodeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#2D5BFF" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#00B140" stopOpacity="0.6" />
-            </linearGradient>
-            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#2D5BFF" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#00B140" stopOpacity="0.4" />
-            </linearGradient>
-          </defs>
-          
-          {/* Network connections */}
-          {[
-            { x1: 100, y1: 100, x2: 200, y2: 150 },
-            { x1: 300, y1: 100, x2: 200, y2: 150 },
-            { x1: 200, y1: 150, x2: 200, y2: 250 },
-            { x1: 100, y1: 300, x2: 200, y2: 250 },
-            { x1: 300, y1: 300, x2: 200, y2: 250 },
-            { x1: 150, y1: 200, x2: 200, y2: 150 },
-            { x1: 250, y1: 200, x2: 200, y2: 150 },
-            { x1: 200, y1: 150, x2: 150, y2: 250 },
-            { x1: 200, y1: 150, x2: 250, y2: 250 },
-          ].map((line, index) => (
-            <motion.line
-              key={index}
-              x1={line.x1}
-              y1={line.y1}
-              x2={line.x2}
-              y2={line.y2}
-              stroke="url(#lineGradient)"
-              strokeWidth="2"
-              strokeLinecap="round"
-              initial={shouldReduceMotion ? { pathLength: 1, opacity: 0.3 } : { pathLength: 0, opacity: 0 }}
-              animate={shouldReduceMotion ? {} : { pathLength: 1, opacity: 0.3 }}
-              transition={{ duration: 1.5, delay: 0.5 + index * 0.1, repeat: Infinity, repeatDelay: 3 }}
-            />
-          ))}
-
-          {/* Network nodes */}
-          {[
-            { x: 100, y: 100 },
-            { x: 300, y: 100 },
-            { x: 200, y: 150 },
-            { x: 150, y: 200 },
-            { x: 250, y: 200 },
-            { x: 200, y: 250 },
-            { x: 100, y: 300 },
-            { x: 300, y: 300 },
-          ].map((node, index) => (
-            <g key={index}>
-              <motion.circle
-                cx={node.x}
-                cy={node.y}
-                r="8"
-                fill="url(#nodeGradient)"
-                initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
-                animate={shouldReduceMotion ? {} : { scale: [1, 1.3, 1] }}
-                transition={{ duration: 0.6, delay: 0.8 + index * 0.1, repeat: Infinity, repeatDelay: 2 }}
-              />
-              <motion.circle
-                cx={node.x}
-                cy={node.y}
-                r="12"
-                fill="url(#nodeGradient)"
-                fillOpacity="0.2"
-                initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
-                animate={shouldReduceMotion ? {} : { scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2] }}
-                transition={{ duration: 2, delay: 1 + index * 0.1, repeat: Infinity }}
-              />
-            </g>
-          ))}
-        </svg>
-
-        {/* Center Brain Icon */}
-        <motion.div
-          initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.6, delay: 1.2, type: "spring", stiffness: 200 }}
-          className="relative z-20"
-        >
-          <Brain className="w-20 h-20 text-[#2D5BFF]" />
-          <motion.div
-            className="absolute inset-0 bg-[#2D5BFF] rounded-full blur-xl opacity-30"
-            animate={
-              shouldReduceMotion
-                ? {}
-                : {
-                    scale: [1, 1.3, 1],
-                    opacity: [0.3, 0.6, 0.3],
-                  }
-            }
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
 // Intro Visual Panel
 function IntroVisualPanel({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="relative rounded-2xl bg-gradient-to-br from-[#2D5BFF]/10 to-[#00B140]/10 border border-[rgba(45,91,255,0.2)] p-8 backdrop-blur-sm overflow-hidden h-[400px]">
+    <motion.div
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="relative group rounded-3xl bg-white/60 backdrop-blur-xl border border-[rgba(45,91,255,0.15)] p-10 overflow-hidden h-[450px] shadow-lg"
+      style={{
+        boxShadow: "0 20px 60px -12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.5) inset",
+      }}
+      animate={shouldReduceMotion ? {} : {
+        y: [0, -8, 0],
+      }}
+      transition={{
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      whileHover={shouldReduceMotion ? {} : {
+        scale: 1.02,
+        y: -12,
+        transition: { duration: 0.3 },
+      }}
+    >
+      {/* Animated shine sweep on hover */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+        style={{
+          background: "linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%)",
+          backgroundSize: "200% 100%",
+          animation: isHovered ? "shimmer 1.5s ease-in-out" : "none",
+        }}
+      />
+      <style jsx>{`
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+      `}</style>
+
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2D5BFF] via-[#00B140] to-[#E11D48] rounded-t-3xl" />
+
+      {/* Animated gradient background */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-[#2D5BFF]/20 via-[#00B140]/15 to-[#2D5BFF]/10"
+        className="absolute inset-0 bg-gradient-to-br from-[#2D5BFF]/8 via-[#00B140]/6 to-[#E11D48]/5"
         animate={
           shouldReduceMotion
             ? {}
@@ -439,30 +395,82 @@ function IntroVisualPanel({ shouldReduceMotion }: { shouldReduceMotion: boolean 
               }
         }
         transition={{
-          duration: 8,
+          duration: 10,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
+
+      {/* Accent glow on hover */}
+      <motion.div
+        className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#2D5BFF]/20 via-[#00B140]/15 to-[#E11D48]/20 opacity-0 group-hover:opacity-100 blur-2xl -z-10"
+        animate={isHovered && !shouldReduceMotion ? {
+          opacity: 0.3,
+          scale: 1.1,
+        } : {
+          opacity: 0,
+          scale: 1,
+        }}
+        transition={{ duration: 0.5 }}
+      />
+
+      {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center">
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 200 }}
+          whileHover={shouldReduceMotion ? {} : {
+            scale: 1.1,
+            rotate: [0, -5, 5, -5, 0],
+            transition: { duration: 0.5 },
+          }}
+        >
+          <div className="relative">
+            <Cpu className="w-20 h-20 text-[#2D5BFF] mb-6 drop-shadow-lg" />
+            <motion.div
+              className="absolute inset-0 bg-[#2D5BFF] rounded-full blur-2xl opacity-20"
+              animate={shouldReduceMotion ? {} : {
+                scale: [1, 1.3, 1],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
+        </motion.div>
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <Cpu className="w-16 h-16 text-[#2D5BFF] mb-4" />
-        </motion.div>
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           className="text-center"
         >
-          <h3 className="font-heading font-semibold text-xl text-[#0B1220] mb-2">Innovation Hub</h3>
-          <p className="text-sm text-[rgba(11,18,32,0.68)]">Connecting talent and technology</p>
+          <h3 className="font-heading font-bold text-2xl text-[#0B1220] mb-3 group-hover:text-[#2D5BFF] transition-colors duration-300">
+            Innovation Hub
+          </h3>
+          <p className="text-base text-[rgba(11,18,32,0.75)] leading-relaxed group-hover:text-[rgba(11,18,32,0.85)] transition-colors duration-300">
+            Connecting talent and technology
+          </p>
         </motion.div>
       </div>
-    </div>
+
+      {/* Enhanced shadow on hover */}
+      <motion.div
+        className="absolute inset-0 rounded-3xl shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
+        style={{
+          boxShadow: "0 25px 80px -12px rgba(45, 91, 255, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.5) inset",
+        }}
+        animate={isHovered && !shouldReduceMotion ? {
+          opacity: 1,
+        } : {
+          opacity: 0,
+        }}
+        transition={{ duration: 0.3 }}
+      />
+    </motion.div>
   );
 }
 

@@ -1,5 +1,6 @@
 import { Section } from "@/components/Section";
 import { Card } from "@/components/Card";
+import { PageHero } from "@/components/PageHero";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,13 +10,13 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="pt-20">
+    <div className="pt-0">
+      <PageHero
+        title="Contact"
+        subtitle="Get in touch with the UK–Pakistan Tech Council."
+      />
       <Section>
         <div className="max-w-4xl mx-auto">
-          <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">Contact</h1>
-          <p className="text-lg text-muted-text mb-12">
-            Get in touch with the UK–Pakistan Tech Council.
-          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <h3 className="font-heading font-semibold text-xl mb-3">Email</h3>
