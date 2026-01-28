@@ -15,7 +15,8 @@ import { StatCard } from "@/components/StatCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Hero } from "@/components/Hero";
 import { JoinUPTECHBackground } from "@/components/JoinUPTECHBackground";
-import { Globe2, TrendingUp, Award } from "lucide-react";
+import { ImpactStats } from "@/components/ImpactStats";
+import { Globe2, TrendingUp, Award, Shield, Network, Cpu } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -25,7 +26,10 @@ export default function Home() {
       <Hero />
 
       {/* Sponsor Marquee */}
-      <section className="bg-[#050B14] border-t border-[rgba(234,242,255,0.08)]">
+      <section className="relative bg-[#050B14] border-t border-[rgba(234,242,255,0.08)] overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#050B14] via-[#050B14]/70 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#050B14] via-[#050B14]/70 to-transparent pointer-events-none" />
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-12">
           <h3 className="text-center text-[rgba(234,242,255,0.6)] text-sm font-medium mb-6 uppercase tracking-wider">
             Trusted by Leading Organizations
@@ -33,6 +37,68 @@ export default function Home() {
           <SponsorMarquee />
         </div>
       </section>
+
+      {/* Impact Momentum */}
+      <Section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none" />
+        <div className="absolute top-0 right-1/4 w-[520px] h-[520px] bg-gradient-to-br from-[#1E40AF]/8 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-[520px] h-[520px] bg-gradient-to-tr from-[#00B140]/8 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10">
+          <AnimatedSection>
+            <div className="max-w-6xl mx-auto text-center">
+              <SectionHeader
+                title="Impact Momentum"
+                subtitle="A modern technology council engineered to scale collaboration, talent, and investment across the UK–Pakistan corridor."
+                align="center"
+              />
+              <div className="mt-12">
+                <ImpactStats />
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </Section>
+
+      {/* Council Snapshot */}
+      <Section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-[520px] h-[520px] bg-gradient-to-br from-[#1E40AF]/6 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[520px] h-[520px] bg-gradient-to-tr from-[#00B140]/6 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10">
+          <AnimatedSection>
+            <div className="max-w-6xl mx-auto text-center">
+              <SectionHeader
+                title="Council Snapshot"
+                subtitle="A leadership-grade platform built for governance, innovation collaboration, and cross-border market access."
+                align="center"
+              />
+              <div className="grid md:grid-cols-3 gap-6 mt-12">
+                <StatCard
+                  icon={<Shield className="w-10 h-10 text-[#1E40AF]" />}
+                  title="Governance by Design"
+                  description="Structured oversight, ethics, and accountability embedded into every initiative."
+                  index={0}
+                />
+                <StatCard
+                  icon={<Network className="w-10 h-10 text-[#00B140]" />}
+                  title="Bilateral Innovation Network"
+                  description="Joint R&D, investment, and partnerships across the UK and Pakistan."
+                  index={1}
+                />
+                <StatCard
+                  icon={<Cpu className="w-10 h-10 text-[#E11D48]" />}
+                  title="Tech-Led Growth"
+                  description="AI, digital trade, and transformation programs advancing industry leadership."
+                  index={2}
+                />
+              </div>
+              <div className="mt-12">
+                <GovernanceBadges />
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </Section>
 
       {/* Authority and Trust */}
       <Section className="relative overflow-hidden">

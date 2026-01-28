@@ -202,7 +202,54 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right Hero Image removed */}
+          {/* Right Hero Visual */}
+          <motion.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="relative hidden lg:block"
+          >
+            {/* Outer glow */}
+            <div className="absolute -inset-8 rounded-[32px] bg-gradient-to-br from-[#1E40AF]/15 via-transparent to-[#00B140]/10 blur-2xl" />
+
+            <div className="relative rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-xl shadow-2xl">
+              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-white/5 via-transparent to-white/5" />
+              <div className="relative h-[520px] rounded-3xl overflow-hidden">
+                <PremiumNetworkVisualization shouldReduceMotion={shouldReduceMotion} />
+
+                {/* Gradient overlay for depth */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050B14]/40" />
+
+                {/* Floating insight cards */}
+                <motion.div
+                  className="absolute top-6 left-6 rounded-2xl border border-white/20 bg-[#0B1220]/70 px-4 py-3 backdrop-blur-md shadow-lg"
+                  animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="text-xs uppercase tracking-[0.3em] text-[#EAF2FF]/60">Live Signal</div>
+                  <div className="mt-2 text-lg font-semibold text-white">12 Strategic MoUs</div>
+                </motion.div>
+
+                <motion.div
+                  className="absolute top-1/2 right-6 rounded-2xl border border-white/20 bg-[#0B1220]/70 px-4 py-3 backdrop-blur-md shadow-lg"
+                  animate={shouldReduceMotion ? {} : { y: [0, 10, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="text-xs uppercase tracking-[0.3em] text-[#EAF2FF]/60">Impact</div>
+                  <div className="mt-2 text-lg font-semibold text-white">£85M Pipeline</div>
+                </motion.div>
+
+                <motion.div
+                  className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-2xl border border-white/20 bg-[#0B1220]/80 px-5 py-4 backdrop-blur-md shadow-lg"
+                  animate={shouldReduceMotion ? {} : { y: [0, -6, 0] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="text-xs uppercase tracking-[0.25em] text-[#EAF2FF]/60">Talent Exchange</div>
+                  <div className="mt-2 text-lg font-semibold text-white">2,400+ Engineers</div>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
