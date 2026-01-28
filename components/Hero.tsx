@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Button } from "./Button";
 import { AnimatedUnderline } from "./AnimatedUnderline";
@@ -9,9 +9,40 @@ import { Shield, Globe2, Network, Sparkles } from "lucide-react";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const section = sectionRef.current;
+    const video = videoRef.current;
+    if (!section || !video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoadVideo(true);
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(() => {});
+          }
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [shouldReduceMotion]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#050B14] pt-20">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center overflow-hidden bg-[#050B14] pt-20"
+    >
       {/* Background Video with Fallback */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         {!shouldReduceMotion ? (
@@ -25,14 +56,23 @@ export function Hero() {
               sizes="100vw"
             />
             <video
+              ref={videoRef}
               autoPlay
               muted
               loop
               playsInline
+              preload="metadata"
               poster="/image/home/heroimg.jpeg"
               className="absolute inset-0 w-full h-full object-cover"
+              aria-hidden
             >
-              <source src="/image/home/banner_video.mp4" type="video/mp4" />
+              {shouldLoadVideo && (
+                <>
+                  <source src="/image/home/banner_video_720.mp4" type="video/mp4" media="(max-width: 767px)" />
+                  <source src="/image/home/banner_video.mp4" type="video/mp4" media="(min-width: 768px)" />
+                  <source src="/image/home/banner_video.mp4" type="video/mp4" />
+                </>
+              )}
             </video>
           </>
         ) : (
@@ -45,17 +85,9 @@ export function Hero() {
             sizes="100vw"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050B14]/35 to-[#050B14]/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_35%,rgba(5,11,20,0.15),rgba(5,11,20,0.55)_55%,rgba(5,11,20,0.75)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050B14]/25 to-[#050B14]/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050B14]/55 via-transparent to-[#050B14]/45" />
       </div>
-
-      {/* Enhanced Background Animation Layer */}
-      <HeroBackground shouldReduceMotion={shouldReduceMotion} />
-
-      {/* Subtle Noise Texture */}
-      <div className="absolute inset-0 opacity-[0.015] pointer-events-none" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-      }}></div>
 
       <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
@@ -71,7 +103,7 @@ export function Hero() {
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(30,64,175,0.15)] border border-[#1E40AF]/30 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(30,64,175,0.15)] border border-[#1E40AF]/30"
             >
               <Sparkles className="w-4 h-4 text-[#1E40AF]" />
               <span className="text-sm font-medium text-[#EAF2FF]/90">Bilateral Technology Council</span>
@@ -183,7 +215,7 @@ export function Hero() {
                       ease: [0.22, 1, 0.36, 1]
                     }}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className={`group relative flex items-center gap-3 px-5 py-3 rounded-xl border ${chip.color} backdrop-blur-md hover:${chip.glow} transition-all duration-300 cursor-pointer`}
+                    className={`group relative flex items-center gap-3 px-5 py-3 rounded-xl border ${chip.color} hover:${chip.glow} transition-all duration-300 cursor-pointer`}
                   >
                     <div className={`relative ${chip.iconColor}`}>
                       <Icon className="w-5 h-5 relative z-10" />
@@ -209,44 +241,11 @@ export function Hero() {
             transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="relative hidden lg:block"
           >
-            {/* Outer glow */}
-            <div className="absolute -inset-8 rounded-[32px] bg-gradient-to-br from-[#1E40AF]/15 via-transparent to-[#00B140]/10 blur-2xl" />
-
-            <div className="relative rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-xl shadow-2xl">
-              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-white/5 via-transparent to-white/5" />
-              <div className="relative h-[520px] rounded-3xl overflow-hidden">
-                <PremiumNetworkVisualization shouldReduceMotion={shouldReduceMotion} />
-
-                {/* Gradient overlay for depth */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050B14]/40" />
-
-                {/* Floating insight cards */}
-                <motion.div
-                  className="absolute top-6 left-6 rounded-2xl border border-white/20 bg-[#0B1220]/70 px-4 py-3 backdrop-blur-md shadow-lg"
-                  animate={shouldReduceMotion ? {} : { y: [0, -8, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <div className="text-xs uppercase tracking-[0.3em] text-[#EAF2FF]/60">Live Signal</div>
-                  <div className="mt-2 text-lg font-semibold text-white">12 Strategic MoUs</div>
-                </motion.div>
-
-                <motion.div
-                  className="absolute top-1/2 right-6 rounded-2xl border border-white/20 bg-[#0B1220]/70 px-4 py-3 backdrop-blur-md shadow-lg"
-                  animate={shouldReduceMotion ? {} : { y: [0, 10, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <div className="text-xs uppercase tracking-[0.3em] text-[#EAF2FF]/60">Impact</div>
-                  <div className="mt-2 text-lg font-semibold text-white">£85M Pipeline</div>
-                </motion.div>
-
-                <motion.div
-                  className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-2xl border border-white/20 bg-[#0B1220]/80 px-5 py-4 backdrop-blur-md shadow-lg"
-                  animate={shouldReduceMotion ? {} : { y: [0, -6, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <div className="text-xs uppercase tracking-[0.25em] text-[#EAF2FF]/60">Talent Exchange</div>
-                  <div className="mt-2 text-lg font-semibold text-white">2,400+ Engineers</div>
-                </motion.div>
+            <div className="relative rounded-[28px] border border-white/15 bg-[#0B1220]/60 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.35)]">
+              <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-[#1E40AF]/20 via-transparent to-[#00B140]/10" />
+              <div className="relative h-[520px] rounded-2xl border border-white/10 bg-[#050B14]/60">
+                <TechCouncilVisual shouldReduceMotion={shouldReduceMotion} />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050B14]/35" />
               </div>
             </div>
           </motion.div>
@@ -256,295 +255,106 @@ export function Hero() {
   );
 }
 
-// Enhanced Cinematic Background
-function HeroBackground({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Animated Grid */}
-      {!shouldReduceMotion && (
-        <motion.div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(30, 64, 175, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(30, 64, 175, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: "100px 100px",
-          }}
-          animate={{
-            backgroundPosition: ["0px 0px", "100px 100px"],
-          }}
-          transition={{
-            duration: 50,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      )}
-
-      {/* Enhanced Radial Glows */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-[900px] h-[900px] bg-[#1E40AF] rounded-full opacity-[0.12] blur-[200px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, 50, -40, 0],
-          y: [0, -50, 40, 0],
-          scale: [1, 1.2, 0.9, 1],
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 right-1/3 w-[700px] h-[700px] bg-[#00B140] rounded-full opacity-[0.1] blur-[160px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, -60, 50, 0],
-          y: [0, 60, -40, 0],
-          scale: [1, 1.25, 0.85, 1],
-        }}
-        transition={{
-          duration: 45,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-1/2 w-[650px] h-[650px] bg-[#E11D48] rounded-full opacity-[0.1] blur-[150px]"
-        animate={shouldReduceMotion ? {} : {
-          x: [0, 40, -50, 0],
-          y: [0, -40, 50, 0],
-          scale: [1, 1.15, 0.9, 1],
-        }}
-        transition={{
-          duration: 42,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* Depth Layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050B14]/60 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050B14]/40 via-transparent to-[#050B14]/40 pointer-events-none" />
-    </div>
-  );
-}
-
-// Enhanced Premium Network Visualization
-function PremiumNetworkVisualization({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-
-  const springConfig = { damping: 50, stiffness: 100 };
-  const rotateX = useSpring(useTransform(mouseY, [0, 1], [5, -5]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-5, 5]), springConfig);
-
-  useEffect(() => {
-    if (shouldReduceMotion || !containerRef.current) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-
-    const container = containerRef.current;
-    container.addEventListener("mousemove", handleMouseMove);
-    return () => container.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY, shouldReduceMotion]);
-
+// Tech Council Network Visual (no stats)
+function TechCouncilVisual({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
   const nodes = [
-    { id: 1, x: 80, y: 120, color: "#1E40AF", connections: [2, 3] },
-    { id: 2, x: 200, y: 100, color: "#1E40AF", connections: [1, 4, 5] },
-    { id: 3, x: 120, y: 200, color: "#1E40AF", connections: [1, 4, 6] },
-    { id: 4, x: 280, y: 180, color: "#1E40AF", connections: [2, 3, 7] },
-    { id: 5, x: 60, y: 280, color: "#00B140", connections: [2, 6, 8] },
-    { id: 6, x: 220, y: 260, color: "#00B140", connections: [3, 5, 9] },
-    { id: 7, x: 320, y: 240, color: "#00B140", connections: [4, 8, 9] },
-    { id: 8, x: 140, y: 320, color: "#E11D48", connections: [5, 7, 9] },
-    { id: 9, x: 300, y: 300, color: "#E11D48", connections: [6, 7, 8] },
+    { x: 80, y: 80 },
+    { x: 200, y: 60 },
+    { x: 320, y: 100 },
+    { x: 120, y: 200 },
+    { x: 260, y: 200 },
+    { x: 420, y: 170 },
+    { x: 160, y: 320 },
+    { x: 320, y: 320 },
+    { x: 460, y: 300 },
+  ];
+
+  const links = [
+    [0, 1],
+    [1, 2],
+    [0, 3],
+    [1, 3],
+    [1, 4],
+    [2, 5],
+    [3, 4],
+    [4, 5],
+    [3, 6],
+    [4, 7],
+    [5, 8],
+    [6, 7],
+    [7, 8],
+  ];
+
+  const pulses = [
+    { from: 0, to: 4, color: "#1E40AF" },
+    { from: 3, to: 7, color: "#00B140" },
+    { from: 2, to: 6, color: "#E11D48" },
   ];
 
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 overflow-hidden"
-      style={{
-        perspective: "1500px",
-        transformStyle: "preserve-3d",
-      }}
+    <motion.svg
+      className="w-full h-full"
+      viewBox="0 0 520 380"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <motion.svg
-        className="w-full h-full"
-        viewBox="0 0 400 400"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          transform: shouldReduceMotion
-            ? undefined
-            : `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-          transformStyle: "preserve-3d",
-        }}
-      >
-        <defs>
-          <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1E40AF" stopOpacity="0.7" />
-            <stop offset="50%" stopColor="#1E40AF" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#1E40AF" stopOpacity="0.6" />
-          </linearGradient>
-          <linearGradient id="connectionGradientGreen" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#00B140" stopOpacity="0.7" />
-            <stop offset="50%" stopColor="#00B140" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#00B140" stopOpacity="0.6" />
-          </linearGradient>
-          <linearGradient id="connectionGradientRed" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#E11D48" stopOpacity="0.7" />
-            <stop offset="50%" stopColor="#E11D48" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#E11D48" stopOpacity="0.6" />
-          </linearGradient>
-          
-          <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
+      <rect x="0.5" y="0.5" width="519" height="379" rx="20" stroke="rgba(234,242,255,0.08)" />
 
-        {/* Connection Lines */}
-        {nodes.map((node) =>
-          node.connections.map((targetId) => {
-            const target = nodes.find((n) => n.id === targetId);
-            if (!target) return null;
+      {links.map(([from, to], index) => (
+        <motion.line
+          key={`${from}-${to}`}
+          x1={nodes[from].x}
+          y1={nodes[from].y}
+          x2={nodes[to].x}
+          y2={nodes[to].y}
+          stroke="rgba(125,154,255,0.35)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+          initial={shouldReduceMotion ? { opacity: 0.6 } : { opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ duration: 0.8, delay: index * 0.05, ease: "easeOut" }}
+        />
+      ))}
 
-            const gradientId =
-              node.color === "#1E40AF"
-                ? "connectionGradient"
-                : node.color === "#00B140"
-                ? "connectionGradientGreen"
-                : "connectionGradientRed";
-
-            return (
-              <motion.line
-                key={`${node.id}-${targetId}`}
-                x1={node.x}
-                y1={node.y}
-                x2={target.x}
-                y2={target.y}
-                stroke={`url(#${gradientId})`}
-                strokeWidth="2"
-                strokeLinecap="round"
-                initial={shouldReduceMotion ? { pathLength: 1, opacity: 0.5 } : { pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 0.5 }}
-                transition={{
-                  duration: 1.5,
-                  delay: (node.id + targetId) * 0.06,
-                  ease: "easeOut",
-                }}
-              />
-            );
-          })
-        )}
-
-        {/* Enhanced Nodes */}
-        {nodes.map((node, index) => (
-          <g key={node.id}>
-            {/* Pulse rings */}
-            {!shouldReduceMotion && (
-              <>
-                <motion.circle
-                  cx={node.x}
-                  cy={node.y}
-                  r="12"
-                  fill="none"
-                  stroke={node.color}
-                  strokeWidth="1.5"
-                  strokeOpacity="0.3"
-                  animate={{
-                    scale: [1, 1.8, 1],
-                    opacity: [0.3, 0, 0.3],
-                  }}
-                  transition={{
-                    duration: 3.5,
-                    repeat: Infinity,
-                    delay: index * 0.5,
-                    ease: "easeInOut",
-                  }}
-                />
-              </>
-            )}
-            
-            {/* Main node */}
+      {nodes.map((node, index) => (
+        <g key={`node-${index}`}>
+          {!shouldReduceMotion && (
             <motion.circle
               cx={node.x}
               cy={node.y}
-              r="6"
-              fill={node.color}
-              stroke="#EAF2FF"
-              strokeWidth="1"
-              filter="url(#nodeGlow)"
-              initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{
-                duration: 0.6,
-                delay: 1.2 + index * 0.12,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              r="10"
+              fill="none"
+              stroke="rgba(30,64,175,0.35)"
+              strokeWidth="1.5"
+              animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0, 0.4] }}
+              transition={{ duration: 4.5, repeat: Infinity, delay: index * 0.4, ease: "easeInOut" }}
             />
-            
-            {/* Inner core */}
-            <motion.circle
-              cx={node.x}
-              cy={node.y}
-              r="3"
-              fill="#EAF2FF"
-              initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{
-                duration: 0.4,
-                delay: 1.5 + index * 0.12,
-                ease: "easeOut",
-              }}
-            />
-          </g>
+          )}
+          <circle cx={node.x} cy={node.y} r="5" fill="#EAF2FF" />
+          <circle cx={node.x} cy={node.y} r="3" fill="#1E40AF" />
+        </g>
+      ))}
+
+      {!shouldReduceMotion &&
+        pulses.map((pulse, index) => (
+          <motion.circle
+            key={`pulse-${index}`}
+            r="4"
+            fill={pulse.color}
+            animate={{
+              cx: [nodes[pulse.from].x, nodes[pulse.to].x],
+              cy: [nodes[pulse.from].y, nodes[pulse.to].y],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3.5 + index,
+              repeat: Infinity,
+              ease: "linear",
+              delay: index * 0.8,
+            }}
+          />
         ))}
-
-        {/* Data Flow Particles */}
-        {!shouldReduceMotion &&
-          nodes.slice(0, 6).map((node, idx) => {
-            const target = nodes[node.connections[0] - 1];
-            if (!target) return null;
-
-            return (
-              <motion.circle
-                key={`particle-${node.id}`}
-                cx={node.x}
-                cy={node.y}
-                r="3"
-                fill={node.color}
-                filter="url(#nodeGlow)"
-                initial={{ opacity: 0 }}
-                animate={{
-                  cx: [node.x, target.x, node.x],
-                  cy: [node.y, target.y, node.y],
-                  opacity: [0, 1, 1, 0],
-                  scale: [0.5, 1.2, 1.2, 0.5],
-                }}
-                transition={{
-                  duration: 3 + idx * 0.3,
-                  repeat: Infinity,
-                  delay: idx * 0.5,
-                  ease: "easeInOut",
-                }}
-              />
-            );
-          })}
-      </motion.svg>
-    </div>
+    </motion.svg>
   );
 }
