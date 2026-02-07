@@ -11,21 +11,21 @@ const events = [
     date: "20–24 January 2025",
     location: "Davos, Switzerland",
     summary: "High-level sideline summit during WEF week focusing on bilateral trade and investment.",
-    image: "/image/events/pakistan-business-summit-davos-2025.png",
+    image: "/image/events/pakistan-business-summit-davos-2025.jpg",
   },
   {
     title: "UK–Pakistan Business Summit 2025",
     date: "21 November 2025",
     location: "The Cumberland Hotel, London, United Kingdom",
     summary: "Flagship bilateral business summit fostering cross-sector collaborations and policy discussions.",
-    image: "/image/events/uk-pakistan-business-summit-2025.png",
+    image: "/image/events/uk-pakistan-business-summit-2025.jpg",
   },
   {
     title: "DHA Peshawar UK Road Show 2025",
     date: "4–10 May 2025",
     location: "London, Birmingham, Manchester, Slough",
     summary: "Diaspora investment roadshow connecting UK-based investors with development opportunities.",
-    image: "/image/events/dha-peshawar-uk-roadshow-2025.png",
+    image: "/image/events/DHA-Peshawar-UK-Road-Show-2025.jpg",
   },
 ];
 
@@ -63,10 +63,8 @@ export function EventPreview() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                 
                 {/* PAST EVENT Badge */}
-                <div className="absolute top-3 left-3 z-10">
-                  <div className="px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 shadow-lg">
-                    <span className="text-xs font-bold text-white tracking-wide uppercase">Past Event</span>
-                  </div>
+                <div className="absolute left-4 top-4 z-10 rounded-full border border-red-400/50 bg-red-500 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white shadow-md group-hover:bg-red-600 group-hover:border-red-300/60">
+                  <span>EVENT</span>
                 </div>
                 
                 {/* Fallback if image fails */}

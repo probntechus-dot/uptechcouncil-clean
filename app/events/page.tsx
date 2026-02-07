@@ -6,20 +6,10 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import { PageHero } from "@/components/PageHero";
 import { AnimatedUnderline } from "@/components/AnimatedUnderline";
 import { motion, useReducedMotion } from "framer-motion";
-import { FeaturedEvent } from "@/components/events/FeaturedEvent";
 import { EventGrid } from "@/components/events/EventGrid";
-import { PastEvents } from "@/components/events/PastEvents";
+import { featuredEvents } from "@/data/featured-events";
 import { NewsUpdates } from "@/components/events/NewsUpdates";
 import { EventsCTA } from "@/components/events/EventsCTA";
-
-const featuredEvent = {
-  title: "Pakistan Business Summit @ Davos 2025",
-  date: "20–24 January 2025",
-  location: "Davos, Switzerland",
-  summary:
-    "High-level sideline summit during WEF week focusing on bilateral trade and investment.",
-  image: "/image/events/pakistan-business-summit-davos-2025.png",
-};
 
 const upcomingEvents = [
   {
@@ -40,6 +30,13 @@ const upcomingEvents = [
   },
 ];
 
+const pastEventImages = [
+  "/image/past-events/1ev.jpg",
+  "/image/past-events/2ev.jpg",
+  "/image/past-events/4ev.jpg",
+  "/image/past-events/5ev.jpg",
+];
+
 const pastEvents = [
   {
     title: "Tech Innovation Forum 2024",
@@ -47,7 +44,7 @@ const pastEvents = [
     location: "London, United Kingdom",
     summary:
       "Annual technology innovation forum bringing together UK and Pakistan tech leaders.",
-    image: "/image/events/pakistan-business-summit-davos-2025.png",
+    image: pastEventImages[0],
   },
   {
     title: "Startup Pitch Competition 2024",
@@ -55,7 +52,7 @@ const pastEvents = [
     location: "Manchester, United Kingdom",
     summary:
       "Competition showcasing innovative startups from both UK and Pakistan ecosystems.",
-    image: "/image/events/uk-pakistan-business-summit-2025.png",
+    image: pastEventImages[1],
   },
   {
     title: "Bilateral Trade Conference 2024",
@@ -63,7 +60,15 @@ const pastEvents = [
     location: "Birmingham, United Kingdom",
     summary:
       "Conference focused on strengthening trade relationships between UK and Pakistan.",
-    image: "/image/events/dha-peshawar-uk-roadshow-2025.png",
+    image: pastEventImages[2],
+  },
+  {
+    title: "UK–Pakistan Tech Partnership Summit 2024",
+    date: "5 July 2024",
+    location: "London, United Kingdom",
+    summary:
+      "Summit strengthening technology partnerships and innovation ties between the UK and Pakistan.",
+    image: pastEventImages[3],
   },
 ];
 
@@ -146,23 +151,33 @@ export default function EventsPage() {
         </motion.div>
       </PageHero>
 
-      {/* Featured Event Section */}
+      {/* Events and Highlights Section */}
       <Section variant="dark">
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[rgba(234,242,255,0.1)] to-transparent" />
         <AnimatedSection>
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
-              title="Featured Event"
-              subtitle="Highlighting our most significant upcoming engagement"
+              title="Events and Highlights"
+              subtitle="Key engagements, summits, and activities from the UK–Pakistan corridor"
               align="left"
             />
-            <FeaturedEvent event={featuredEvent} />
+            <EventGrid
+              hideBadge
+              events={featuredEvents.map(({ title, date, image, shortDescription, location }) => ({
+                title,
+                date,
+                image,
+                summary: shortDescription,
+                location: location ?? "",
+              }))}
+            />
           </div>
         </AnimatedSection>
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[rgba(234,242,255,0.1)] to-transparent" />
       </Section>
 
       {/* Upcoming Events Section */}
+      {/* Upcoming Events Section - commented out for now; uncomment to restore
       {upcomingEvents.length > 0 && (
         <Section>
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#1E40AF]/20 to-transparent" />
@@ -179,22 +194,7 @@ export default function EventsPage() {
           <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#1E40AF]/20 to-transparent" />
         </Section>
       )}
-
-      {/* Past Events Section */}
-      <Section variant="dark">
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[rgba(234,242,255,0.1)] to-transparent" />
-        <AnimatedSection>
-          <div className="max-w-7xl mx-auto">
-            <SectionHeader
-              title="Past Events"
-              subtitle="A look back at our recent engagements and achievements"
-              align="center"
-            />
-            <PastEvents events={pastEvents} />
-          </div>
-        </AnimatedSection>
-        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[rgba(234,242,255,0.1)] to-transparent" />
-      </Section>
+      */}
 
       {/* News & Updates Section */}
       <Section>

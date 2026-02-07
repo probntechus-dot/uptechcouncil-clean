@@ -15,9 +15,11 @@ interface Event {
 
 interface EventGridProps {
   events: Event[];
+  /** When true, the "Past Event" badge on each card is hidden (e.g. for Events and Highlights). */
+  hideBadge?: boolean;
 }
 
-export function EventGrid({ events }: EventGridProps) {
+export function EventGrid({ events, hideBadge = false }: EventGridProps) {
   const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>(
     {}
   );
@@ -69,14 +71,16 @@ export function EventGrid({ events }: EventGridProps) {
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050B14]/80 via-transparent to-transparent" />
 
-                {/* Premium badge */}
-                <div className="absolute top-3 left-3 z-10">
-                  <div className="px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 shadow-lg">
-                    <span className="text-xs font-bold text-white tracking-wide uppercase">
-                      Past Event
-                    </span>
+                {/* Premium badge - hidden when hideBadge is true */}
+                {!hideBadge && (
+                  <div className="absolute top-3 left-3 z-10">
+                    <div className="px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 shadow-lg">
+                      <span className="text-xs font-bold text-white tracking-wide uppercase">
+                        Past Event
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Fallback */}
                 {imageFailed && (

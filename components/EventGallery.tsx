@@ -6,10 +6,16 @@ import { X } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const galleryImages = [
-  "/image/eventgallery/1.jpg",
-  "/image/eventgallery/2.jpg",
-  "/image/eventgallery/3.jpg",
-  "/image/eventgallery/4.jpg",
+  "/image/eventgallery/event-1.jpg",
+  "/image/eventgallery/event-2.jpg",
+  "/image/eventgallery/event-3.jpg",
+  "/image/eventgallery/event-4.jpg",
+];
+
+const brandShadowClasses = [
+  "shadow-[0_6px_28px_rgba(45,91,255,0.22)] group-hover:shadow-[0_14px_44px_rgba(45,91,255,0.28)]",
+  "shadow-[0_6px_28px_rgba(0,177,64,0.22)] group-hover:shadow-[0_14px_44px_rgba(0,177,64,0.28)]",
+  "shadow-[0_6px_28px_rgba(225,29,72,0.22)] group-hover:shadow-[0_14px_44px_rgba(225,29,72,0.28)]",
 ];
 
 export function EventGallery() {
@@ -37,7 +43,7 @@ export function EventGallery() {
 
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {galleryImages.map((src, index) => (
           <motion.div
             key={index}
@@ -49,8 +55,8 @@ export function EventGallery() {
               delay: index * 0.05,
               ease: [0.22, 1, 0.36, 1],
             }}
-            whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -4 }}
-            className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group"
+            whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -4 }}
+            className={`relative aspect-square rounded-xl overflow-hidden cursor-pointer group transition-all duration-300 ${brandShadowClasses[index % 3]}`}
             onClick={() => setSelectedImage(src)}
           >
             <Image
@@ -58,7 +64,7 @@ export function EventGallery() {
               alt={`Event gallery image ${index + 1}`}
               fill
               className="object-cover rounded-xl group-hover:scale-110 transition-transform duration-700"
-              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
             
             {/* Overlay on hover */}
