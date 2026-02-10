@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Events and News | UPTECH",
-  description: "Stay updated with UPTECH events, news, and activities.",
+  title: "Events",
+  description: "Discover upcoming and past UPTECH events including summits, conferences, trade delegations, and webinars connecting UK and Pakistan technology sectors.",
+  openGraph: {
+    title: "Events | UPTECH",
+    description: "Discover UPTECH events connecting UK and Pakistan technology sectors.",
+  },
 };
 
-export default function EventsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+export default function EventsLayout({ children }: { children: React.ReactNode }) {
+  return children;
 }

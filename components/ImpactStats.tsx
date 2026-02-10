@@ -12,8 +12,10 @@ const stats = [
     suffix: "+",
     description: "Enterprises, startups, and public sector allies driving the mission.",
     icon: Users,
-    accent: "from-[#1E40AF]/15 via-transparent to-transparent",
-    glow: "shadow-[0_0_30px_rgba(30,64,175,0.2)]",
+    color: "#1E40AF",
+    iconBg: "bg-[#1E40AF]/10 border-[#1E40AF]/20",
+    iconColor: "text-[#1E40AF]",
+    gradient: "from-[#1E40AF] to-[#1E3A8A]",
   },
   {
     label: "Innovation Programs",
@@ -21,8 +23,10 @@ const stats = [
     suffix: "+",
     description: "Active initiatives across AI, trade, and digital transformation.",
     icon: Sparkles,
-    accent: "from-[#00B140]/15 via-transparent to-transparent",
-    glow: "shadow-[0_0_30px_rgba(0,177,64,0.18)]",
+    color: "#00B140",
+    iconBg: "bg-[#00B140]/10 border-[#00B140]/20",
+    iconColor: "text-[#00B140]",
+    gradient: "from-[#00B140] to-[#009935]",
   },
   {
     label: "Cross-Border Ventures",
@@ -30,8 +34,10 @@ const stats = [
     suffix: "+",
     description: "Investment and partnership pipelines between the UK and Pakistan.",
     icon: Globe2,
-    accent: "from-[#E11D48]/15 via-transparent to-transparent",
-    glow: "shadow-[0_0_30px_rgba(225,29,72,0.18)]",
+    color: "#E11D48",
+    iconBg: "bg-[#E11D48]/10 border-[#E11D48]/20",
+    iconColor: "text-[#E11D48]",
+    gradient: "from-[#E11D48] to-[#BE123C]",
   },
   {
     label: "Export Growth Lift",
@@ -39,8 +45,10 @@ const stats = [
     suffix: "%",
     description: "Momentum in digital trade outcomes accelerated by UPTECH.",
     icon: TrendingUp,
-    accent: "from-[#1E40AF]/15 via-transparent to-transparent",
-    glow: "shadow-[0_0_30px_rgba(30,64,175,0.2)]",
+    color: "#1E40AF",
+    iconBg: "bg-[#1E40AF]/10 border-[#1E40AF]/20",
+    iconColor: "text-[#1E40AF]",
+    gradient: "from-[#1E40AF] to-[#1E3A8A]",
   },
 ];
 
@@ -50,7 +58,7 @@ export function ImpactStats() {
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
-    <div ref={sectionRef} className="grid gap-6 lg:grid-cols-4">
+    <div ref={sectionRef} className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
@@ -65,36 +73,50 @@ export function ImpactStats() {
               ease: [0.22, 1, 0.36, 1],
             }}
             whileHover={shouldReduceMotion ? {} : { y: -6, scale: 1.02 }}
-            className="relative"
+            className="relative group"
           >
-            <div className="relative h-full rounded-2xl border border-[rgba(11,18,32,0.08)] bg-white p-6 shadow-sm transition-all duration-500 hover:border-[#1E40AF]/20 hover:shadow-xl overflow-hidden">
-              <div className={`absolute inset-0 bg-gradient-to-br ${stat.accent} opacity-0 hover:opacity-100 transition-opacity duration-500`} />
+            <div className="relative h-full rounded-2xl border border-[rgba(11,18,32,0.08)] bg-white p-7 shadow-sm transition-all duration-500 group-hover:shadow-xl overflow-hidden"
+              style={{ borderColor: undefined }}
+            >
+              {/* Top accent bar */}
+              <div
+                className="absolute inset-x-0 top-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `linear-gradient(90deg, transparent, ${stat.color}, transparent)` }}
+              />
 
-              <div className="relative z-10 flex items-start justify-between gap-4">
-                <div className="space-y-3">
-                  <div className="text-4xl font-semibold text-[#0B1220]">
-                    {shouldReduceMotion ? (
-                      `${stat.value}${stat.suffix}`
-                    ) : isInView ? (
-                      <CountUp end={stat.value} duration={2.4} suffix={stat.suffix} separator="," />
-                    ) : (
-                      "0"
-                    )}
-                  </div>
-                  <div className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1E40AF]">
-                    {stat.label}
-                  </div>
+              {/* Icon */}
+              <div className={`w-14 h-14 rounded-xl ${stat.iconBg} border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500`}>
+                <Icon className={`h-6 w-6 ${stat.iconColor}`} />
+              </div>
+
+              {/* Number with gradient */}
+              <div className="relative z-10 space-y-2">
+                <div
+                  className="text-5xl font-bold bg-clip-text text-transparent"
+                  style={{ backgroundImage: `linear-gradient(135deg, ${stat.color}, ${stat.color}dd)` }}
+                >
+                  {shouldReduceMotion ? (
+                    `${stat.value}${stat.suffix}`
+                  ) : isInView ? (
+                    <CountUp end={stat.value} duration={2.4} suffix={stat.suffix} separator="," />
+                  ) : (
+                    "0"
+                  )}
                 </div>
-                <div className={`relative flex h-12 w-12 items-center justify-center rounded-full bg-white/70 border border-[rgba(11,18,32,0.08)] ${stat.glow}`}>
-                  <Icon className="h-6 w-6 text-[#0B1220]" />
+                <div className="text-sm font-semibold uppercase tracking-[0.15em] text-[#0B1220]/80">
+                  {stat.label}
                 </div>
               </div>
 
-              <p className="relative z-10 mt-4 text-sm leading-relaxed text-[rgba(11,18,32,0.68)]">
+              <p className="relative z-10 mt-4 text-sm leading-relaxed text-[rgba(11,18,32,0.6)]">
                 {stat.description}
               </p>
 
-              <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-[#1E40AF]/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+              {/* Bottom gradient line */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `linear-gradient(90deg, transparent, ${stat.color}66, transparent)` }}
+              />
             </div>
           </motion.div>
         );

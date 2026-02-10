@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "./Button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { siteConfig } from "@/config/site";
 
 const navGroups = [
   {
@@ -83,7 +84,14 @@ export function Header() {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-[#1E40AF] focus:text-white focus:rounded-md focus:outline-none"
+      >
+        Skip to main content
+      </a>
       <header
+        role="banner"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
             ? "bg-[rgba(5,11,20,0.95)] backdrop-blur-xl border-b border-[rgba(234,242,255,0.15)] shadow-xl"
@@ -94,7 +102,7 @@ export function Header() {
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 group relative z-10">
               <Image
-                src="/image/Main Logo/mainlogo.png"
+                src="/image/main-logo/mainlogo.png"
                 alt="UPTECH Logo"
                 width={50}
                 height={50}
@@ -103,7 +111,7 @@ export function Header() {
               <span className="font-heading font-bold text-xl text-[#EAF2FF]">UPTECH</span>
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
               {navGroups.map((group) => (
                 <div
                   key={group.label}
@@ -114,9 +122,11 @@ export function Header() {
                     dropdownRefs.current[group.label] = el;
                   }}
                 >
-                  <button 
+                  <button
                     type="button"
-                    className="flex items-center gap-1.5 text-[#EAF2FF]/90 hover:text-[#1E40AF] transition-all duration-300 font-medium text-sm relative group py-2"
+                    aria-expanded={openDropdown === group.label}
+                    aria-haspopup="true"
+                    className="flex items-center gap-1.5 text-[#EAF2FF]/90 hover:text-[#1E40AF] transition-all duration-300 font-medium text-sm relative group py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1E40AF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1220] rounded"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -176,7 +186,7 @@ export function Header() {
 
             <div className="hidden lg:flex items-center gap-6">
               <Link
-                href="https://portal.example.com"
+                href={siteConfig.portalUrl}
                 className="relative text-[#EAF2FF]/80 hover:text-[#1E40AF] transition-all duration-300 text-sm font-medium group px-3 py-2 rounded-lg hover:bg-[rgba(45,91,255,0.08)]"
               >
                 <span className="relative z-10">Portal</span>
@@ -256,7 +266,7 @@ export function Header() {
               <div className="flex items-center justify-between mb-8">
                 <Link href="/" className="flex items-center gap-3">
                   <Image
-                    src="/image/Main Logo/mainlogo.png"
+                    src="/image/main-logo/mainlogo.png"
                     alt="UPTECH Logo"
                     width={40}
                     height={40}
@@ -324,7 +334,7 @@ export function Header() {
 
               <div className="mt-8 pt-6 border-t border-[rgba(234,242,255,0.1)] space-y-3">
                 <Link
-                  href="https://portal.example.com"
+                  href={siteConfig.portalUrl}
                   className="block text-center py-3 px-4 text-[#EAF2FF]/80 hover:text-[#1E40AF] hover:bg-[rgba(45,91,255,0.08)] rounded-lg transition-all duration-200 text-sm font-medium"
                   onClick={() => setIsMobileOpen(false)}
                 >

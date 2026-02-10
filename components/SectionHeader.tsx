@@ -6,22 +6,29 @@ interface SectionHeaderProps {
   className?: string;
   align?: "left" | "center";
   children?: ReactNode;
+  accent?: boolean;
 }
 
-export function SectionHeader({ 
-  title, 
-  subtitle, 
+export function SectionHeader({
+  title,
+  subtitle,
   className = "",
   align = "left",
-  children
+  children,
+  accent = true,
 }: SectionHeaderProps) {
   const alignClass = align === "center" ? "text-center mx-auto" : "";
-  
+
   return (
     <div className={`mb-12 md:mb-16 ${alignClass} ${className}`}>
-      <h2 className="font-heading font-bold mb-4">{title}</h2>
+      {accent && (
+        <div className={`mb-5 flex ${align === "center" ? "justify-center" : ""}`}>
+          <div className="h-1 w-14 rounded-full bg-gradient-to-r from-[#1E40AF] via-[#00B140] to-[#E11D48]" />
+        </div>
+      )}
+      <h2 className="font-heading font-bold mb-5">{title}</h2>
       {subtitle && (
-        <p className={`text-lg ${align === "center" ? "mx-auto" : ""} max-w-2xl`}>
+        <p className={`text-lg leading-relaxed opacity-70 ${align === "center" ? "mx-auto" : ""} max-w-2xl`}>
           {subtitle}
         </p>
       )}

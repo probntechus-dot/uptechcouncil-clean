@@ -70,12 +70,17 @@
     border-color: var(--border-light);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--bg-light) !important;
     color: var(--text-on-light) !important;
     font-family: var(--font-inter), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -103,6 +108,19 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Focus indicators for accessibility */
+  :focus-visible {
+    outline: 2px solid #1E40AF;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #1E40AF;
+    outline-offset: 2px;
   }
 
   /* Dark section utilities */
@@ -268,6 +286,41 @@
 
   .animate-pulse-slow {
     animation: glow-move 20s ease-in-out infinite;
+  }
+
+  /* Gradient text utility */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #1E40AF, #00B140, #E11D48);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass card effect */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(234, 242, 255, 0.08);
+  }
+
+  /* Animated gradient border */
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-gradient-border {
+    background: linear-gradient(90deg, #1E40AF, #00B140, #E11D48, #1E40AF);
+    background-size: 300% 100%;
+    animation: gradient-shift 4s ease infinite;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background-color: rgba(30, 64, 175, 0.2);
+    color: inherit;
   }
 }
 

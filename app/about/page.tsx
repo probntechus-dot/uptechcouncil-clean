@@ -235,7 +235,7 @@ export default function AboutPage() {
           <AnimatedSection>
             <div className="relative w-full h-full min-h-[260px]">
               <Image
-                src="/image/about/about1.gif"
+                src="/image/about/about1.jpg"
                 alt="UK–Pakistan digital collaboration"
                 fill
                 className="object-cover rounded-2xl"

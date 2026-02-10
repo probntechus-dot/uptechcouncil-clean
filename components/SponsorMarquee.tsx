@@ -37,8 +37,8 @@ export function SponsorMarquee() {
               className="relative flex items-center justify-center h-24 w-36 md:h-28 md:w-44 shrink-0 bg-white rounded-xl border border-gray-200 p-5"
             >
               <Image
-                src={logo}
-                alt={`Sponsor logo ${index + 1}`}
+                src={logo.src}
+                alt={logo.alt}
                 width={160}
                 height={112}
                 className="object-contain h-full w-full"
@@ -155,8 +155,8 @@ export function SponsorMarquee() {
                 {/* Logo image */}
                 <div className="relative z-10 w-full h-full flex items-center justify-center p-5">
                   <Image
-                    src={logo}
-                    alt={`Sponsor logo ${index + 1}`}
+                    src={logo.src}
+                    alt={logo.alt}
                     width={160}
                     height={112}
                     className="object-contain h-full w-full"

@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { useRef, useState } from "react";
 import type { ComponentType } from "react";
+import { siteConfig } from "@/config/site";
 
 export default function AITechProgramsPage() {
   const shouldReduceMotion = useReducedMotion();
@@ -187,7 +188,7 @@ export default function AITechProgramsPage() {
               <Button href="/membership" variant="primary" size="lg" showArrow>
                 Become a Member
               </Button>
-              <Button href="https://portal.example.com" variant="glass" size="lg" showArrow>
+              <Button href={siteConfig.portalUrl} variant="glass" size="lg" showArrow>
                 Access Portal
               </Button>
             </div>

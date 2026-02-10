@@ -3,7 +3,7 @@ import { InitiativeGrid } from "@/components/InitiativeGrid";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Initiatives | UPTECH",
+  title: "Initiatives",
   description: "Explore UPTECH's flagship initiatives including People AI, TechMart Global, and more.",
 };
 

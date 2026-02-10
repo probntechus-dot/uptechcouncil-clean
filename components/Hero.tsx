@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "./Button";
 import { AnimatedUnderline } from "./AnimatedUnderline";
 import { Shield, Globe2, Network, Sparkles } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -164,7 +165,7 @@ export function Hero() {
                 Explore the Council
               </Button>
               <Button
-                href="https://portal.example.com"
+                href={siteConfig.portalUrl}
                 variant="glass"
                 size="lg"
                 showArrow

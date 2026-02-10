@@ -24,6 +24,7 @@ import {
   Globe2,
   HeartHandshake,
 } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 export default function MembershipClient() {
   const shouldReduceMotion = useReducedMotion();
@@ -523,7 +524,7 @@ export default function MembershipClient() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Button href="https://portal.example.com" variant="primary" size="lg" showArrow>
+              <Button href={siteConfig.portalUrl} variant="primary" size="lg" showArrow>
                 Apply for Membership
               </Button>
               <Button href="/contact" variant="secondary" size="lg" showArrow>

@@ -5,27 +5,37 @@ const pillars = [
   {
     icon: Network,
     title: "Technology and Innovation Collaboration",
-    description: "Joint ventures, R&D partnerships, and cross-border innovation.",
+    description: "Joint ventures, R&D partnerships, and cross-border innovation driving growth across both nations.",
+    color: "#1E40AF",
+    number: "01",
   },
   {
     icon: Users,
     title: "Talent and Professional Networks",
-    description: "Connecting UK-based Pakistani tech professionals globally.",
+    description: "Connecting UK-based Pakistani tech professionals with global opportunities and partnerships.",
+    color: "#00B140",
+    number: "02",
   },
   {
     icon: TrendingUp,
     title: "Trade, Investment and Market Access",
-    description: "Supporting exports, inward investment, and market entry.",
+    description: "Supporting exports, inward investment, and seamless market entry across the corridor.",
+    color: "#E11D48",
+    number: "03",
   },
   {
     icon: Cpu,
     title: "AI and Digital Transformation Programs",
-    description: "AI platforms, collective startups, and digital services.",
+    description: "AI platforms, collective startups, and digital services accelerating tech-led transformation.",
+    color: "#1E40AF",
+    number: "04",
   },
   {
     icon: FileText,
     title: "Policy, Research and Advocacy",
-    description: "Responsible tech growth, knowledge transfer, and R&D alignment.",
+    description: "Responsible tech growth, knowledge transfer, and aligned R&D for bilateral progress.",
+    color: "#00B140",
+    number: "05",
   },
 ];
 
@@ -34,17 +44,22 @@ export function PillarGrid() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {pillars.map((pillar, index) => {
         const Icon = pillar.icon;
-        // Alternate colors: navy, green, red for visibility
-        const colorIndex = index % 3;
-        const iconClass = colorIndex === 0 ? "text-[#1E40AF]" : colorIndex === 1 ? "text-[#00B140]" : "text-[#E11D48]";
-        const bgClass = colorIndex === 0 ? "bg-[#1E40AF]/20 border-[#1E40AF]/30" : colorIndex === 1 ? "bg-[#00B140]/20 border-[#00B140]/30" : "bg-[#E11D48]/20 border-[#E11D48]/30";
         return (
-          <Card key={index} hover variant="dark" className="h-full">
-            <div className={`w-12 h-12 rounded-xl ${bgClass} flex items-center justify-center mb-4 border`}>
-              <Icon className={`w-6 h-6 ${iconClass}`} />
+          <Card key={index} hover variant="dark" className="h-full group">
+            <div className="flex items-start justify-between mb-6">
+              <div
+                className="w-14 h-14 rounded-xl flex items-center justify-center border"
+                style={{
+                  backgroundColor: `${pillar.color}20`,
+                  borderColor: `${pillar.color}30`,
+                }}
+              >
+                <Icon className="w-7 h-7" style={{ color: pillar.color }} />
+              </div>
+              <span className="text-[rgba(234,242,255,0.15)] font-heading font-bold text-3xl">{pillar.number}</span>
             </div>
-            <h3 className="font-heading font-semibold text-xl mb-3 text-[#EAF2FF]">{pillar.title}</h3>
-            <p className="text-[rgba(234,242,255,0.72)] leading-relaxed text-sm">{pillar.description}</p>
+            <h3 className="font-heading font-semibold text-xl mb-3 text-[#EAF2FF] leading-tight">{pillar.title}</h3>
+            <p className="text-[rgba(234,242,255,0.6)] leading-relaxed text-[15px]">{pillar.description}</p>
           </Card>
         );
       })}

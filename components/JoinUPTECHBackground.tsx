@@ -143,8 +143,8 @@ function RingGroup({ radius, duration, dots, shouldReduceMotion, reverse = false
           // Evenly distribute dots around 360 degrees
           const angle = (index * (360 / dots.length));
           const radian = (angle * Math.PI) / 180;
-          const x = radius + radius * Math.cos(radian);
-          const y = radius + radius * Math.sin(radian);
+          const x = Math.round((radius + radius * Math.cos(radian)) * 100) / 100;
+          const y = Math.round((radius + radius * Math.sin(radian)) * 100) / 100;
 
           return (
             <div

@@ -4,8 +4,12 @@ import { PageHero } from "@/components/PageHero";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact | UPTECH",
-  description: "Get in touch with the UK–Pakistan Tech Council.",
+  title: "Contact",
+  description: "Get in touch with the UK–Pakistan Tech Council. Reach out for partnerships, membership enquiries, or general questions.",
+  openGraph: {
+    title: "Contact | UPTECH",
+    description: "Get in touch with the UK–Pakistan Tech Council.",
+  },
 };
 
 export default function ContactPage() {

@@ -1,23 +1,27 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Section } from "@/components/Section";
 import { Button } from "@/components/Button";
-import { PillarGrid } from "@/components/PillarGrid";
-import { InitiativeGrid } from "@/components/InitiativeGrid";
-import { AudienceGrid } from "@/components/AudienceGrid";
-import { EventPreview } from "@/components/EventPreview";
-import { TrustCards } from "@/components/TrustCards";
-import { SponsorMarquee } from "@/components/SponsorMarquee";
-import { EventGallery } from "@/components/EventGallery";
-import { GovernanceBadges } from "@/components/GovernanceBadges";
 import { SectionHeader } from "@/components/SectionHeader";
 import { StatCard } from "@/components/StatCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Hero } from "@/components/Hero";
-import { JoinUPTECHBackground } from "@/components/JoinUPTECHBackground";
-import { ImpactStats } from "@/components/ImpactStats";
 import { Globe2, TrendingUp, Award, Shield, Network, Cpu } from "lucide-react";
 import { motion } from "framer-motion";
+import { siteConfig } from "@/config/site";
+
+// Dynamically import heavy below-fold components for code splitting
+const PillarGrid = dynamic(() => import("@/components/PillarGrid").then(m => ({ default: m.PillarGrid })));
+const InitiativeGrid = dynamic(() => import("@/components/InitiativeGrid").then(m => ({ default: m.InitiativeGrid })));
+const AudienceGrid = dynamic(() => import("@/components/AudienceGrid").then(m => ({ default: m.AudienceGrid })));
+const EventPreview = dynamic(() => import("@/components/EventPreview").then(m => ({ default: m.EventPreview })));
+const TrustCards = dynamic(() => import("@/components/TrustCards").then(m => ({ default: m.TrustCards })));
+const SponsorMarquee = dynamic(() => import("@/components/SponsorMarquee").then(m => ({ default: m.SponsorMarquee })));
+const EventGallery = dynamic(() => import("@/components/EventGallery").then(m => ({ default: m.EventGallery })));
+const GovernanceBadges = dynamic(() => import("@/components/GovernanceBadges").then(m => ({ default: m.GovernanceBadges })));
+const JoinUPTECHBackground = dynamic(() => import("@/components/JoinUPTECHBackground").then(m => ({ default: m.JoinUPTECHBackground })));
+const ImpactStats = dynamic(() => import("@/components/ImpactStats").then(m => ({ default: m.ImpactStats })));
 
 export default function Home() {
   return (
@@ -26,14 +30,19 @@ export default function Home() {
       <Hero />
 
       {/* Sponsor Marquee */}
-      <section className="relative bg-[#050B14] border-t border-[rgba(234,242,255,0.08)] overflow-hidden">
+      <section className="relative bg-[#050B14] overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#1E40AF]/20 to-transparent" />
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none" />
         <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#050B14] via-[#050B14]/70 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#050B14] via-[#050B14]/70 to-transparent pointer-events-none" />
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-12">
-          <h3 className="text-center text-[rgba(234,242,255,0.6)] text-sm font-medium mb-6 uppercase tracking-wider">
-            Trusted by Leading Organizations
-          </h3>
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-16">
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#1E40AF]/40" />
+            <h3 className="text-center text-[rgba(234,242,255,0.5)] text-xs font-semibold uppercase tracking-[0.25em]">
+              Trusted by Leading Organizations
+            </h3>
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#1E40AF]/40" />
+          </div>
           <SponsorMarquee />
         </div>
       </section>
@@ -136,7 +145,7 @@ export default function Home() {
         <AnimatedSection>
           <SectionHeader
             title="What We Do"
-            subtitle="Core Pillars"
+            subtitle="Five strategic pillars that power the UK–Pakistan technology corridor."
             align="center"
           />
           <PillarGrid />
@@ -312,7 +321,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/image/governance/governance-bg.png')",
+            backgroundImage: "url('/image/governance/governance-bg.jpg')",
           }}
         />
         
@@ -382,16 +391,16 @@ export default function Home() {
         <AnimatedSection>
           <SectionHeader
             title="Events and Activity"
-            subtitle="Stay updated with UPTECH events, news, and activities."
+            subtitle="Stay updated with UPTECH events, news, and activities across both nations."
             align="left"
           />
           <EventPreview />
           <div className="mt-12 text-center">
             <Button href="/events" variant="primary" size="lg" showArrow>
-              View all events
+              View All Events
             </Button>
           </div>
-          <div className="mt-16">
+          <div className="mt-20 pt-16 border-t border-[rgba(11,18,32,0.06)]">
             <SectionHeader
               title="Event Gallery"
               subtitle="Highlights from recent UK–Pakistan engagements."
@@ -423,27 +432,25 @@ export default function Home() {
       <Section>
         <AnimatedSection>
           <div className="max-w-5xl mx-auto">
-            <div className="relative group">
-              {/* Premium border with gradient */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#1E40AF] via-[#00B140] to-[#E11D48] opacity-20 blur-sm group-hover:opacity-30 transition-opacity duration-500" />
-              <div className="absolute inset-[1px] rounded-xl bg-white" />
-              
-              {/* Subtle inner shadow and glow */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#1E40AF]/5 via-transparent to-[#E11D48]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
+            <div className="relative group overflow-hidden rounded-2xl">
+              {/* Animated gradient border */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1E40AF] via-[#00B140] to-[#E11D48] p-[1px]">
+                <div className="w-full h-full rounded-2xl bg-white" />
+              </div>
+
               {/* Main content */}
-              <div className="relative bg-white rounded-xl border border-[#1E40AF]/10 shadow-lg shadow-[#1E40AF]/5 p-10 md:p-12 group-hover:shadow-xl group-hover:shadow-[#1E40AF]/10 transition-all duration-500">
-                {/* Subtle brand color accents */}
-                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#1E40AF]/30 to-transparent" />
-                
+              <div className="relative bg-white rounded-2xl p-10 md:p-14 transition-all duration-500">
+                {/* Top gradient accent */}
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#1E40AF] via-[#00B140] to-[#E11D48]" />
+
                 <div className="relative z-10 text-center">
                   <SectionHeader
                     title="Member and Partner Portal"
-                    subtitle="Access programs, applications, events, and professional networks."
+                    subtitle="Access programs, applications, events, and professional networks — all in one place."
                     align="center"
                   />
                   <div className="mt-8">
-                    <Button href="https://portal.example.com" variant="primary" size="lg" showArrow>
+                    <Button href={siteConfig.portalUrl} variant="primary" size="lg" showArrow>
                       Access Portal
                     </Button>
                   </div>

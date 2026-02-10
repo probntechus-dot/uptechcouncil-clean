@@ -12,7 +12,7 @@ const initiatives = [
     title: "People AI Platform",
     description: "Human-centric AI support systems integrating technology with professional services.",
     href: "/initiatives/people-ai",
-    image: "/image/Initiatives/people-ai-platform.png",
+    image: "/image/initiatives/people-ai-platform.jpg",
     fallbackGradient: "from-[#1E40AF]/25 to-[#00B140]/25",
     iconColor: "#1E40AF",
     brandColor: "#1E40AF", // Blue
@@ -23,7 +23,7 @@ const initiatives = [
     title: "TechMart Global",
     description: "A cross-border marketplace connecting IT vendors, buyers, and resellers.",
     href: "/initiatives/techmart-global",
-    image: "/image/Initiatives/techmart-global.png",
+    image: "/image/initiatives/techmart-global.jpg",
     fallbackGradient: "from-[#00B140]/25 to-[#E11D48]/25",
     iconColor: "#00B140",
     brandColor: "#00B140", // Green
@@ -34,7 +34,7 @@ const initiatives = [
     title: "AI and Tech Programs",
     description: "Training, certifications, incubation, and collective startup models.",
     href: "/initiatives/ai-tech-programs",
-    image: "/image/Initiatives/ai-tech-programs.png",
+    image: "/image/initiatives/ai-tech-programs.jpg",
     fallbackGradient: "from-[#1E40AF]/25 to-[#00B140]/25",
     iconColor: "#1E40AF",
     brandColor: "#1E40AF", // Blue
@@ -45,7 +45,7 @@ const initiatives = [
     title: "UK–Pakistan Tech Excellence Awards",
     description: "Celebrating innovation, partnership, and digital leadership.",
     href: "/initiatives/tech-excellence-awards",
-    image: "/image/Initiatives/uk-pakistan-tech-excellence-awards.png",
+    image: "/image/initiatives/uk-pakistan-tech-excellence-awards.jpg",
     fallbackGradient: "from-[#E11D48]/25 to-[#1E40AF]/25",
     iconColor: "#E11D48",
     brandColor: "#E11D48", // Red

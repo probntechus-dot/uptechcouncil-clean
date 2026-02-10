@@ -64,7 +64,7 @@ export const featuredEvents: FeaturedEventItem[] = [
     date: "April 2025",
     shortDescription:
       "Month-long expo at Pakistan House Manchester facilitating meetings between Pakistani businesses and UK distributors, organised with the Pak-UK Business Council.",
-    image: "/image/past%20events/1ev.jpg",
+    image: "/image/past-events/1ev.jpg",
     location: "Pakistan House, Manchester, United Kingdom",
     tag: "Expo",
   },
@@ -74,7 +74,7 @@ export const featuredEvents: FeaturedEventItem[] = [
     date: "15 January 2025",
     shortDescription:
       "Export and marketing strategies for the UK market: webinar for Pakistani businesses on entering and scaling in the UK technology and trade landscape.",
-    image: "/image/past%20events/2ev.jpg",
+    image: "/image/past-events/2ev.jpg",
     tag: "Webinar",
   },
   {
@@ -83,7 +83,7 @@ export const featuredEvents: FeaturedEventItem[] = [
     date: "2024",
     shortDescription:
       "Conference strengthening technology partnerships and innovation ties between the UK and Pakistan, with sessions on digital trade and startup ecosystems.",
-    image: "/image/past%20events/4ev.jpg",
+    image: "/image/past-events/4ev.jpg",
     location: "United Kingdom",
     tag: "Conference",
   },
@@ -93,7 +93,7 @@ export const featuredEvents: FeaturedEventItem[] = [
     date: "2024",
     shortDescription:
       "High-level dialogue in Islamabad bringing together UK and Pakistani leaders to advance bilateral technology, trade, and investment collaboration.",
-    image: "/image/past%20events/5ev.jpg",
+    image: "/image/past-events/5ev.jpg",
     location: "Islamabad, Pakistan",
     tag: "Dialogue",
   },

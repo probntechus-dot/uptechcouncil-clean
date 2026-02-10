@@ -9,6 +9,7 @@ import { PageHero } from "@/components/PageHero";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { Shield, Users, Award, Briefcase, CheckCircle2, Gavel, Eye, FileText, ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function LeadershipPage() {
   const shouldReduceMotion = useReducedMotion();
@@ -505,15 +506,22 @@ function GovernanceStructureSection({ shouldReduceMotion }: { shouldReduceMotion
               <div className="absolute bottom-1/4 left-1/4 w-16 h-16 bg-gradient-to-br from-[#E11D48]/10 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
               
               {/* Image - no border, enlarged */}
-              <motion.img
-                src="/image/leadership/Governance Structure.png"
-                alt="UPTECH Governance Structure"
-                className="relative z-10 w-full h-full object-contain max-h-[550px] transition-all duration-300"
+              <motion.div
                 whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                className="relative z-10 w-full max-h-[550px]"
                 style={{
                   filter: 'drop-shadow(0 8px 24px rgba(30,64,175,0.25)) drop-shadow(0 4px 12px rgba(225,29,72,0.15))',
                 }}
-              />
+              >
+                <Image
+                  src="/image/leadership/Governance Structure.jpg"
+                  alt="UPTECH Governance Structure"
+                  width={800}
+                  height={550}
+                  className="w-full h-full object-contain"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -551,15 +559,22 @@ function BoardOfDirectorsSection({ shouldReduceMotion }: { shouldReduceMotion: b
               <div className="absolute bottom-1/4 left-1/4 w-16 h-16 bg-gradient-to-br from-[#E11D48]/8 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
               
               {/* Image - no border, enlarged */}
-              <motion.img
-                src="/image/leadership/Board of Directors.png"
-                alt="UPTECH Board of Directors"
-                className="relative z-10 w-full h-full object-contain max-h-[550px] transition-all duration-300"
+              <motion.div
                 whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                className="relative z-10 w-full max-h-[550px]"
                 style={{
                   filter: 'drop-shadow(0 8px 24px rgba(30,64,175,0.2)) drop-shadow(0 4px 12px rgba(225,29,72,0.12))',
                 }}
-              />
+              >
+                <Image
+                  src="/image/leadership/Board of Directors.jpg"
+                  alt="UPTECH Board of Directors"
+                  width={800}
+                  height={550}
+                  className="w-full h-full object-contain"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </motion.div>
             </motion.div>
 
             {/* Text Content - Right on desktop, below on mobile */}
@@ -679,15 +694,22 @@ function AdvisoryCouncilSection({ shouldReduceMotion }: { shouldReduceMotion: bo
               <div className="absolute bottom-1/4 left-1/4 w-16 h-16 bg-gradient-to-br from-[#E11D48]/10 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
               
               {/* Image - no border, enlarged */}
-              <motion.img
-                src="/image/leadership/Advisory Council.png"
-                alt="UPTECH Advisory Council"
-                className="relative z-10 w-full h-full object-contain max-h-[550px] transition-all duration-300"
+              <motion.div
                 whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                className="relative z-10 w-full max-h-[550px]"
                 style={{
                   filter: 'drop-shadow(0 8px 24px rgba(30,64,175,0.25)) drop-shadow(0 4px 12px rgba(225,29,72,0.15))',
                 }}
-              />
+              >
+                <Image
+                  src="/image/leadership/Advisory Council.jpg"
+                  alt="UPTECH Advisory Council"
+                  width={800}
+                  height={550}
+                  className="w-full h-full object-contain"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -725,15 +747,22 @@ function ExecutiveLeadershipSection({ shouldReduceMotion }: { shouldReduceMotion
               <div className="absolute bottom-1/4 left-1/4 w-16 h-16 bg-gradient-to-br from-[#E11D48]/8 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
               
               {/* Image - no border, enlarged */}
-              <motion.img
-                src="/image/leadership/Executive Leadership.png"
-                alt="UPTECH Executive Leadership"
-                className="relative z-10 w-full h-full object-contain max-h-[550px] transition-all duration-300"
+              <motion.div
                 whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                className="relative z-10 w-full max-h-[550px]"
                 style={{
                   filter: 'drop-shadow(0 8px 24px rgba(30,64,175,0.2)) drop-shadow(0 4px 12px rgba(225,29,72,0.12))',
                 }}
-              />
+              >
+                <Image
+                  src="/image/leadership/Executive Leadership.jpg"
+                  alt="UPTECH Executive Leadership"
+                  width={800}
+                  height={550}
+                  className="w-full h-full object-contain"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </motion.div>
             </motion.div>
 
             {/* Text Content - Right on desktop, below on mobile */}

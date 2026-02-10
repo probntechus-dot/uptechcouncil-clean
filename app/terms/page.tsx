@@ -2,7 +2,7 @@ import { Section } from "@/components/Section";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | UPTECH",
+  title: "Terms of Service",
   description: "UPTECH's terms of service and usage guidelines.",
 };
 
